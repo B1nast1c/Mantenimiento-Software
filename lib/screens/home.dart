@@ -4,6 +4,7 @@ import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
 import '../widgets/sidebar_menu.dart';
+import '../screens/new_todo.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -85,8 +86,11 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onPressed: () {
-                      _addToDoItem(_todoController
-                          .text); //Here we generate the new screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NewTodo()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: tdBlue,
@@ -157,7 +161,7 @@ class _HomeState extends State<Home> {
   Widget sortingIcon() {
     return Container(
       alignment: Alignment.topRight,
-      margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+      margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
       child: IconButton(
         icon: Icon(Icons.sort),
         color: Colors.black,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
+import '../widgets/sidebar_menu.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
+      drawer: sidebarMenu(),
       body: Stack(
         children: [
           Container(
@@ -38,7 +40,6 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
-                sortingIcon(),
                 searchBox(),
                 Expanded(
                   child: ListView(
@@ -199,22 +200,11 @@ class _HomeState extends State<Home> {
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: tdBGColor,
+      iconTheme: IconThemeData(color: Colors.black),
       elevation: 0,
-      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Icon(
-          Icons.menu,
-          color: tdBlack,
-          size: 30,
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset('assets/images/avatar.jpeg'),
-          ),
-        ),
-      ]),
+      actions: <Widget>[
+        sortingIcon(),
+      ],
     );
   }
 }

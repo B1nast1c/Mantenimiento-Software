@@ -14,11 +14,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
   List<ToDo> _foundToDo = [];
+  List<ToDo> _sortedToDo = [];
   final _todoController = TextEditingController();
 
   @override
   void initState() {
     _foundToDo = todosList;
+    _sortedToDo = todosList;
     super.initState();
   }
 
@@ -36,6 +38,7 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
+                sortingIcon(),
                 searchBox(),
                 Expanded(
                   child: ListView(
@@ -68,56 +71,30 @@ class _HomeState extends State<Home> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Row(children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
-                    left: 20,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: _todoController,
-                    decoration: InputDecoration(
-                        hintText: 'Add a new todo item',
-                        border: InputBorder.none),
-                  ),
-                ),
-              ),
               Container(
-                margin: EdgeInsets.only(
-                  bottom: 20,
-                  right: 20,
-                ),
-                child: ElevatedButton(
-                  child: Text(
-                    '+',
-                    style: TextStyle(
-                      fontSize: 40,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                  child: ElevatedButton(
+                    child: Text(
+                      '+',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
                     ),
-                  ),
-                  onPressed: () {
-                    _addToDoItem(_todoController.text);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: tdBlue,
-                    minimumSize: Size(60, 60),
-                    elevation: 10,
+                    onPressed: () {
+                      _addToDoItem(_todoController
+                          .text); //Here we generate the new screen
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: tdBlue,
+                      minimumSize: Size(60, 60),
+                      elevation: 10,
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -165,6 +142,30 @@ class _HomeState extends State<Home> {
     setState(() {
       _foundToDo = results;
     });
+  }
+
+  void _sort() {
+    todosList.sort((a, b) => b.todoText
+        .toString()
+        .compareTo(a.todoText.toString())); //Comparison between items
+    setState(() {
+      _sortedToDo = todosList;
+    });
+  }
+
+  Widget sortingIcon() {
+    return Container(
+      alignment: Alignment.topRight,
+      margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+      child: IconButton(
+        icon: Icon(Icons.sort),
+        color: Colors.black,
+        iconSize: 25.0,
+        onPressed: () {
+          _sort();
+        },
+      ),
+    );
   }
 
   Widget searchBox() {

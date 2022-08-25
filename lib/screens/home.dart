@@ -175,6 +175,7 @@ class _HomeState extends State<Home> {
 
   Widget searchBox() {
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,

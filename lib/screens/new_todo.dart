@@ -67,6 +67,7 @@ class _NewTodoState extends State<NewTodo> {
                 iconSize: 35.0,
                  onPressed: () {
                     _addToDoItem(_todoController.text);
+                    Navigator.pop(context);
                   },
               ),
             )),

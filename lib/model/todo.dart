@@ -2,6 +2,7 @@ class ToDo {
   String? id;
   String? todoText;
   bool isDone;
+  String? color; //Color de la nota
 
   ToDo({
     required this.id,

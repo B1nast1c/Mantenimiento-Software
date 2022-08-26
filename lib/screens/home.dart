@@ -7,7 +7,7 @@ import '../widgets/sidebar_menu.dart';
 import '../screens/new_todo.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -31,11 +31,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      drawer: sidebarMenu(),
+      drawer: const sidebarMenu(),
       body: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 15,
             ),
@@ -46,11 +46,11 @@ class _HomeState extends State<Home> {
                   child: ListView(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 50,
                           bottom: 20,
                         ),
-                        child: Text(
+                        child: const Text(
                           'All ToDos',
                           style: TextStyle(
                             fontSize: 30,
@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const NewTodo()),
+                            builder: (context) =>  NewTodo(list: todosList)),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -122,15 +122,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _addToDoItem(String toDo) {
-    setState(() {
-      todosList.add(ToDo(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        todoText: toDo,
-      ));
-    });
-    _todoController.clear();
-  }
+
 
   void _runFilter(String enteredKeyword) {
     List<ToDo> results = [];

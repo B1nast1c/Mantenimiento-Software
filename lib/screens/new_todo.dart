@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+
+import '../model/todo.dart';
 import '../constants/colors.dart';
+import '../screens/home.dart';
 
 class NewTodo extends StatefulWidget {
-  const NewTodo({Key? key}) : super(key: key);
+  const NewTodo({Key? key, required this.list}) : super(key: key);
+  final List<ToDo> list;
 
   @override
   State<NewTodo> createState() => _NewTodoState();
 }
 
 class _NewTodoState extends State<NewTodo> {
-  String? _text = ''; //Texto dentro de la nota
   final _todoController = TextEditingController();
 
   @override
@@ -43,7 +46,7 @@ class _NewTodoState extends State<NewTodo> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextFormField(
-                //Darle formato al input
+                onChanged: (value) => _todoController.text = value, //Actualización del valor del input
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(left: 20.0),
                   border: InputBorder.none,
@@ -62,12 +65,23 @@ class _NewTodoState extends State<NewTodo> {
                 icon: Icon(Icons.check),
                 color: Colors.green,
                 iconSize: 35.0,
-                onPressed: () {
-                  print("Add");
-                },
+                 onPressed: () {
+                    _addToDoItem(_todoController.text);
+                  },
               ),
             )),
           ],
         ));
   }
+
+  void _addToDoItem(String toDo) { //Añadir un nuevo elemento
+    setState(() {
+      widget.list.add(ToDo(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        todoText: toDo,
+      ));
+    });
+    _todoController.clear();
+  }
 }
+

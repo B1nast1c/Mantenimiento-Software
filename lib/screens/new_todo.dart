@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
-import '../screens/home.dart';
+import '../widgets/color_picker.dart';
 
 class NewTodo extends StatefulWidget {
   const NewTodo({Key? key, required this.list}) : super(key: key);
@@ -13,6 +15,7 @@ class NewTodo extends StatefulWidget {
 }
 
 class _NewTodoState extends State<NewTodo> {
+  Color _color = Colors.white;
   final _todoController = TextEditingController();
 
   @override
@@ -46,7 +49,8 @@ class _NewTodoState extends State<NewTodo> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextFormField(
-                onChanged: (value) => _todoController.text = value, //Actualización del valor del input
+                onChanged: (value) => _todoController.text =
+                    value, //Actualización del valor del input
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(left: 20.0),
                   border: InputBorder.none,
@@ -57,32 +61,51 @@ class _NewTodoState extends State<NewTodo> {
                 ),
               ),
             ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(top: 20.0, left: 30.0),
+              child: Text(
+                'Escoge un color para la nota',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            ColorPicker(
+                onSelectedColor: (value) {
+                  setState(() {
+                    _color = value;
+                  });
+                },
+                chosenColor: Colors.white),
             Expanded(
-                child: Container(
+              child: Container(
               alignment: Alignment.bottomRight,
               margin: EdgeInsets.only(right: 25.0, bottom: 25.0),
               child: IconButton(
                 icon: Icon(Icons.check),
                 color: Colors.green,
                 iconSize: 35.0,
-                 onPressed: () {
-                    _addToDoItem(_todoController.text);
-                    Navigator.pop(context);
-                  },
+                onPressed: () {
+                  _addToDoItem(_todoController.text);
+                  Navigator.pop(context);
+                },
               ),
             )),
           ],
         ));
   }
 
-  void _addToDoItem(String toDo) { //Añadir un nuevo elemento
+  void _addToDoItem(String toDo) {
+    //Añadir un nuevo elemento
     setState(() {
       widget.list.add(ToDo(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         todoText: toDo,
+        ncolor: _color
       ));
     });
     _todoController.clear();
   }
 }
-

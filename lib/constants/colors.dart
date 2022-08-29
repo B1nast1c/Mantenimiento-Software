@@ -8,7 +8,12 @@ const Color tdGrey = Color(0xFF717171);
 
 const Color tdBGColor = Color(0xFFEEEFF5);
 
+const rojoIntenso = Color(0xffff8b94);
+const naranjaClaro = Color(0xffffaaa5);
+const duraznoClaro = Color(0xffffd3b6);
+const verdeClaro = Color(0xffdcedc1);
+const verdeAgua = Color(0xffa8e6cf);
+
 const Color amarilloClaro = Color.fromARGB(255, 212, 242, 163);
-const Color verdeClaro = Color.fromARGB(255, 163, 242, 180);
 const Color azulClaro = Color.fromARGB(255, 163, 168, 242);
 const Color rojoClaro = Color.fromARGB(255, 242, 176, 163);

@@ -21,90 +21,108 @@ class _NewTodoState extends State<NewTodo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: tdBGColor,
+        backgroundColor: rojoIntenso,
         appBar: AppBar(
-          backgroundColor: tdBGColor,
+          backgroundColor: rojoIntenso,
           foregroundColor: Colors.black,
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: 40.0,
-                  horizontal: 10.0), //apply padding to all four sides
-              child: Text(
-                'Nueva Nota',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                ),
+        body: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(60),
+                topRight: Radius.circular(60),
               ),
+              color: Colors.white,
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextFormField(
-                onChanged: (value) => _todoController.text =
-                    value, //Actualización del valor del input
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 20.0),
-                  border: InputBorder.none,
-                  hintText: 'Ingresa tu nota...',
-                  hintStyle: TextStyle(
-                    color: tdGrey,
+            child: Column(
+              children: [
+                Container(
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 40.0,
+                        horizontal: 10.0), //apply padding to all four sides
+                    child: Text(
+                      'Nueva Nota',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(top: 20.0, left: 30.0),
-              child: Text(
-                'Escoge un color para la nota',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
+                Container(
+                  margin: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextFormField(
+                    onChanged: (value) => _todoController.text =
+                        value, //Actualización del valor del input
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(left: 25.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100.0),
+                          borderSide:
+                              const BorderSide(color: tdBGColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: rojoIntenso, width: 1.0),
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        hintText: 'Ingresa tu nota...',
+                        hintStyle: const TextStyle(
+                          color: tdGrey,
+                        ),
+                        fillColor: tdBGColor),
+                  ),
                 ),
-              ),
-            ),
-            ColorPicker(
-                onSelectedColor: (value) {
-                  setState(() {
-                    _color = value;
-                  });
-                },
-                chosenColor: Colors.white),
-            Expanded(
-              child: Container(
-              alignment: Alignment.bottomRight,
-              margin: EdgeInsets.only(right: 25.0, bottom: 25.0),
-              child: IconButton(
-                icon: Icon(Icons.check),
-                color: Colors.green,
-                iconSize: 35.0,
-                onPressed: () {
-                  _addToDoItem(_todoController.text);
-                  Navigator.pop(context);
-                },
-              ),
-            )),
-          ],
-        ));
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 20.0, left: 30.0),
+                  child: const Text(
+                    'Escoge un color para la nota',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                ColorPicker(
+                    onSelectedColor: (value) {
+                      setState(() {
+                        _color = value;
+                      });
+                    },
+                    chosenColor: Colors.white),
+                Expanded(
+                    child: Container(
+                  alignment: Alignment.bottomRight,
+                  margin: const EdgeInsets.only(right: 25.0, bottom: 25.0),
+                  child: IconButton(
+                    icon: const Icon(Icons.check),
+                    color: Colors.green,
+                    iconSize: 35.0,
+                    onPressed: () {
+                      _addToDoItem(_todoController.text);
+                      Navigator.pop(context);
+                    },
+                  ),
+                )),
+              ],
+            )));
   }
 
   void _addToDoItem(String toDo) {
     //Añadir un nuevo elemento
     setState(() {
       widget.list.add(ToDo(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        todoText: toDo,
-        ncolor: _color
-      ));
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          todoText: toDo,
+          ncolor: _color));
     });
     _todoController.clear();
   }

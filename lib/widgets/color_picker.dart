@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 List<Color> colors = const [
-  Color.fromARGB(255, 212, 242, 163),
-  Color.fromARGB(255, 163, 168, 242),
-  Color.fromARGB(255, 242, 176, 163),
-  Color.fromARGB(255, 254, 200, 216),
-  Color.fromARGB(255, 174, 222, 240)
+  Color(0xffffaaa5),
+  Color(0xffffd3b6),
+  Color(0xffdcedc1),
+  Color(0xffa8e6cf),
 ];
 
 class ColorPicker extends StatefulWidget {

@@ -30,15 +30,14 @@ class _EditTodoState extends State<EditTodo> {
     return Scaffold(
         backgroundColor: rojoIntenso,
         appBar: AppBar(
-          backgroundColor: rojoIntenso,
+          backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           elevation: 0,
         ),
         body: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(60),
-                topRight: Radius.circular(60),
+                bottomLeft: Radius.circular(250),
               ),
               color: Colors.white,
             ),

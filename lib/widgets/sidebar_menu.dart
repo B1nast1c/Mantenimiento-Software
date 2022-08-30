@@ -21,7 +21,7 @@ class sidebarMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 100),
+                      margin: EdgeInsets.only(top: 50),
                       height: 135,
                       width: 135,
                       child: ClipRRect(

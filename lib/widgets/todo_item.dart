@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
+import '../screens/edit_todo.dart';
 
 class ToDoItem extends StatelessWidget {
   final ToDo todo;
@@ -21,8 +22,9 @@ class ToDoItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
-          // print('Clicked on Todo Item.');
-          onToDoChanged(todo);
+          // onToDoChanged(todo);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditTodo(item: todo)));
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -34,7 +36,7 @@ class ToDoItem extends StatelessWidget {
           color: Colors.black,
         ),
         title: Text(
-          todo.todoText!,
+          todo.todoTitle!,
           style: TextStyle(
             fontSize: 16,
             color: tdBlack,

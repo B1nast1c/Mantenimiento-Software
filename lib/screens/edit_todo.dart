@@ -1,23 +1,29 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/model/todo.dart';
 
-import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/color_picker.dart';
 
-class NewTodo extends StatefulWidget {
-  const NewTodo({Key? key, required this.list}) : super(key: key);
-  final List<ToDo> list;
+class EditTodo extends StatefulWidget {
+  const EditTodo({Key? key, required this.item}) : super(key: key);
+  final ToDo item;
 
   @override
-  State<NewTodo> createState() => _NewTodoState();
+  State<EditTodo> createState() => _EditTodoState();
 }
 
-class _NewTodoState extends State<NewTodo> {
+class _EditTodoState extends State<EditTodo> {
   Color _color = Colors.white;
-  final _todoControllerTitle = TextEditingController();
-  final _todoControllerContent = TextEditingController();
+  late TextEditingController _todoControllerTitle, _todoControllerContent;
+
+  @override
+  void initState() {
+    super.initState();
+    _todoControllerTitle =
+        new TextEditingController(text: widget.item.todoTitle);
+    _todoControllerContent =
+        new TextEditingController(text: widget.item.todoText);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class _NewTodoState extends State<NewTodo> {
                             vertical: 40.0,
                             horizontal: 10.0), //apply padding to all four sides
                         child: Text(
-                          'Nueva Nota',
+                          'Editar Nota',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             fontSize: 25,
@@ -73,6 +79,7 @@ class _NewTodoState extends State<NewTodo> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextFormField(
+                        initialValue: widget.item.todoTitle,
                         onChanged: (value) => _todoControllerTitle.text =
                             value, //Actualización del valor del input
                         decoration: InputDecoration(
@@ -112,6 +119,7 @@ class _NewTodoState extends State<NewTodo> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextFormField(
+                        initialValue: widget.item.todoText,
                         onChanged: (value) => _todoControllerContent.text =
                             value, //Actualización del valor del input
                         decoration: InputDecoration(
@@ -150,7 +158,7 @@ class _NewTodoState extends State<NewTodo> {
                             _color = value;
                           });
                         },
-                        chosenColor: Colors.white),
+                        chosenColor: _color),
                   ],
                 ),
                 Expanded(
@@ -162,7 +170,7 @@ class _NewTodoState extends State<NewTodo> {
                     color: Colors.green,
                     iconSize: 35.0,
                     onPressed: () {
-                      _addToDoItem(_todoControllerTitle.text,
+                      _editToDoItem(_todoControllerTitle.text,
                           _todoControllerContent.text);
                       Navigator.pop(context);
                     },
@@ -172,15 +180,11 @@ class _NewTodoState extends State<NewTodo> {
             )));
   }
 
-  void _addToDoItem(String toDoTitle, String toDoContent) {
+  void _editToDoItem(String toDoTitle, String toDoContent) {
     setState(() {
-      widget.list.add(ToDo(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          todoTitle: toDoTitle,
-          todoText: toDoContent,
-          ncolor: _color));
+      widget.item.todoTitle = toDoTitle; //Title asignment
+      widget.item.todoText = toDoContent; //Text asignment
+      widget.item.ncolor = _color;
     });
-    _todoControllerTitle.clear();
-    _todoControllerContent.clear();
-  }
+  } //Logica del cambio
 }

@@ -35,41 +35,42 @@ class _HomeState extends State<Home> {
       body: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-            child: Column(
-              children: [
-                searchBox(),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 50,
-                          bottom: 20,
-                        ),
-                        child: const Text(
-                          'All ToDos',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 40,
+              ),
+              child: Column(
+                children: [
+                  Column(children: [
+                    const Text(
+                      'All ToDos',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    searchBox(),
+                  ]),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 20,
+                            bottom: 20,
                           ),
                         ),
-                      ),
-                      for (ToDo todoo in _foundToDo.reversed)
-                        ToDoItem(
-                          todo: todoo,
-                          onToDoChanged: _handleToDoChange,
-                          onDeleteItem: _deleteToDoItem,
-                        ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+                        for (ToDo todoo in _foundToDo.reversed)
+                          ToDoItem(
+                            todo: todoo,
+                            onToDoChanged: _handleToDoChange,
+                            onDeleteItem: _deleteToDoItem,
+                          ),
+                      ],
+                    ),
+                  )
+                ],
+              )),
           Align(
             alignment: Alignment.bottomCenter,
             child: Row(children: [
@@ -89,11 +90,11 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  NewTodo(list: todosList)),
+                            builder: (context) => NewTodo(list: todosList)),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: tdBlue,
+                      primary: rojoIntenso,
                       minimumSize: Size(60, 60),
                       elevation: 10,
                       shape: new RoundedRectangleBorder(
@@ -121,8 +122,6 @@ class _HomeState extends State<Home> {
       todosList.removeWhere((item) => item.id == id);
     });
   }
-
-
 
   void _runFilter(String enteredKeyword) {
     List<ToDo> results = [];
@@ -152,8 +151,7 @@ class _HomeState extends State<Home> {
 
   Widget sortingIcon() {
     return Container(
-      alignment: Alignment.topRight,
-      margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+      alignment: Alignment.centerRight,
       child: IconButton(
         icon: Icon(Icons.sort),
         color: Colors.black,
@@ -167,7 +165,7 @@ class _HomeState extends State<Home> {
 
   Widget searchBox() {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -199,6 +197,11 @@ class _HomeState extends State<Home> {
       backgroundColor: tdBGColor,
       iconTheme: IconThemeData(color: Colors.black),
       elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(30),
+        ),
+      ),
       actions: <Widget>[
         sortingIcon(),
       ],

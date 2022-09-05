@@ -4,7 +4,8 @@ import 'package:flutter_todo_app/widgets/category_item.dart';
 import '../constants/colors.dart';
 
 class FullCategories extends StatefulWidget {
-  FullCategories({Key? key}) : super(key: key);
+  FullCategories({Key? key, required this.listac}) : super(key: key);
+  final List<CategoriaTodo> listac;
 
   @override
   State<FullCategories> createState() => _FullCategoriesState();
@@ -64,8 +65,7 @@ class _FullCategoriesState extends State<FullCategories> {
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            for (CategoriaTodo todoo
-                                in CategoriaTodo.fullCategory())
+                            for (CategoriaTodo todoo in widget.listac)
                               _createCategory(todoo),
                           ],
                         )),
@@ -75,23 +75,31 @@ class _FullCategoriesState extends State<FullCategories> {
             )));
     ;
   }
-}
 
-void _deleteToDoItem(CategoriaTodo cat) {
-  cat.isUsed = false;
-}
-
-void _changeUsedTrue(CategoriaTodo cat) {
-  cat.isUsed = true;
-}
-
-Widget _createCategory(CategoriaTodo todoo) {
-  if (todoo.isUsed == false) {
-    return CategoryItem(
-      categoria: todoo,
-      deleteCategory: _deleteToDoItem,
-      chageUsed: _changeUsedTrue,
-    );
+  void _deleteToDoItem(CategoriaTodo cat) {
+    setState(() {
+      print('funcionaa');
+      cat.isUsed = false;
+      print('funciona');
+    });
   }
-  return Container();
+
+  void _changeUsedTrue(CategoriaTodo cat) {
+    setState(() {
+      print('funcionaa');
+      cat.isUsed = true;
+      print('funciona');
+    });
+  }
+
+  Widget _createCategory(CategoriaTodo todoo) {
+    if (todoo.isUsed == false) {
+      return CategoryItem(
+        categoria: todoo,
+        deleteCategory: _deleteToDoItem,
+        chageUsed: _changeUsedTrue,
+      );
+    }
+    return Container();
+  }
 }

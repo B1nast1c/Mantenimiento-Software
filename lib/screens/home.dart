@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/model/category.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
@@ -15,7 +16,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
+  final categoryList = CategoriaTodo.fullCategory();
   List<ToDo> _foundToDo = [];
+  List<CategoriaTodo> _fclist = [];
   List<ToDo> _sortedToDo = [];
   final _todoController = TextEditingController();
 
@@ -23,6 +26,7 @@ class _HomeState extends State<Home> {
   void initState() {
     _foundToDo = todosList;
     _sortedToDo = todosList;
+    _fclist = categoryList;
     super.initState();
   }
 
@@ -31,7 +35,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      drawer: const sidebarMenu(),
+      drawer: sidebarMenu(listac: _fclist),
       body: Stack(
         children: [
           Container(

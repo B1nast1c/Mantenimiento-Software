@@ -21,7 +21,7 @@ class CategoryItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 5),
       child: ListTile(
         onTap: () {
-          chageUsed(categoria.id);
+          chageUsed(categoria);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -45,7 +45,7 @@ class CategoryItem extends StatelessWidget {
             icon: Icon(Icons.delete),
             onPressed: () {
               // print('Clicked on delete icon');
-              deleteCategory(categoria.id);
+              deleteCategory(categoria);
             },
           ),
         ),

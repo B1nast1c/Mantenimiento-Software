@@ -5,9 +5,15 @@ import '../constants/colors.dart';
 import '../screens/new_category.dart';
 
 // ignore: camel_case_types
-class sidebarMenu extends StatelessWidget {
-  const sidebarMenu({Key? key}) : super(key: key);
+class sidebarMenu extends StatefulWidget {
+  const sidebarMenu({Key? key, required this.listac}) : super(key: key);
+  final List<CategoriaTodo> listac;
 
+  @override
+  State<sidebarMenu> createState() => _sidebarMenuState();
+}
+
+class _sidebarMenuState extends State<sidebarMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -49,7 +55,7 @@ class sidebarMenu extends StatelessWidget {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  for (CategoriaTodo todoo in CategoriaTodo.fullCategory())
+                  for (CategoriaTodo todoo in widget.listac)
                     _createCategory(todoo),
                   ListTile(
                     contentPadding: const EdgeInsets.only(left: 2.0),
@@ -58,7 +64,8 @@ class sidebarMenu extends StatelessWidget {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FullCategories()),
+                            builder: (context) =>
+                                FullCategories(listac: widget.listac)),
                       ),
                     ),
                     title: Text(
@@ -80,23 +87,31 @@ class sidebarMenu extends StatelessWidget {
       ),
     );
   }
-}
 
-void _deleteToDoItem(CategoriaTodo cat) {
-  cat.isUsed = false;
-}
-
-void _changeUsedTrue(CategoriaTodo cat) {
-  cat.isUsed = true;
-}
-
-Widget _createCategory(CategoriaTodo todoo) {
-  if (todoo.isUsed) {
-    return CategoryItem(
-      categoria: todoo,
-      deleteCategory: _deleteToDoItem,
-      chageUsed: _changeUsedTrue,
-    );
+  void _deleteToDoItem(CategoriaTodo cat) {
+    setState(() {
+      print('funcionaa');
+      cat.isUsed = false;
+      print('funciona');
+    });
   }
-  return Container();
+
+  void _changeUsedTrue(CategoriaTodo cat) {
+    setState(() {
+      print('funcionaa');
+      cat.isUsed = true;
+      print('funciona');
+    });
+  }
+
+  Widget _createCategory(CategoriaTodo todoo) {
+    if (todoo.isUsed) {
+      return CategoryItem(
+        categoria: todoo,
+        deleteCategory: _deleteToDoItem,
+        chageUsed: _changeUsedTrue,
+      );
+    }
+    return Container();
+  }
 }

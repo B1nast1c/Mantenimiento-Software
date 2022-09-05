@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 
 import '../model/category.dart';
@@ -34,12 +34,13 @@ class CategoryItem extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        trailing: Container(
+        trailing: 
+         Container(
           padding: EdgeInsets.all(0),
           margin: EdgeInsets.symmetric(vertical: 12),
           height: 35,
           width: 35,
-          child: IconButton(
+          child: categoria.isUsed? IconButton(
             color: Colors.black,
             iconSize: 18,
             icon: Icon(Icons.delete),
@@ -47,7 +48,7 @@ class CategoryItem extends StatelessWidget {
               // print('Clicked on delete icon');
               deleteCategory(categoria);
             },
-          ),
+          ):Container(),
         ),
       ),
     );

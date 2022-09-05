@@ -56,7 +56,7 @@ class _FullCategoriesState extends State<FullCategories> {
                         child: Text(
                           'Categorías',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),

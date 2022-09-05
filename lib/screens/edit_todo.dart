@@ -28,6 +28,7 @@ class _EditTodoState extends State<EditTodo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: rojoIntenso,
         appBar: AppBar(
           backgroundColor: Colors.white,

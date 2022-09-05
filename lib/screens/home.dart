@@ -95,10 +95,10 @@ class _HomeState extends State<Home> {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: rojoIntenso,
-                      minimumSize: Size(60, 60),
+                      minimumSize: const Size(60, 60),
                       elevation: 10,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
                   ),

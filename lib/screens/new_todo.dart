@@ -22,6 +22,7 @@ class _NewTodoState extends State<NewTodo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: rojoIntenso,
         appBar: AppBar(
           backgroundColor: rojoIntenso,

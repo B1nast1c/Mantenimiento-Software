@@ -90,17 +90,17 @@ class _sidebarMenuState extends State<sidebarMenu> {
 
   void _deleteToDoItem(CategoriaTodo cat) {
     setState(() {
-      print('funcionaa');
+      // print('funcionaa');
       cat.isUsed = false;
-      print('funciona');
+      // print('funciona');
     });
   }
 
   void _changeUsedTrue(CategoriaTodo cat) {
     setState(() {
-      print('funcionaa');
+      // print('funcionaa');
       cat.isUsed = true;
-      print('funciona');
+      // print('funciona');
     });
   }
 

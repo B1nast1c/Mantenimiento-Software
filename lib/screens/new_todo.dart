@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/color_picker.dart';
@@ -165,7 +162,7 @@ class _NewTodoState extends State<NewTodo> {
                     onPressed: () {
                       _addToDoItem(_todoControllerTitle.text,
                           _todoControllerContent.text);
-                      Navigator.pop(context);
+                      Navigator.pop(context, widget.list);
                     },
                   ),
                 )),

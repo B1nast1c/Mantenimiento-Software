@@ -133,9 +133,13 @@ class _HomeState extends State<Home> {
       results = todosList;
     } else {
       results = todosList
-          .where((item) => item.todoText!
-              .toLowerCase()
-              .contains(enteredKeyword.toLowerCase()))
+          .where((item) =>
+              item.todoTitle!
+                  .toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()) ||
+              item.todoText!
+                  .toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 

@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 
 import '../model/category.dart';
+import '../global/globals.dart' as globals;
 
-class CategoryItem extends StatelessWidget {
+class CategoryItem extends StatefulWidget {
   final CategoriaTodo categoria;
   final deleteCategory;
   final chageUsed;
-
-  const CategoryItem(
+  CategoryItem(
       {Key? key,
       required this.categoria,
       required this.chageUsed,
@@ -16,41 +15,59 @@ class CategoryItem extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<CategoryItem> createState() => _CategoryItemState();
+}
+
+class _CategoryItemState extends State<CategoryItem> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 5),
       child: ListTile(
         onTap: () {
-          chageUsed(categoria);
+          widget.categoria.isUsed
+              ? _changeListNotes(widget.categoria.catText!)
+              : widget.chageUsed(widget.categoria);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        leading: categoria.iconDesign,
+        leading: widget.categoria.iconDesign,
         title: Text(
-          categoria.catText!,
+          widget.categoria.catText!,
           style: TextStyle(
             fontSize: 16,
           ),
         ),
-        trailing: 
-         Container(
+        trailing: Container(
           padding: EdgeInsets.all(0),
           margin: EdgeInsets.symmetric(vertical: 12),
           height: 35,
           width: 35,
-          child: categoria.isUsed? IconButton(
-            color: Colors.black,
-            iconSize: 18,
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              // print('Clicked on delete icon');
-              deleteCategory(categoria);
-            },
-          ):Container(),
+          child: widget.categoria.isUsed
+              ? IconButton(
+                  color: Colors.black,
+                  iconSize: 18,
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    // print('Clicked on delete icon');
+                    widget.deleteCategory(widget.categoria);
+                  },
+                )
+              : Container(),
         ),
       ),
     );
+  }
+
+  void _changeListNotes(String NCategoria) {
+    setState(() {
+      // print('funcionaa');
+      List<String> Lista = [];
+      Lista.add(NCategoria);
+      globals.CategoriasActivas = Lista;
+      // print('funciona');
+    });
   }
 }

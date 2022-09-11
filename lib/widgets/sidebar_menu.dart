@@ -68,7 +68,8 @@ class _sidebarMenuState extends State<sidebarMenu> {
                           'Personal',
                           'Work',
                           'Shopping',
-                          'Learn'
+                          'Learn',
+                          'Whitlist'
                         ]);
                       },
                       shape: RoundedRectangleBorder(

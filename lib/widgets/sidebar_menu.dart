@@ -3,10 +3,14 @@ import 'package:flutter_todo_app/model/category.dart';
 import 'package:flutter_todo_app/widgets/category_item.dart';
 import '../constants/colors.dart';
 import '../screens/new_category.dart';
+import '../global/globals.dart' as globals;
 
 // ignore: camel_case_types
 class sidebarMenu extends StatefulWidget {
-  const sidebarMenu({Key? key, required this.listac}) : super(key: key);
+  const sidebarMenu({
+    Key? key,
+    required this.listac,
+  }) : super(key: key);
   final List<CategoriaTodo> listac;
 
   @override
@@ -55,6 +59,32 @@ class _sidebarMenuState extends State<sidebarMenu> {
               alignment: Alignment.center,
               child: Column(
                 children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 5),
+                    child: ListTile(
+                      onTap: () {
+                        _changeListNotes([
+                          'Uncategorized',
+                          'Personal',
+                          'Work',
+                          'Shopping',
+                          'Learn'
+                        ]);
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                      leading: Icon(Icons.all_inbox),
+                      title: Text(
+                        "All",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
                   for (CategoriaTodo todoo in widget.listac)
                     _createCategory(todoo),
                   ListTile(
@@ -113,5 +143,13 @@ class _sidebarMenuState extends State<sidebarMenu> {
       );
     }
     return Container();
+  }
+
+  void _changeListNotes(List<String> Lista) {
+    setState(() {
+      // print('funcionaa');
+      globals.CategoriasActivas = Lista;
+      // print('funciona');
+    });
   }
 }

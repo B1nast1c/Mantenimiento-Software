@@ -6,6 +6,7 @@ import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
 import '../widgets/sidebar_menu.dart';
 import '../screens/new_todo.dart';
+import '../global/globals.dart' as globals;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -35,7 +36,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      drawer: sidebarMenu(listac: _fclist),
+      drawer: sidebarMenu(
+        listac: _fclist,
+      ),
       body: Stack(
         children: [
           Container(
@@ -65,11 +68,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         for (ToDo todoo in _foundToDo.reversed)
-                          ToDoItem(
-                            todo: todoo,
-                            onToDoChanged: _handleToDoChange,
-                            onDeleteItem: _deleteToDoItem,
-                          ),
+                          _createTodo(todoo),
                       ],
                     ),
                   )
@@ -214,5 +213,16 @@ class _HomeState extends State<Home> {
         sortingIcon(),
       ],
     );
+  }
+
+  Widget _createTodo(ToDo todoo) {
+    if (globals.CategoriasActivas.contains(todoo.category)) {
+      return ToDoItem(
+        todo: todoo,
+        onToDoChanged: _handleToDoChange,
+        onDeleteItem: _deleteToDoItem,
+      );
+    }
+    return Container();
   }
 }

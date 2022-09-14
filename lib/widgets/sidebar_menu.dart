@@ -151,6 +151,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
       // print('funcionaa');
       globals.CategoriasActivas = Lista;
       // print('funciona');
+      Navigator.pop(context);
     });
   }
 }

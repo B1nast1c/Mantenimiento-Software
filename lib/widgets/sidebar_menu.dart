@@ -150,6 +150,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
     setState(() {
       // print('funcionaa');
       globals.CategoriasActivas = Lista;
+      globals.titulo = 'AllTodos';
       // print('funciona');
       Navigator.pop(context);
     });

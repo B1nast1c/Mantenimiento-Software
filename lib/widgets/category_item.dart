@@ -67,6 +67,7 @@ class _CategoryItemState extends State<CategoryItem> {
       List<String> Lista = [];
       Lista.add(NCategoria);
       globals.CategoriasActivas = Lista;
+      globals.titulo = widget.categoria.catText!;
       Navigator.pop(context);
       // print('funciona');
     });

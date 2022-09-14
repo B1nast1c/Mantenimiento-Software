@@ -49,8 +49,8 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   Column(children: [
-                    const Text(
-                      'All ToDos',
+                    Text(
+                      globals.titulo,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,

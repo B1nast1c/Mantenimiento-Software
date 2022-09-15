@@ -18,6 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
   final categoryList = CategoriaTodo.fullCategory();
+
   List<ToDo> _foundToDo = [];
   List<CategoriaTodo> _fclist = [];
   List<ToDo> _sortedToDo = [];
@@ -51,7 +52,7 @@ class _HomeState extends State<Home> {
                   Column(children: [
                     Text(
                       globals.titulo,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,
                       ),
@@ -81,19 +82,15 @@ class _HomeState extends State<Home> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                  margin:
+                      const EdgeInsets.only(bottom: 20, right: 20, left: 20),
                   child: ElevatedButton(
-                    child: Text(
-                      '+',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NewTodo(list: todosList)),
+                            builder: (context) => NewTodo(
+                                list: todosList, listCat: categoryList)),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -102,6 +99,12 @@ class _HomeState extends State<Home> {
                       elevation: 10,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    child: const Text(
+                      '+',
+                      style: TextStyle(
+                        fontSize: 30,
                       ),
                     ),
                   ),
@@ -160,7 +163,7 @@ class _HomeState extends State<Home> {
     return Container(
       alignment: Alignment.centerRight,
       child: IconButton(
-        icon: Icon(Icons.sort),
+        icon: const Icon(Icons.sort),
         color: Colors.black,
         iconSize: 25.0,
         onPressed: () {
@@ -172,15 +175,15 @@ class _HomeState extends State<Home> {
 
   Widget searchBox() {
     return Container(
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
         onChanged: (value) => _runFilter(value),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
@@ -202,9 +205,9 @@ class _HomeState extends State<Home> {
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: tdBGColor,
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: const IconThemeData(color: Colors.black),
       elevation: 0,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(30),
         ),
@@ -221,6 +224,7 @@ class _HomeState extends State<Home> {
         todo: todoo,
         onToDoChanged: _handleToDoChange,
         onDeleteItem: _deleteToDoItem,
+        category: _fclist,
       );
     }
     return Container();

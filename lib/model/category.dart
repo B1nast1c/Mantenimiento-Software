@@ -4,8 +4,7 @@ class CategoriaTodo {
   String? id;
   String? catText;
   bool isUsed;
-  //String? color; //Color de la nota Este no funciona
-  Icon? iconDesign; // Este si
+  Icon? iconDesign;
 
   CategoriaTodo({
     required this.id,

@@ -5,9 +5,12 @@ import '../global/globals.dart' as globals;
 
 class CategoryItem extends StatefulWidget {
   final CategoriaTodo categoria;
+  // ignore: prefer_typing_uninitialized_variables
   final deleteCategory;
+  // ignore: prefer_typing_uninitialized_variables
   final chageUsed;
-  CategoryItem(
+
+  const CategoryItem(
       {Key? key,
       required this.categoria,
       required this.chageUsed,
@@ -22,7 +25,7 @@ class _CategoryItemState extends State<CategoryItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 5),
       child: ListTile(
         onTap: () {
           widget.categoria.isUsed
@@ -32,26 +35,25 @@ class _CategoryItemState extends State<CategoryItem> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
         leading: widget.categoria.iconDesign,
         title: Text(
           widget.categoria.catText!,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
           ),
         ),
         trailing: Container(
-          padding: EdgeInsets.all(0),
-          margin: EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.all(0),
+          margin: const EdgeInsets.symmetric(vertical: 12),
           height: 35,
           width: 35,
           child: widget.categoria.isUsed
               ? IconButton(
                   color: Colors.black,
                   iconSize: 18,
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: () {
-                    // print('Clicked on delete icon');
                     widget.deleteCategory(widget.categoria);
                   },
                 )
@@ -63,13 +65,11 @@ class _CategoryItemState extends State<CategoryItem> {
 
   void _changeListNotes(String NCategoria) {
     setState(() {
-      // print('funcionaa');
       List<String> Lista = [];
       Lista.add(NCategoria);
       globals.CategoriasActivas = Lista;
       globals.titulo = widget.categoria.catText!;
       Navigator.pop(context);
-      // print('funciona');
     });
   }
 }

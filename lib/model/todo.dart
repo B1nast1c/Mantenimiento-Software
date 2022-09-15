@@ -7,7 +7,7 @@ class ToDo {
   String? todoText;
   bool isDone;
   Color? ncolor;
-  String? category; //Category of the ToDo item
+  String? category;
 
   ToDo(
       {required this.id,

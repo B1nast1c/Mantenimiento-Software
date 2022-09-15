@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/model/category.dart';
 import 'package:flutter_todo_app/widgets/category_item.dart';
-import '../constants/colors.dart';
 import '../screens/new_category.dart';
 import '../global/globals.dart' as globals;
 
@@ -17,6 +16,7 @@ class sidebarMenu extends StatefulWidget {
   State<sidebarMenu> createState() => _sidebarMenuState();
 }
 
+// ignore: camel_case_types
 class _sidebarMenuState extends State<sidebarMenu> {
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 50),
+                      margin: const EdgeInsets.only(top: 50),
                       height: 135,
                       width: 135,
                       child: ClipRRect(
@@ -60,7 +60,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 5),
+                    margin: const EdgeInsets.only(bottom: 5),
                     child: ListTile(
                       onTap: () {
                         _changeListNotes([
@@ -75,10 +75,10 @@ class _sidebarMenuState extends State<sidebarMenu> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-                      leading: Icon(Icons.all_inbox),
-                      title: Text(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 1),
+                      leading: const Icon(Icons.all_inbox),
+                      title: const Text(
                         "All",
                         style: TextStyle(
                           fontSize: 16,
@@ -99,7 +99,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
                                 FullCategories(listac: widget.listac)),
                       ),
                     ),
-                    title: Text(
+                    title: const Text(
                       "Añadir categoría",
                       style: TextStyle(color: Colors.black),
                     ),
@@ -121,17 +121,13 @@ class _sidebarMenuState extends State<sidebarMenu> {
 
   void _deleteToDoItem(CategoriaTodo cat) {
     setState(() {
-      // print('funcionaa');
       cat.isUsed = false;
-      // print('funciona');
     });
   }
 
   void _changeUsedTrue(CategoriaTodo cat) {
     setState(() {
-      // print('funcionaa');
       cat.isUsed = true;
-      // print('funciona');
     });
   }
 
@@ -146,12 +142,10 @@ class _sidebarMenuState extends State<sidebarMenu> {
     return Container();
   }
 
-  void _changeListNotes(List<String> Lista) {
+  void _changeListNotes(List<String> lista) {
     setState(() {
-      // print('funcionaa');
-      globals.CategoriasActivas = Lista;
+      globals.CategoriasActivas = lista;
       globals.titulo = 'AllTodos';
-      // print('funciona');
       Navigator.pop(context);
     });
   }

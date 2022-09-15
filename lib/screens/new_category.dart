@@ -4,7 +4,7 @@ import 'package:flutter_todo_app/widgets/category_item.dart';
 import '../constants/colors.dart';
 
 class FullCategories extends StatefulWidget {
-  FullCategories({Key? key, required this.listac}) : super(key: key);
+  const FullCategories({Key? key, required this.listac}) : super(key: key);
   final List<CategoriaTodo> listac;
 
   @override
@@ -25,7 +25,7 @@ class _FullCategoriesState extends State<FullCategories> {
         body: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(60),
+                topLeft: Radius.circular(60),
                 topRight: Radius.circular(60),
               ),
               color: Colors.white,
@@ -34,24 +34,21 @@ class _FullCategoriesState extends State<FullCategories> {
               children: [
                 Column(
                   children: [
-                    Container(
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 40.0,
-                            horizontal: 10.0), //apply padding to all four sides
-                        child: Text(
-                          'Lista gategorias',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w400,
-                          ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 40.0, horizontal: 10.0),
+                      child: Text(
+                        'Lista gategorias',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30, bottom: 10),
-                      child: Align(
+                      padding: const EdgeInsets.only(left: 30, bottom: 10),
+                      child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
                           'Categorías',
@@ -61,7 +58,7 @@ class _FullCategoriesState extends State<FullCategories> {
                       ),
                     ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 35.0, left: 15.0),
+                        margin: const EdgeInsets.only(bottom: 35.0, left: 15.0),
                         alignment: Alignment.center,
                         child: Column(
                           children: [
@@ -78,17 +75,13 @@ class _FullCategoriesState extends State<FullCategories> {
 
   void _deleteToDoItem(CategoriaTodo cat) {
     setState(() {
-      print('funcionaa');
       cat.isUsed = false;
-      print('funciona');
     });
   }
 
   void _changeUsedTrue(CategoriaTodo cat) {
     setState(() {
-      print('funcionaa');
       cat.isUsed = true;
-      print('funciona');
     });
   }
 

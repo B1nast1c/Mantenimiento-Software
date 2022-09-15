@@ -31,10 +31,10 @@ class _ColorPickerState extends State<ColorPicker> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: 200,
+      width: MediaQuery.of(context).size.width,
+      height: 75,
       child: GridView.builder(
-        padding: const EdgeInsets.only(left: 30.0, top: 20.0),
+        padding: const EdgeInsets.only(left: 30.0, top: 15.0),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 50,
             childAspectRatio: 1 / 1,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/model/category.dart';
 import 'package:flutter_todo_app/model/todo.dart';
@@ -19,7 +18,6 @@ class EditTodo extends StatefulWidget {
 class _EditTodoState extends State<EditTodo> {
   Color _color = Colors.white;
   late TextEditingController _todoControllerTitle, _todoControllerContent;
-  late List<CategoriaTodo> _category;
   late String selectedCat;
 
   @override
@@ -27,7 +25,6 @@ class _EditTodoState extends State<EditTodo> {
     super.initState();
     _todoControllerTitle = TextEditingController(text: widget.item.todoTitle);
     _todoControllerContent = TextEditingController(text: widget.item.todoText);
-    _category = widget.category;
     selectedCat = widget.item.category.toString();
   }
 
@@ -157,27 +154,21 @@ class _EditTodoState extends State<EditTodo> {
                         ),
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        buildPicker();
-                      },
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 30.0, vertical: 5.0)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: const BorderSide(
-                                color: rojoIntenso,
-                                width: 2.0,
-                              ),
-                            ),
-                          )),
-                      child: Text(selectedCat,
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          "Categoria anterior ${widget.item.category}",
                           style: const TextStyle(
-                              color: rojoIntenso, fontSize: 16)),
+                              color: rojoIntenso,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17),
+                        )),
+                    CategoryPicker(
+                      listCat: widget.category,
+                      onChanged: (String? newCategory) {
+                        setState(() => selectedCat = newCategory.toString());
+                      },
+                      category: widget.item.category.toString(),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -225,24 +216,5 @@ class _EditTodoState extends State<EditTodo> {
       widget.item.ncolor = _color;
       widget.item.category = selectedCat;
     });
-  }
-
-  void updateCategoryIndex(int catDataidx) {
-    setState(() {
-      selectedCat = widget.category[catDataidx].catText
-          .toString(); //Asignación para el cambio
-    });
-  }
-
-  void buildPicker() async {
-    final data = await Navigator.push(
-      //Navigator.pop retorna un objeto de tipo final
-      context,
-      CupertinoModalPopupRoute(
-          //Generator
-          builder: (BuildContext builder) =>
-              CategoryPicker(listCat: _category)),
-    );
-    updateCategoryIndex(data);
   }
 }

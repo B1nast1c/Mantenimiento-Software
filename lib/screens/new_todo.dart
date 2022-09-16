@@ -20,7 +20,7 @@ class _NewTodoState extends State<NewTodo> {
   Color _color = Colors.white;
   final _todoControllerTitle = TextEditingController();
   final _todoControllerContent = TextEditingController();
-  int _categoryIndex = -1;
+  String? _category;
 
   @override
   Widget build(BuildContext context) {
@@ -147,32 +147,12 @@ class _NewTodoState extends State<NewTodo> {
                         ),
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        buildPicker();
+                    CategoryPicker(
+                      listCat: widget.listCat,
+                      onChanged: (String? newCategory) {
+                        setState(() => _category = newCategory);
                       },
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 30.0, vertical: 5.0)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: const BorderSide(
-                                color: rojoIntenso,
-                                width: 2.0,
-                              ),
-                            ),
-                          )),
-                      child: _categoryIndex == -1
-                          ? const Text('Seleccionar Categoría',
-                              style:
-                                  TextStyle(color: rojoIntenso, fontSize: 16))
-                          : Text(
-                              widget.listCat[_categoryIndex].catText.toString(),
-                              style: const TextStyle(
-                                  color: rojoIntenso, fontSize: 16)),
+                      category: 'null',
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -220,27 +200,9 @@ class _NewTodoState extends State<NewTodo> {
           todoTitle: toDoTitle,
           todoText: toDoContent,
           ncolor: _color,
-          category: widget.listCat[_categoryIndex].catText.toString()));
+          category: _category));
     });
     _todoControllerTitle.clear();
     _todoControllerContent.clear();
-  }
-
-  void updateCategoryIndex(int index) {
-    setState(() {
-      _categoryIndex = index;
-    });
-  }
-
-  void buildPicker() async {
-    final data = await Navigator.push(
-      //Navigator.pop retorna un objeto de tipo final
-      context,
-      CupertinoModalPopupRoute(
-          //Generator
-          builder: (BuildContext builder) =>
-              CategoryPicker(listCat: widget.listCat)),
-    );
-    updateCategoryIndex(data);
   }
 }

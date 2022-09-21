@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_todo_app/providers/provider.dart';
+import 'package:provider/provider.dart';
 import './screens/home.dart';
+import './global/globals.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<Changes>(
+    child: const MyApp(),
+    create: (_) => Changes(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ToDo App',
-      home: Home(),
+      home: Home(title: titulo),
     );
   }
 }

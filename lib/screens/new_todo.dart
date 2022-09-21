@@ -1,16 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/model/category.dart';
 import 'package:flutter_todo_app/widgets/category_picker.dart';
+import 'package:provider/provider.dart';
 import '../model/todo.dart';
 import '../constants/colors.dart';
+import '../providers/provider.dart';
 import '../widgets/color_picker.dart';
 
 class NewTodo extends StatefulWidget {
-  const NewTodo({Key? key, required this.list, required this.listCat})
-      : super(key: key);
-  final List<ToDo> list;
-  final List<CategoriaTodo> listCat;
+  const NewTodo({Key? key}) : super(key: key);
 
   @override
   State<NewTodo> createState() => _NewTodoState();
@@ -24,11 +21,14 @@ class _NewTodoState extends State<NewTodo> {
 
   @override
   Widget build(BuildContext context) {
+    var categoriesList = context.watch<Changes>().listCategories;
+    var todoList = context.watch<Changes>().listTodo;
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: rojoIntenso,
+        backgroundColor: weso,
         appBar: AppBar(
-          backgroundColor: rojoIntenso,
+          backgroundColor: weso,
           foregroundColor: Colors.black,
           elevation: 0,
         ),
@@ -48,7 +48,7 @@ class _NewTodoState extends State<NewTodo> {
                       padding: EdgeInsets.symmetric(
                           vertical: 40.0, horizontal: 10.0),
                       child: Text(
-                        'Nueva Nota',
+                        'Add new ToDo',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 25,
@@ -61,7 +61,7 @@ class _NewTodoState extends State<NewTodo> {
                       child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Título',
+                          'Title',
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w300),
                         ),
@@ -88,7 +88,7 @@ class _NewTodoState extends State<NewTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Título',
+                            hintText: 'Enter the title',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -101,7 +101,7 @@ class _NewTodoState extends State<NewTodo> {
                       child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Descripción',
+                          'Description',
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w300),
                         ),
@@ -128,7 +128,7 @@ class _NewTodoState extends State<NewTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Descripción',
+                            hintText: 'Description',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -140,7 +140,7 @@ class _NewTodoState extends State<NewTodo> {
                       margin: const EdgeInsets.only(
                           top: 20.0, left: 30.0, bottom: 15.0),
                       child: const Text(
-                        'Elige una categoría para la nota',
+                        'Choose a category for your ToDo',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -148,7 +148,7 @@ class _NewTodoState extends State<NewTodo> {
                       ),
                     ),
                     CategoryPicker(
-                      listCat: widget.listCat,
+                      listCat: categoriesList,
                       onChanged: (String? newCategory) {
                         setState(() => _category = newCategory);
                       },
@@ -158,7 +158,7 @@ class _NewTodoState extends State<NewTodo> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
                       child: const Text(
-                        'Escoge un color para la nota',
+                        'Choose a color for your ToDo',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -184,8 +184,8 @@ class _NewTodoState extends State<NewTodo> {
                     iconSize: 35.0,
                     onPressed: () {
                       _addToDoItem(_todoControllerTitle.text,
-                          _todoControllerContent.text);
-                      Navigator.pop(context, widget.list);
+                          _todoControllerContent.text, todoList);
+                      Navigator.pop(context);
                     },
                   ),
                 )),
@@ -193,15 +193,16 @@ class _NewTodoState extends State<NewTodo> {
             )));
   }
 
-  void _addToDoItem(String toDoTitle, String toDoContent) {
-    setState(() {
-      widget.list.add(ToDo(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          todoTitle: toDoTitle,
-          todoText: toDoContent,
-          ncolor: _color,
-          category: _category));
-    });
+  void _addToDoItem(String toDoTitle, String toDoContent, List<ToDo> list) {
+    list.add(ToDo(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        todoTitle: toDoTitle,
+        todoText: toDoContent,
+        ncolor: _color,
+        category: _category));
+
+    context.read<Changes>().setListTodo(list);
+
     _todoControllerTitle.clear();
     _todoControllerContent.clear();
   }

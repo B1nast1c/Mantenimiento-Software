@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 List<Color> colors = const [
-  Color(0xffffaaa5),
-  Color(0xffffd3b6),
-  Color(0xffdcedc1),
-  Color(0xffa8e6cf),
+  Color(0xffff9aa2),
+  Color(0xffffb7b2),
+  Color(0xffffdac1),
+  Color(0xffe2f0cb),
+  Color(0xffb5ead7),
+  Color(0xffc7ceea),
 ];
 
 class ColorPicker extends StatefulWidget {

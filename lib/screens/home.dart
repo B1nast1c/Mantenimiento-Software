@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/model/category.dart';
+import 'package:provider/provider.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
+import '../providers/provider.dart';
 import '../widgets/todo_item.dart';
 import '../widgets/sidebar_menu.dart';
 import '../screens/new_todo.dart';
 import '../global/globals.dart' as globals;
 
+//VERIFICAR POR QUE EL SORTING NO FUNCIONA :'v (De momento existe ese error nomas)
+
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.title}) : super(key: key);
+
+  final String? title;
 
   @override
   State<Home> createState() => _HomeState();
@@ -19,27 +25,15 @@ class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
   final categoryList = CategoriaTodo.fullCategory();
 
-  List<ToDo> _foundToDo = [];
-  List<CategoriaTodo> _fclist = [];
-  List<ToDo> _sortedToDo = [];
-  final _todoController = TextEditingController();
-
-  @override
-  void initState() {
-    _foundToDo = todosList;
-    _sortedToDo = todosList;
-    _fclist = categoryList;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    var todosList = context.watch<Changes>().listTodo;
+    var title = context.watch<Changes>().pageTitle;
+
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      drawer: sidebarMenu(
-        listac: _fclist,
-      ),
+      drawer: const sidebarMenu(),
       body: Stack(
         children: [
           Container(
@@ -51,7 +45,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Column(children: [
                     Text(
-                      globals.titulo,
+                      title, //Actualiza el titulo y el listado dependiendo de lo seleccionado
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,
@@ -68,7 +62,7 @@ class _HomeState extends State<Home> {
                             bottom: 20,
                           ),
                         ),
-                        for (ToDo todoo in _foundToDo.reversed)
+                        for (ToDo todoo in todosList.reversed)
                           _createTodo(todoo),
                       ],
                     ),
@@ -89,12 +83,11 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NewTodo(
-                                list: todosList, listCat: categoryList)),
+                            builder: (context) => const NewTodo()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: rojoIntenso,
+                      primary: weso,
                       minimumSize: const Size(60, 60),
                       elevation: 10,
                       shape: RoundedRectangleBorder(
@@ -103,9 +96,7 @@ class _HomeState extends State<Home> {
                     ),
                     child: const Text(
                       '+',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
+                      style: TextStyle(fontSize: 30, color: Colors.black),
                     ),
                   ),
                 ),
@@ -145,18 +136,9 @@ class _HomeState extends State<Home> {
           .toList();
     }
 
-    setState(() {
-      _foundToDo = results;
-    });
-  }
-
-  void _sort() {
-    todosList.sort((a, b) => b.todoText
-        .toString()
-        .compareTo(a.todoText.toString())); //Comparison between items
-    setState(() {
-      _sortedToDo = todosList;
-    });
+    context
+        .read<Changes>()
+        .setListTodo(results); //Filtrar los resultados de la lista del provider
   }
 
   Widget sortingIcon() {
@@ -167,7 +149,7 @@ class _HomeState extends State<Home> {
         color: Colors.black,
         iconSize: 25.0,
         onPressed: () {
-          _sort();
+          context.read<Changes>().sortTodos(todosList);
         },
       ),
     );
@@ -219,12 +201,13 @@ class _HomeState extends State<Home> {
   }
 
   Widget _createTodo(ToDo todoo) {
+    //Categorias que se muestran en la pantalla
     if (globals.CategoriasActivas.contains(todoo.category)) {
       return ToDoItem(
         todo: todoo,
         onToDoChanged: _handleToDoChange,
         onDeleteItem: _deleteToDoItem,
-        category: _fclist,
+        category: categoryList,
       );
     }
     return Container();

@@ -32,7 +32,7 @@ class _EditTodoState extends State<EditTodo> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: rojoIntenso,
+        backgroundColor: weso,
         appBar: AppBar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
@@ -53,7 +53,7 @@ class _EditTodoState extends State<EditTodo> {
                       padding: EdgeInsets.symmetric(
                           vertical: 40.0, horizontal: 10.0),
                       child: Text(
-                        'Editar Nota',
+                        'Edit ToDo',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 25,
@@ -66,7 +66,7 @@ class _EditTodoState extends State<EditTodo> {
                       child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Título',
+                          'Title',
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w300),
                         ),
@@ -94,7 +94,7 @@ class _EditTodoState extends State<EditTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Título',
+                            hintText: 'Enter a new title',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -107,7 +107,7 @@ class _EditTodoState extends State<EditTodo> {
                       child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Descripción',
+                          'Description',
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w300),
                         ),
@@ -135,7 +135,7 @@ class _EditTodoState extends State<EditTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Descripción',
+                            hintText: 'Enter a new description',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -147,7 +147,7 @@ class _EditTodoState extends State<EditTodo> {
                       margin: const EdgeInsets.only(
                           top: 20.0, left: 30.0, bottom: 15.0),
                       child: const Text(
-                        'Elige una categoría para la nota',
+                        'Choose a new category',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -157,11 +157,11 @@ class _EditTodoState extends State<EditTodo> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 10.0),
                         child: Text(
-                          "Categoria anterior ${widget.item.category}",
+                          "Previous category: ${widget.item.category}",
                           style: const TextStyle(
                               color: rojoIntenso,
                               fontWeight: FontWeight.bold,
-                              fontSize: 17),
+                              fontSize: 13.5),
                         )),
                     CategoryPicker(
                       listCat: widget.category,
@@ -174,7 +174,7 @@ class _EditTodoState extends State<EditTodo> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
                       child: const Text(
-                        'Escoge un color para la nota',
+                        'Choose a new color',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -211,8 +211,9 @@ class _EditTodoState extends State<EditTodo> {
 
   void _editToDoItem(String toDoTitle, String toDoContent) {
     setState(() {
-      widget.item.todoTitle = toDoTitle; //Title asignment
-      widget.item.todoText = toDoContent; //Text asignment
+      //Asignación de la categoría al editarlo
+      widget.item.todoTitle = toDoTitle;
+      widget.item.todoText = toDoContent;
       widget.item.ncolor = _color;
       widget.item.category = selectedCat;
     });

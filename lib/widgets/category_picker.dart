@@ -40,7 +40,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
           },
           hint: const Center(
               child: Text(
-            "Selecciona la categoria",
+            "Select a category  ",
             style: TextStyle(color: rojoIntenso),
           )),
           underline: Container(),

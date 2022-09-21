@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/constants/colors.dart';
 import 'package:flutter_todo_app/model/category.dart';
+import 'package:flutter_todo_app/screens/deleted_todos.dart';
 import 'package:flutter_todo_app/widgets/category_item.dart';
+import 'package:provider/provider.dart';
+import '../providers/provider.dart';
 import '../screens/new_category.dart';
 import '../global/globals.dart' as globals;
 
@@ -8,9 +12,7 @@ import '../global/globals.dart' as globals;
 class sidebarMenu extends StatefulWidget {
   const sidebarMenu({
     Key? key,
-    required this.listac,
   }) : super(key: key);
-  final List<CategoriaTodo> listac;
 
   @override
   State<sidebarMenu> createState() => _sidebarMenuState();
@@ -20,6 +22,8 @@ class sidebarMenu extends StatefulWidget {
 class _sidebarMenuState extends State<sidebarMenu> {
   @override
   Widget build(BuildContext context) {
+    var categoriesList = context.watch<Changes>().listCategories;
+
     return Drawer(
       child: Column(
         children: [
@@ -48,7 +52,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
                     Container(
                       padding: const EdgeInsets.only(top: 10),
                       child: const Text(
-                        "Usuario",
+                        "User",
                       ),
                     )
                   ],
@@ -61,65 +65,86 @@ class _sidebarMenuState extends State<sidebarMenu> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(bottom: 5),
-                    child: ListTile(
-                      onTap: () {
-                        _changeListNotes([
-                          'Uncategorized',
-                          'Personal',
-                          'Work',
-                          'Shopping',
-                          'Learn',
-                          'Whitlist'
-                        ]);
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 1),
-                      leading: const Icon(Icons.all_inbox),
-                      title: const Text(
-                        "All",
-                        style: TextStyle(
-                          fontSize: 16,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const DeletedToDos())),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 1),
+                          leading: const Icon(
+                            Icons.delete,
+                            color: rojoIntenso,
+                          ),
+                          title: const Text(
+                            "TrashCan",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: rojoIntenso,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
+                        ListTile(
+                          onTap: () {
+                            _changeListNotes([
+                              'Deleted',
+                              'Uncategorized',
+                              'Personal',
+                              'Work',
+                              'Shopping',
+                              'Learn',
+                              'Wishlist'
+                            ]);
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 1),
+                          leading: const Icon(Icons.toc),
+                          title: const Text(
+                            "All",
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  for (CategoriaTodo todoo in widget.listac)
-                    _createCategory(todoo),
+                  for (CategoriaTodo category in categoriesList)
+                    _createCategory(
+                        category), //Crea las categorias que tienen el atributo usado en TRUE
                   ListTile(
                     contentPadding: const EdgeInsets.only(left: 2.0),
                     leading: IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                FullCategories(listac: widget.listac)),
-                      ),
-                    ),
+                        icon: const Icon(Icons.add),
+                        onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FullCategories()),
+                              ),
+                            }),
                     title: const Text(
-                      "Añadir categoría",
-                      style: TextStyle(color: Colors.black),
+                      "Add Category",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
                   ),
                 ],
               )),
-          /*  Container(
-              child: Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: Container(
-              color: rojoIntenso,
-              padding: const EdgeInsets.fromLTRB(10, 50, 50, 50),
-            ),
-          ))*/
         ],
       ),
     );
   }
 
-  void _deleteToDoItem(CategoriaTodo cat) {
+  void _deleteCategory(CategoriaTodo cat) {
     setState(() {
       cat.isUsed = false;
     });
@@ -131,12 +156,13 @@ class _sidebarMenuState extends State<sidebarMenu> {
     });
   }
 
-  Widget _createCategory(CategoriaTodo todoo) {
-    if (todoo.isUsed) {
+  Widget _createCategory(CategoriaTodo category) {
+    //Renderiza las categorias usadas
+    if (category.isUsed) {
       return CategoryItem(
-        categoria: todoo,
-        deleteCategory: _deleteToDoItem,
-        chageUsed: _changeUsedTrue,
+        categoria: category,
+        deleteCategory: _deleteCategory,
+        changeUsed: _changeUsedTrue,
       );
     }
     return Container();
@@ -145,7 +171,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
   void _changeListNotes(List<String> lista) {
     setState(() {
       globals.CategoriasActivas = lista;
-      globals.titulo = 'AllTodos';
+      context.read<Changes>().setTitle('All Todos');
       Navigator.pop(context);
     });
   }

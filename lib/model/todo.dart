@@ -48,7 +48,7 @@ class ToDo {
           todoTitle: 'Hola3 Whitlist',
           todoText: 'Check Emails',
           ncolor: rojoClaro,
-          category: 'Whitlist'),
+          category: 'Wishlist'),
       ToDo(
           id: '07',
           todoTitle: 'Hola4 Shopping',

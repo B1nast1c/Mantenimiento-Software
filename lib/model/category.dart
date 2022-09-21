@@ -23,7 +23,7 @@ class CategoriaTodo {
           id: '01', catText: 'Personal', iconDesign: const Icon(Icons.person)),
       CategoriaTodo(
           id: '02',
-          catText: 'Whitlist',
+          catText: 'Wishlist',
           iconDesign: const Icon(Icons.favorite)),
       CategoriaTodo(
           id: '04', catText: 'Work', iconDesign: const Icon(Icons.work)),
@@ -31,7 +31,7 @@ class CategoriaTodo {
           id: '05',
           catText: 'Shopping',
           isUsed: true,
-          iconDesign: const Icon(Icons.shop)),
+          iconDesign: const Icon(Icons.shopping_cart)),
       CategoriaTodo(
           id: '03',
           catText: 'Learn',

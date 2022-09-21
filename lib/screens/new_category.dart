@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/model/category.dart';
 import 'package:flutter_todo_app/widgets/category_item.dart';
+import 'package:provider/provider.dart';
 import '../constants/colors.dart';
+import '../providers/provider.dart';
 
 class FullCategories extends StatefulWidget {
-  const FullCategories({Key? key, required this.listac}) : super(key: key);
-  final List<CategoriaTodo> listac;
+  const FullCategories({Key? key}) : super(key: key);
 
   @override
   State<FullCategories> createState() => _FullCategoriesState();
@@ -14,6 +15,8 @@ class FullCategories extends StatefulWidget {
 class _FullCategoriesState extends State<FullCategories> {
   @override
   Widget build(BuildContext context) {
+    final categoryList = context.watch<Changes>().listCategories;
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: rojoIntenso,
@@ -38,7 +41,7 @@ class _FullCategoriesState extends State<FullCategories> {
                       padding: EdgeInsets.symmetric(
                           vertical: 40.0, horizontal: 10.0),
                       child: Text(
-                        'Lista gategorias',
+                        'Categorías sin usar',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 25,
@@ -47,50 +50,45 @@ class _FullCategoriesState extends State<FullCategories> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 30, bottom: 10),
-                      child: const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          'Categorías',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(bottom: 35.0, left: 15.0),
+                        margin: const EdgeInsets.only(bottom: 35.0, left: 35.0),
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            for (CategoriaTodo todoo in widget.listac)
-                              _createCategory(todoo),
+                            for (CategoriaTodo category in categoryList)
+                              _createCategory(category,
+                                  categoryList), //Genera aquellas categorias que no estan dentro del menú lateral
                           ],
                         )),
                   ],
                 ),
               ],
             )));
-    ;
   }
 
-  void _deleteToDoItem(CategoriaTodo cat) {
+  void _deleteCategory(CategoriaTodo cat) {
+    //Manda la categoria usada a no usada
     setState(() {
       cat.isUsed = false;
     });
   }
 
-  void _changeUsedTrue(CategoriaTodo cat) {
+  void _changeUsedTrue(CategoriaTodo cat, List<CategoriaTodo> list) {
+    //Una vez que seleccionamos la categoria vamos al home para actualizar las categorias
     setState(() {
       cat.isUsed = true;
     });
+
+    context.read<Changes>().setCategories(list);
+    Navigator.pop(context);
   }
 
-  Widget _createCategory(CategoriaTodo todoo) {
-    if (todoo.isUsed == false) {
+  Widget _createCategory(CategoriaTodo cat, List<CategoriaTodo> list) {
+    //Renderiza las categorias no usadas
+    if (cat.isUsed == false) {
       return CategoryItem(
-        categoria: todoo,
-        deleteCategory: _deleteToDoItem,
-        chageUsed: _changeUsedTrue,
+        categoria: cat,
+        deleteCategory: _deleteCategory,
+        changeUsed: _changeUsedTrue,
       );
     }
     return Container();

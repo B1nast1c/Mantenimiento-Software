@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/category.dart';
 import '../global/globals.dart' as globals;
+import '../providers/provider.dart';
 
 class CategoryItem extends StatefulWidget {
   final CategoriaTodo categoria;
   // ignore: prefer_typing_uninitialized_variables
   final deleteCategory;
   // ignore: prefer_typing_uninitialized_variables
-  final chageUsed;
+  final changeUsed;
 
   const CategoryItem(
       {Key? key,
       required this.categoria,
-      required this.chageUsed,
+      required this.changeUsed,
       required this.deleteCategory})
       : super(key: key);
 
@@ -28,9 +30,13 @@ class _CategoryItemState extends State<CategoryItem> {
       margin: const EdgeInsets.only(bottom: 5),
       child: ListTile(
         onTap: () {
-          widget.categoria.isUsed
-              ? _changeListNotes(widget.categoria.catText!)
-              : widget.chageUsed(widget.categoria);
+          if (widget.categoria.isUsed) {
+            _changeListNotes();
+            context.read<Changes>().setTitle(widget.categoria.catText!);
+          } else {
+            widget.changeUsed(widget.categoria);
+            Navigator.pop(context);
+          }
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -63,12 +69,13 @@ class _CategoryItemState extends State<CategoryItem> {
     );
   }
 
-  void _changeListNotes(String NCategoria) {
+  void _changeListNotes() {
+    //Actualización de las notas y la categoría
     setState(() {
-      List<String> Lista = [];
-      Lista.add(NCategoria);
-      globals.CategoriasActivas = Lista;
-      globals.titulo = widget.categoria.catText!;
+      List<String> lista = [];
+      globals.CategoriasActivas = lista;
+      globals.titulo =
+          widget.categoria.catText!; //Texto de la categoría seleccionada
       Navigator.pop(context);
     });
   }

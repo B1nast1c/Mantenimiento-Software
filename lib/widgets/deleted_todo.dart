@@ -1,52 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/model/category.dart';
-import '../model/todo.dart';
+import '../model/deleted_todo.dart';
 import '../constants/colors.dart';
-import '../screens/edit_todo.dart';
 
-class ToDoItem extends StatelessWidget {
-  final ToDo todo;
-  // ignore: prefer_typing_uninitialized_variables
-  final onToDoChanged;
-  // ignore: prefer_typing_uninitialized_variables
-  final onDeleteItem;
-  final List<CategoriaTodo> category;
+class DeletedToDoItem extends StatelessWidget {
+  final DeletedToDo todo;
 
-  const ToDoItem(
-      {Key? key,
-      required this.todo,
-      required this.onToDoChanged,
-      required this.onDeleteItem,
-      required this.category})
-      : super(key: key);
+  const DeletedToDoItem({
+    Key? key,
+    required this.todo,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: rojoIntenso, width: 1.5 // red as border color
+            ),
+      ),
+      margin: const EdgeInsets.only(bottom: 20, left: 20.0, right: 20.0),
       child: ListTile(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      EditTodo(item: todo, category: category)));
+          print("Detalle de la nota"); //Nueva interfaz
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: todo.ncolor,
-        leading: Icon(
-          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+        leading: const Icon(
+          Icons.close,
           color: Colors.black,
         ),
         title: Text(
           todo.todoTitle!,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: tdBlack,
-            decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: Container(
@@ -63,7 +53,7 @@ class ToDoItem extends StatelessWidget {
             iconSize: 18,
             icon: const Icon(Icons.delete),
             onPressed: () {
-              onDeleteItem(todo);
+              print('Elimina pa siempre');
             },
           ),
         ),

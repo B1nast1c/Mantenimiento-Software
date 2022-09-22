@@ -114,10 +114,10 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _deleteToDoItem(String id) {
-    setState(() {
-      todosList.removeWhere((item) => item.id == id);
-    });
+  void _deleteToDoItem(ToDo todo) {
+    //Aqui van las modificaciones de eliminación
+    context.read<Changes>().deleteTodo(todo);
+    context.read<Changes>().addDeleted(todo);
   }
 
   void _runFilter(String enteredKeyword) {

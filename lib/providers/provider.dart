@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_todo_app/global/globals.dart';
+import 'package:flutter_todo_app/model/deleted_todo.dart';
 import 'package:flutter_todo_app/model/todo.dart';
 
 import '../model/category.dart';
@@ -10,7 +11,7 @@ class Changes with ChangeNotifier {
   List<ToDo> listTodo = ToDo.todoList();
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;
-  List<ToDo> deletedTodos = []; //Eliminados sin tiempo de espera
+  List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
 
   void setListTodo(List<ToDo> list) {
     listTodo = list;
@@ -21,6 +22,11 @@ class Changes with ChangeNotifier {
     toSort.sort(
         (a, b) => b.todoTitle.toString().compareTo(a.todoTitle.toString()));
     setListTodo(toSort);
+    notifyListeners();
+  }
+
+  void deleteTodo(ToDo todo) {
+    listTodo.removeWhere((item) => item.id == todo.id);
     notifyListeners();
   }
 
@@ -35,7 +41,9 @@ class Changes with ChangeNotifier {
   }
 
   void addDeleted(ToDo todo) {
-    deletedTodos.add(todo);
+    DeletedToDo deleted = DeletedToDo(
+        id: todo.id, todoTitle: todo.todoTitle, todoText: todo.todoText);
+    deletedTodos.add(deleted);
     notifyListeners();
   }
 }

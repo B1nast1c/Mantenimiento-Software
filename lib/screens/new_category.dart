@@ -12,7 +12,7 @@ import '../providers/provider.dart';
 //========================================//
 
 //BUGS:
-//
+//  NO FUNCIONA
 class FullCategories extends StatefulWidget {
   const FullCategories({Key? key}) : super(key: key);
 

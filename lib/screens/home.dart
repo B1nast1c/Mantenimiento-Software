@@ -17,7 +17,7 @@ import '../global/globals.dart' as globals;
 //========================================//
 
 //BUGS:
-//VERIFICAR POR QUE EL SORTING NO FUNCIONA :'v (De momento existe ese error nomas)
+//  LAS NOTAS SE SOBREPONEN
 //
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
         color: Colors.black,
         iconSize: 25.0,
         onPressed: () {
-          context.read<Changes>().sortTodos(todosList);
+          context.read<Changes>().sortTodos();
         },
       ),
     );

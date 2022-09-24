@@ -15,15 +15,23 @@ class Changes with ChangeNotifier {
   String pageTitle = titulo;
   List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
   List<DeletedToDo> listPurgeTodos = []; //Para eliminar de un "golpe"
+  bool Order = true; //Para ordenar ascendente o descentente
   void setListTodo(List<ToDo> list) {
     listTodo = list;
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
   }
 
-  void sortTodos(List<ToDo> toSort) {
-    toSort.sort(
-        (a, b) => b.todoTitle.toString().compareTo(a.todoTitle.toString()));
-    setListTodo(toSort);
+  void sortTodos() {
+    listTodo.sort(
+        (a, b) => a.todoTitle.toString().compareTo(b.todoTitle.toString()));
+
+    if (Order == true) {
+      Order = false;
+    } else {
+      listTodo = listTodo.reversed.toList();
+      Order = true;
+    }
+
     notifyListeners();
   }
 

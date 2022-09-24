@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/constants/colors.dart';
 import 'package:flutter_todo_app/model/category.dart';
 
+//========================================//
+//                                        //
+//    WIDGET DE SELECCION DE CATEGORIA    //
+//                                        //
+//========================================//
+
+//USO EN:
+//  edit_todo
+//  new_todo
+//
+//BUGS:
+//
+
 class CategoryPicker extends StatefulWidget {
   const CategoryPicker(
       {Key? key,

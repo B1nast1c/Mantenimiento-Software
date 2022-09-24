@@ -4,6 +4,18 @@ import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../screens/edit_todo.dart';
 
+//========================================//
+//                                        //
+//             WIDGET DE NOTA             //
+//                                        //
+//========================================//
+
+//USO EN:
+//  home
+//
+//BUGS:
+//
+
 class ToDoItem extends StatelessWidget {
   final ToDo todo;
   // ignore: prefer_typing_uninitialized_variables

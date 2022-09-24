@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+//========================================//
+//                                        //
+//      WIDGET DE SELECCION DE COLOR      //
+//                                        //
+//========================================//
+
+//USO EN:
+//  edit_todo
+//  new_todo
+//
+//BUGS:
+//
+
 List<Color> colors = const [
   Color(0xffff9aa2),
   Color(0xffffb7b2),

@@ -6,6 +6,15 @@ import '../constants/colors.dart';
 import '../providers/provider.dart';
 import '../widgets/color_picker.dart';
 
+//========================================//
+//                                        //
+//          PANTALLA CREAR NOTAS          //
+//                                        //
+//========================================//
+
+//BUGS:
+//
+
 class NewTodo extends StatefulWidget {
   const NewTodo({Key? key}) : super(key: key);
 

@@ -5,6 +5,14 @@ import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../providers/provider.dart';
 
+//========================================//
+//                                        //
+//      PANTALLA AÑADIR CATEGORIAS        //
+//                                        //
+//========================================//
+
+//BUGS:
+//
 class FullCategories extends StatefulWidget {
   const FullCategories({Key? key}) : super(key: key);
 

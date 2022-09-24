@@ -5,6 +5,19 @@ import '../model/category.dart';
 import '../global/globals.dart' as globals;
 import '../providers/provider.dart';
 
+//========================================//
+//                                        //
+//          WIDGET DE CATEGORIA           //
+//                                        //
+//========================================//
+
+//USO EN:
+//  new_category
+//  sidebar_menu
+//
+//BUGS:
+//
+
 class CategoryItem extends StatefulWidget {
   final CategoriaTodo categoria;
   // ignore: prefer_typing_uninitialized_variables

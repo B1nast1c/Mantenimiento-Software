@@ -10,8 +10,15 @@ import '../widgets/sidebar_menu.dart';
 import '../screens/new_todo.dart';
 import '../global/globals.dart' as globals;
 
-//VERIFICAR POR QUE EL SORTING NO FUNCIONA :'v (De momento existe ese error nomas)
+//========================================//
+//                                        //
+//           PANTALLA PRINCIPAL           //
+//                                        //
+//========================================//
 
+//BUGS:
+//VERIFICAR POR QUE EL SORTING NO FUNCIONA :'v (De momento existe ese error nomas)
+//
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
 

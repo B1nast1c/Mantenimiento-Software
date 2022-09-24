@@ -5,6 +5,14 @@ import '../constants/colors.dart';
 import '../widgets/category_picker.dart';
 import '../widgets/color_picker.dart';
 
+//========================================//
+//                                        //
+//       PANTALLA EDICION DE NOTAS        //
+//                                        //
+//========================================//
+
+//BUGS:
+//
 class EditTodo extends StatefulWidget {
   const EditTodo({Key? key, required this.item, required this.category})
       : super(key: key);

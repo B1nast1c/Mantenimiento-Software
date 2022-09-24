@@ -1,14 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_todo_app/constants/colors.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
-import 'package:flutter_todo_app/widgets/deleted_todo.dart';
+import 'package:flutter_todo_app/widgets/deleted_todo_item.dart';
 import 'package:provider/provider.dart';
 
-import '../model/todo.dart';
 import '../providers/provider.dart';
+
+//========================================//
+//                                        //
+//    PANTALLA PAPELERA DE RECICLAJE      //
+//                                        //
+//========================================//
+
+//BUGS:
+//ERROR DE EXCEPCIONES CUANDO HAY UNA NOTA EN LA PAPELERA DE RECICLAJE
 
 class DeletedToDos extends StatefulWidget {
   const DeletedToDos({Key? key}) : super(key: key);
@@ -63,7 +70,6 @@ class _DeletedToDosState extends State<DeletedToDos> {
   }
 
   Widget _createTodo(DeletedToDo todoo) {
-    //startTimer(todoo);
     context.read<Changes>().purgeTodo(todoo);
     return Column(
       children: [
@@ -82,16 +88,6 @@ class _DeletedToDosState extends State<DeletedToDos> {
       ],
     );
   }
-
-  /* void startTimer(DeletedToDo todoo) {
-    const timeInterval = Duration(seconds: 1);
-    countDown = Timer.periodic(timeInterval, (Timer timer) {
-      while (todoo.remainingTime > 0) {
-        print(todoo.todoTitle.toString() + todoo.remainingTime.toString());
-        
-      }
-    });
-  }*/
 
   void _updateScreen() {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {

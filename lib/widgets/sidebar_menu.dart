@@ -8,6 +8,18 @@ import '../providers/provider.dart';
 import '../screens/new_category.dart';
 import '../global/globals.dart' as globals;
 
+//========================================//
+//                                        //
+//       WIDGET DE MENÚ DEL COSTADO       //
+//                                        //
+//========================================//
+
+//USO EN:
+//  home
+//
+//BUGS:
+//
+
 // ignore: camel_case_types
 class sidebarMenu extends StatefulWidget {
   const sidebarMenu({

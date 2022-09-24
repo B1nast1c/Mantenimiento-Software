@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import '../model/deleted_todo.dart';
 import '../constants/colors.dart';
 
+//========================================//
+//                                        //
+//        WIDGET DE NOTA ELIMINADA        //
+//                                        //
+//========================================//
+
+//USO EN:
+//  deleted_todos
+//
+//BUGS:
+//
+
 class DeletedToDoItem extends StatelessWidget {
   final DeletedToDo todo;
 

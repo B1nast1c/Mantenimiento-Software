@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_todo_app/constants/colors.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
 import 'package:flutter_todo_app/widgets/deleted_todo.dart';
@@ -21,7 +22,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
   @override
   Widget build(BuildContext context) {
     var deletedList = context.watch<Changes>().deletedTodos;
-
+    _updateScreen();
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -62,8 +63,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
   }
 
   Widget _createTodo(DeletedToDo todoo) {
-    startTimer(todoo);
-
+    //startTimer(todoo);
+    context.read<Changes>().purgeTodo(todoo);
     return Column(
       children: [
         Container(
@@ -82,12 +83,22 @@ class _DeletedToDosState extends State<DeletedToDos> {
     );
   }
 
-  void startTimer(DeletedToDo todoo) {
+  /* void startTimer(DeletedToDo todoo) {
     const timeInterval = Duration(seconds: 1);
     countDown = Timer.periodic(timeInterval, (Timer timer) {
       while (todoo.remainingTime > 0) {
         print(todoo.todoTitle.toString() + todoo.remainingTime.toString());
-        todoo.remainingTime--;
+        
+      }
+    });
+  }*/
+
+  void _updateScreen() {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (mounted) {
+        setState(() {
+          context.read<Changes>().cleanDeletes();
+        });
       }
     });
   }

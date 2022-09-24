@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_todo_app/global/globals.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
@@ -12,7 +14,7 @@ class Changes with ChangeNotifier {
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;
   List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
-
+  List<DeletedToDo> listPurgeTodos = []; //Para eliminar de un "golpe"
   void setListTodo(List<ToDo> list) {
     listTodo = list;
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
@@ -30,6 +32,13 @@ class Changes with ChangeNotifier {
     notifyListeners();
   }
 
+  void purgeTodo(DeletedToDo deleted) {
+    if (deleted.remainingTime <= 0) {
+      listPurgeTodos.add(deleted);
+    }
+    notifyListeners();
+  }
+
   void setCategories(List<CategoriaTodo> list) {
     listCategories = list;
     notifyListeners();
@@ -44,6 +53,19 @@ class Changes with ChangeNotifier {
     DeletedToDo deleted = DeletedToDo(
         id: todo.id, todoTitle: todo.todoTitle, todoText: todo.todoText);
     deletedTodos.add(deleted);
+    deleted.startTimer();
     notifyListeners();
   }
+
+  void cleanDeletes() {
+    deletedTodos.removeWhere((item) => listPurgeTodos.contains(item));
+    notifyListeners();
+  }
+/* Intento fallido para actualizar pantalla (por ahora xD)
+  void updateTime(DeletedToDo deleted) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+    });
+    deletedTodos.removeWhere((item) => item.id == deleted.id);
+    notifyListeners();
+  }*/
 }

@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
+import 'package:provider/provider.dart';
+import '../providers/provider.dart';
 
 class DeletedToDo {
   String? id;
@@ -8,6 +12,18 @@ class DeletedToDo {
   Color? ncolor;
   String? category;
   int remainingTime;
+
+  void startTimer() {
+    const timeInterval = Duration(seconds: 1);
+    print('Comenzo');
+    Timer.periodic(timeInterval, (Timer timer) {
+      print(todoTitle.toString() + ' ' + remainingTime.toString());
+      remainingTime--;
+      if (remainingTime == 0) {
+        timer.cancel();
+      }
+    });
+  }
 
   DeletedToDo(
       {required this.id,

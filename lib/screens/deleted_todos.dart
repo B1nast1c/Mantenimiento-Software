@@ -70,23 +70,30 @@ class _DeletedToDosState extends State<DeletedToDos> {
   }
 
   Widget _createTodo(DeletedToDo todoo) {
-    context.read<Changes>().purgeTodo(todoo);
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(right: 20.0, bottom: 5),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'Remaining time: ${todoo.remainingTime}',
-              style: const TextStyle(
-                  color: rojoIntenso, fontWeight: FontWeight.bold),
+    if (todoo.dead == false) {
+      context.read<Changes>().purgeTodo(todoo);
+      return Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(right: 20.0, bottom: 5),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                'Remaining time: ${todoo.remainingTime}',
+                style: const TextStyle(
+                    color: rojoIntenso, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-        ),
-        DeletedToDoItem(todo: todoo)
-      ],
-    );
+          DeletedToDoItem(
+            todo: todoo,
+            removeToDo: removeToDo,
+            restoreToDo: restoreToDo,
+          )
+        ],
+      );
+    }
+    return Container();
   }
 
   void _updateScreen() {
@@ -97,5 +104,16 @@ class _DeletedToDosState extends State<DeletedToDos> {
         });
       }
     });
+  }
+
+  void removeToDo(DeletedToDo deleted) {
+    //Aqui van las modificaciones de eliminación
+    context.read<Changes>().removeToDoItem(deleted);
+  }
+
+  void restoreToDo(DeletedToDo deleted) {
+    //Aqui van las modificaciones de eliminación
+    context.read<Changes>().restoreDeleted(deleted);
+    context.read<Changes>().removeToDoItem(deleted);
   }
 }

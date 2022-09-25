@@ -16,10 +16,14 @@ import '../constants/colors.dart';
 
 class DeletedToDoItem extends StatelessWidget {
   final DeletedToDo todo;
+  final removeToDo;
+  final restoreToDo;
 
   const DeletedToDoItem({
     Key? key,
     required this.todo,
+    required this.removeToDo,
+    required this.restoreToDo,
   }) : super(key: key);
 
   @override
@@ -33,7 +37,8 @@ class DeletedToDoItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20, left: 20.0, right: 20.0),
       child: ListTile(
         onTap: () {
-          print("Detalle de la nota"); //Nueva interfaz
+          restoreToDo(todo);
+          print("Salvar nota"); //Nueva interfaz
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -65,6 +70,7 @@ class DeletedToDoItem extends StatelessWidget {
             iconSize: 18,
             icon: const Icon(Icons.delete),
             onPressed: () {
+              removeToDo(todo);
               print('Elimina pa siempre');
             },
           ),

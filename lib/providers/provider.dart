@@ -41,9 +41,14 @@ class Changes with ChangeNotifier {
   }
 
   void purgeTodo(DeletedToDo deleted) {
-    if (deleted.remainingTime <= 0) {
+    if (deleted.remainingTime <= 1) {
       listPurgeTodos.add(deleted);
     }
+    notifyListeners();
+  }
+
+  void removeToDoItem(DeletedToDo deleted) {
+    deletedTodos.removeWhere((item) => item.id == deleted.id);
     notifyListeners();
   }
 
@@ -64,9 +69,26 @@ class Changes with ChangeNotifier {
 
   void addDeleted(ToDo todo) {
     DeletedToDo deleted = DeletedToDo(
-        id: todo.id, todoTitle: todo.todoTitle, todoText: todo.todoText);
+        id: todo.id,
+        todoTitle: todo.todoTitle,
+        todoText: todo.todoText,
+        ncolor: todo.ncolor,
+        category: todo.category);
     deletedTodos.add(deleted);
     deleted.startTimer();
+    notifyListeners();
+  }
+
+  void restoreDeleted(DeletedToDo todo) {
+    ToDo deleted = ToDo(
+        id: todo.id,
+        todoTitle: todo.todoTitle,
+        todoText: todo.todoText,
+        ncolor: todo.ncolor,
+        category: todo.category);
+    print('fUNCIONA');
+    print(deleted.todoTitle);
+    listTodo.add(deleted);
     notifyListeners();
   }
 

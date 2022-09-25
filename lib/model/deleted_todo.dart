@@ -12,6 +12,7 @@ class DeletedToDo {
   Color? ncolor;
   String? category;
   int remainingTime;
+  bool dead;
 
   void startTimer() {
     const timeInterval = Duration(seconds: 1);
@@ -21,6 +22,7 @@ class DeletedToDo {
       remainingTime--;
       if (remainingTime == 0) {
         timer.cancel();
+        dead = true;
       }
     });
   }
@@ -30,6 +32,7 @@ class DeletedToDo {
       required this.todoTitle,
       required this.todoText,
       this.ncolor = rojoClaro,
-      this.remainingTime = 15,
-      this.category = 'Deleted'});
+      this.remainingTime = 20,
+      this.category = 'Deleted',
+      this.dead = false});
 }

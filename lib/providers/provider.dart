@@ -15,7 +15,7 @@ class Changes with ChangeNotifier {
   String pageTitle = titulo;
   List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
   List<DeletedToDo> listPurgeTodos = []; //Para eliminar de un "golpe"
-  bool Order = true; //Para ordenar ascendente o descentente
+  bool order = true; //Para ordenar ascendente o descentente
   void setListTodo(List<ToDo> list) {
     listTodo = list;
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
@@ -25,11 +25,11 @@ class Changes with ChangeNotifier {
     listTodo.sort(
         (a, b) => a.todoTitle.toString().compareTo(b.todoTitle.toString()));
 
-    if (Order == true) {
-      Order = false;
+    if (order == true) {
+      order = false;
     } else {
       listTodo = listTodo.reversed.toList();
-      Order = true;
+      order = true;
     }
 
     notifyListeners();
@@ -49,6 +49,11 @@ class Changes with ChangeNotifier {
 
   void setCategories(List<CategoriaTodo> list) {
     listCategories = list;
+    notifyListeners();
+  }
+
+  void changeUsedTrue() {
+    //Una vez que seleccionamos la categoria vamos al home para actualizar las categorias
     notifyListeners();
   }
 

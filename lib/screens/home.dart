@@ -17,7 +17,7 @@ import '../global/globals.dart' as globals;
 //========================================//
 
 //BUGS:
-//  LAS NOTAS SE SOBREPONEN
+//
 //
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
@@ -61,17 +61,22 @@ class _HomeState extends State<Home> {
                     searchBox(),
                   ]),
                   Expanded(
-                    child: ListView(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                            top: 20,
-                            bottom: 20,
+                    child: Card(
+                      color: tdBGColor,
+                      shadowColor: Colors.transparent,
+                      elevation: 0,
+                      child: ListView(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                              top: 20,
+                              bottom: 20,
+                            ),
                           ),
-                        ),
-                        for (ToDo todoo in todosList.reversed)
-                          _createTodo(todoo),
-                      ],
+                          for (ToDo todoo in todosList.reversed)
+                            _createTodo(todoo),
+                        ],
+                      ),
                     ),
                   )
                 ],

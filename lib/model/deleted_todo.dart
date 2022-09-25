@@ -30,6 +30,6 @@ class DeletedToDo {
       required this.todoTitle,
       required this.todoText,
       this.ncolor = rojoClaro,
-      this.remainingTime = 10,
+      this.remainingTime = 15,
       this.category = 'Deleted'});
 }

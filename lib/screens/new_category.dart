@@ -12,7 +12,7 @@ import '../providers/provider.dart';
 //========================================//
 
 //BUGS:
-//  NO FUNCIONA
+//
 class FullCategories extends StatefulWidget {
   const FullCategories({Key? key}) : super(key: key);
 
@@ -80,14 +80,9 @@ class _FullCategoriesState extends State<FullCategories> {
     });
   }
 
-  void _changeUsedTrue(CategoriaTodo cat, List<CategoriaTodo> list) {
-    //Una vez que seleccionamos la categoria vamos al home para actualizar las categorias
-    setState(() {
-      cat.isUsed = true;
-    });
-
-    context.read<Changes>().setCategories(list);
-    Navigator.pop(context);
+  void _changeUsedTrue(CategoriaTodo cat) {
+    //Una vez que seleccionamos la categoria vamos al home para actualizar las categori
+    cat.isUsed = true;
   }
 
   Widget _createCategory(CategoriaTodo cat, List<CategoriaTodo> list) {

@@ -39,118 +39,115 @@ class _sidebarMenuState extends State<sidebarMenu> {
     return Drawer(
       child: Column(
         children: [
-          Expanded(
-            child: DrawerHeader(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom:
-                        Divider.createBorderSide(context, color: Colors.white),
+          Container(
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  height: 135,
+                  width: 135,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100.0),
+                    child: Image.asset(
+                      "assets/images/avatar.jpeg",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
+                Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: const Text(
+                    "User",
+                  ),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+              child: ListView(children: [
+            Container(
+                margin: const EdgeInsets.only(bottom: 25.0, left: 15.0),
+                alignment: Alignment.center,
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      height: 135,
-                      width: 135,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100.0),
-                        child: Image.asset(
-                          "assets/images/avatar.jpeg",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: const Text(
-                        "User",
-                      ),
-                    )
-                  ],
-                )),
-          ),
-          Container(
-              margin: const EdgeInsets.only(bottom: 35.0, left: 15.0),
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 5),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const DeletedToDos())),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 1),
-                          leading: const Icon(
-                            Icons.delete,
-                            color: rojoIntenso,
-                          ),
-                          title: const Text(
-                            "TrashCan",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: rojoIntenso,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        ListTile(
-                          onTap: () {
-                            _changeListNotes([
-                              'Deleted',
-                              'Uncategorized',
-                              'Personal',
-                              'Work',
-                              'Shopping',
-                              'Learn',
-                              'Wishlist'
-                            ]);
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 1),
-                          leading: const Icon(Icons.toc),
-                          title: const Text(
-                            "All",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  for (CategoriaTodo category in categoriesList)
-                    _createCategory(
-                        category), //Crea las categorias que tienen el atributo usado en TRUE
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 2.0),
-                    leading: IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () => {
-                              Navigator.push(
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const FullCategories()),
+                                        const DeletedToDos())),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 1),
+                            leading: const Icon(
+                              Icons.delete,
+                              color: rojoIntenso,
+                            ),
+                            title: const Text(
+                              "TrashCan",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: rojoIntenso,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          ListTile(
+                            onTap: () {
+                              _changeListNotes([
+                                'Deleted',
+                                'Uncategorized',
+                                'Personal',
+                                'Work',
+                                'Shopping',
+                                'Learn',
+                                'Wishlist'
+                              ]);
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 1),
+                            leading: const Icon(Icons.toc),
+                            title: const Text(
+                              "All",
+                              style: TextStyle(
+                                fontSize: 16,
                               ),
-                            }),
-                    title: const Text(
-                      "Add Category",
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                    for (CategoriaTodo category in categoriesList)
+                      _createCategory(
+                          category), //Crea las categorias que tienen el atributo usado en TRUE
+                    ListTile(
+                      contentPadding: const EdgeInsets.only(left: 2.0),
+                      leading: IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const FullCategories()),
+                                ),
+                              }),
+                      title: const Text(
+                        "Add Category",
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ))
+          ])),
         ],
       ),
     );

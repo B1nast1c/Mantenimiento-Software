@@ -47,8 +47,10 @@ class _CategoryItemState extends State<CategoryItem> {
             _changeListNotes();
             context.read<Changes>().setTitle(widget.categoria.catText!);
           } else {
-            widget.changeUsed(widget.categoria);
-            Navigator.pop(context);
+            setState(() {
+              widget.changeUsed(widget.categoria);
+            });
+            context.read<Changes>().changeUsedTrue();
           }
         },
         shape: RoundedRectangleBorder(
@@ -85,7 +87,7 @@ class _CategoryItemState extends State<CategoryItem> {
   void _changeListNotes() {
     //Actualización de las notas y la categoría
     setState(() {
-      List<String> lista = [];
+      List<String> lista = [widget.categoria.catText!];
       globals.CategoriasActivas = lista;
       globals.titulo =
           widget.categoria.catText!; //Texto de la categoría seleccionada

@@ -11,6 +11,7 @@ import '../model/category.dart';
 
 class Changes with ChangeNotifier {
   List<ToDo> listTodo = ToDo.todoList();
+  List<ToDo> listTodoVisibles = ToDo.todoList();
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;
   List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
@@ -18,7 +19,17 @@ class Changes with ChangeNotifier {
   bool order = true; //Para ordenar ascendente o descentente
   void setListTodo(List<ToDo> list) {
     listTodo = list;
+    listTodoVisibles = list;
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  void setListTodoVisibles(List<ToDo> list) {
+    listTodoVisibles = list;
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  List<ToDo> getTodos() {
+    return listTodo;
   }
 
   void sortTodos() {
@@ -37,6 +48,7 @@ class Changes with ChangeNotifier {
 
   void deleteTodo(ToDo todo) {
     listTodo.removeWhere((item) => item.id == todo.id);
+    listTodoVisibles = listTodo;
     notifyListeners();
   }
 
@@ -49,6 +61,7 @@ class Changes with ChangeNotifier {
 
   void removeToDoItem(DeletedToDo deleted) {
     deletedTodos.removeWhere((item) => item.id == deleted.id);
+
     notifyListeners();
   }
 
@@ -86,9 +99,8 @@ class Changes with ChangeNotifier {
         todoText: todo.todoText,
         ncolor: todo.ncolor,
         category: todo.category);
-    print('fUNCIONA');
-    print(deleted.todoTitle);
     listTodo.add(deleted);
+    listTodoVisibles = listTodo;
     notifyListeners();
   }
 

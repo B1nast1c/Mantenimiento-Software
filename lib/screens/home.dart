@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var todosList = context.watch<Changes>().listTodo;
     var title = context.watch<Changes>().pageTitle;
-
+    var todosVisibles = context.watch<Changes>().listTodoVisibles;
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                               bottom: 20,
                             ),
                           ),
-                          for (ToDo todoo in todosList.reversed)
+                          for (ToDo todoo in todosVisibles.reversed)
                             _createTodo(todoo),
                         ],
                       ),
@@ -132,12 +132,14 @@ class _HomeState extends State<Home> {
     context.read<Changes>().addDeleted(todo);
   }
 
-  void _runFilter(String enteredKeyword) {
+  void _runFilter(String enteredKeyword, List<ToDo> listaAct) {
     List<ToDo> results = [];
+    setState(() {});
+    List<ToDo> listaAct2 = context.read<Changes>().getTodos();
     if (enteredKeyword.isEmpty) {
-      results = todosList;
+      results = listaAct2;
     } else {
-      results = todosList
+      results = listaAct2
           .where((item) =>
               item.todoTitle!
                   .toLowerCase()
@@ -147,10 +149,10 @@ class _HomeState extends State<Home> {
                   .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
+    context.read<Changes>().setListTodoVisibles(
+        results); //Filtrar los resultados de la lista del provider
 
-    context
-        .read<Changes>()
-        .setListTodo(results); //Filtrar los resultados de la lista del provider
+    //HAY QU CREARR UNA LISTA ORIGINAL Y UNA LISTA VISIBLE, LA VISIBLE FUNCIONA PARA MOSTRAR KIS
   }
 
   Widget sortingIcon() {
@@ -176,7 +178,7 @@ class _HomeState extends State<Home> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
-        onChanged: (value) => _runFilter(value),
+        onChanged: (value) => _runFilter(value, todosList),
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(

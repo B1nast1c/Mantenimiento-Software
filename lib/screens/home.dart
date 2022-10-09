@@ -36,6 +36,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var todosList = context.watch<Changes>().listTodo;
     var title = context.watch<Changes>().pageTitle;
+    var cantidad = context.watch<Changes>().cantidad;
     var todosVisibles = context.watch<Changes>().listTodoVisibles;
     return Scaffold(
       backgroundColor: tdBGColor,
@@ -59,6 +60,21 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     searchBox(),
+                    Container(
+                      height: 30.0,
+                      margin: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Total quantity: $cantidad",
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
                   ]),
                   Expanded(
                     child: Card(
@@ -69,7 +85,7 @@ class _HomeState extends State<Home> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(
-                              top: 20,
+                              top: 10,
                               bottom: 20,
                             ),
                           ),
@@ -149,6 +165,7 @@ class _HomeState extends State<Home> {
                   .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
+
     context.read<Changes>().setListTodoVisibles(
         results); //Filtrar los resultados de la lista del provider
 
@@ -216,6 +233,7 @@ class _HomeState extends State<Home> {
 
   Widget _createTodo(ToDo todoo) {
     //Categorias que se muestran en la pantalla
+
     if (globals.CategoriasActivas.contains(todoo.category)) {
       return ToDoItem(
         todo: todoo,

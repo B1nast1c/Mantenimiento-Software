@@ -181,6 +181,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
     setState(() {
       globals.CategoriasActivas = lista;
       context.read<Changes>().setTitle('All Todos');
+      context.read<Changes>().resetCantidad();
       Navigator.pop(context);
     });
   }

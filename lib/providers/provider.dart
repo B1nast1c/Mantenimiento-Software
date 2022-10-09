@@ -11,6 +11,7 @@ import '../model/category.dart';
 
 class Changes with ChangeNotifier {
   List<ToDo> listTodo = ToDo.todoList();
+  int cantidad = 0;
   List<ToDo> listTodoVisibles = ToDo.todoList();
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;
@@ -20,11 +21,13 @@ class Changes with ChangeNotifier {
   void setListTodo(List<ToDo> list) {
     listTodo = list;
     listTodoVisibles = list;
+    resetCantidad();
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
   }
 
   void setListTodoVisibles(List<ToDo> list) {
     listTodoVisibles = list;
+    resetCantidad();
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
   }
 
@@ -42,13 +45,13 @@ class Changes with ChangeNotifier {
       listTodo = listTodo.reversed.toList();
       order = true;
     }
-
     notifyListeners();
   }
 
   void deleteTodo(ToDo todo) {
     listTodo.removeWhere((item) => item.id == todo.id);
     listTodoVisibles = listTodo;
+    resetCantidad();
     notifyListeners();
   }
 
@@ -77,6 +80,7 @@ class Changes with ChangeNotifier {
 
   void setTitle(String title) {
     pageTitle = title;
+    resetCantidad();
     notifyListeners();
   }
 
@@ -101,6 +105,7 @@ class Changes with ChangeNotifier {
         category: todo.category);
     listTodo.add(deleted);
     listTodoVisibles = listTodo;
+    resetCantidad();
     notifyListeners();
   }
 
@@ -108,6 +113,15 @@ class Changes with ChangeNotifier {
     deletedTodos.removeWhere((item) => listPurgeTodos.contains(item));
     notifyListeners();
   }
+
+  void resetCantidad() {
+    cantidad = listTodoVisibles
+        .where((e) => CategoriasActivas.contains(e.category))
+        .length;
+    print(cantidad);
+    notifyListeners();
+  }
+
 /* Intento fallido para actualizar pantalla (por ahora xD)
   void updateTime(DeletedToDo deleted) {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {

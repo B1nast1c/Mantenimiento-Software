@@ -39,29 +39,27 @@ class _sidebarMenuState extends State<sidebarMenu> {
     return Drawer(
       child: Column(
         children: [
-          Container(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  height: 135,
-                  width: 135,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100.0),
-                    child: Image.asset(
-                      "assets/images/avatar.jpeg",
-                      fit: BoxFit.fill,
-                    ),
+          Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 50),
+                height: 135,
+                width: 135,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100.0),
+                  child: Image.asset(
+                    "assets/images/avatar.jpeg",
+                    fit: BoxFit.fill,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: const Text(
-                    "User",
-                  ),
-                )
-              ],
-            ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 10),
+                child: const Text(
+                  "User",
+                ),
+              )
+            ],
           ),
           Expanded(
               child: ListView(children: [

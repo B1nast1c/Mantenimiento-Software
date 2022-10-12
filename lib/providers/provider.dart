@@ -11,7 +11,7 @@ import '../model/category.dart';
 
 class Changes with ChangeNotifier {
   List<ToDo> listTodo = ToDo.todoList();
-  int cantidad = 0;
+  int cantidad = ToDo.todoList().length;
   List<ToDo> listTodoVisibles = ToDo.todoList();
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;

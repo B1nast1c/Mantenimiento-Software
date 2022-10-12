@@ -31,7 +31,7 @@ class DeletedToDoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => todo.startTimer());
+    //WidgetsBinding.instance.addPostFrameCallback((_) => todo.startTimer());
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

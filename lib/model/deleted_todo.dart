@@ -25,7 +25,8 @@ class DeletedToDo {
     const timeInterval = Duration(seconds: 1);
     Timer.periodic(timeInterval, (Timer timer) {
       remainingTime--;
-      if (remainingTime == 0) {
+      //print(remainingTime);
+      if (remainingTime <= 0) {
         timer.cancel();
         dead = true;
       }

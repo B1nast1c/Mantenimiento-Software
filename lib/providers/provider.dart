@@ -55,7 +55,7 @@ class Changes with ChangeNotifier {
 
   void purgeTodo(DeletedToDo deleted) {
     //Para que sirve esto?, esto es lo que causa la excepción
-    if (deleted.remainingTime <= 1) {
+    if (deleted.remainingTime < 1) {
       listPurgeTodos.add(deleted);
     }
     notifyListeners();
@@ -92,7 +92,7 @@ class Changes with ChangeNotifier {
         category: todo.category);
     deletedTodos.add(deleted);
     notifyListeners();
-    //deleted.startTimer();
+    deleted.startTimer();
   }
 
   void restoreDeleted(DeletedToDo todo) {

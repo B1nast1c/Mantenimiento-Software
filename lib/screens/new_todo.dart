@@ -203,9 +203,7 @@ class _NewTodoState extends State<NewTodo> {
   }
 
   void _addToDoItem(String toDoTitle, String toDoContent, List<ToDo> list) {
-    if (_category == null) {
-      _category = 'Uncategorized';
-    }
+    _category ??= 'Uncategorized';
 
     ToDo nota = ToDo(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -215,7 +213,6 @@ class _NewTodoState extends State<NewTodo> {
         category: _category);
 
     list.add(nota);
-    print(nota.category);
     context.read<Changes>().setListTodo(list);
 
     _todoControllerTitle.clear();

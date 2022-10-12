@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/screens/detail_deleted_todo.dart';
 import '../model/deleted_todo.dart';
 import '../constants/colors.dart';
 
@@ -16,7 +17,9 @@ import '../constants/colors.dart';
 
 class DeletedToDoItem extends StatelessWidget {
   final DeletedToDo todo;
+  // ignore: prefer_typing_uninitialized_variables
   final removeToDo;
+  // ignore: prefer_typing_uninitialized_variables
   final restoreToDo;
 
   const DeletedToDoItem({
@@ -28,17 +31,25 @@ class DeletedToDoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => todo.startTimer());
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: rojoIntenso, width: 1.5 // red as border color
-            ),
+        border: Border.all(color: rojoIntenso, width: 1.5),
       ),
       margin: const EdgeInsets.only(bottom: 20, left: 20.0, right: 20.0),
+      //Al darle click debe mostrarse la pantalla de visualización de detalle
       child: ListTile(
         onTap: () {
-          restoreToDo(todo);
-          print("Salvar nota"); //Nueva interfaz
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailDeletedTodo(
+                      item: todo,
+                      restore_item: (DeletedToDo item) => restoreToDo(item),
+                    )),
+          );
+          //restoreToDo(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -70,8 +81,8 @@ class DeletedToDoItem extends StatelessWidget {
             iconSize: 18,
             icon: const Icon(Icons.delete),
             onPressed: () {
+              //Eliminación permanente
               removeToDo(todo);
-              print('Elimina pa siempre');
             },
           ),
         ),

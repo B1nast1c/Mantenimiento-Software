@@ -34,6 +34,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var todosList = context.watch<Changes>().listTodo;
     var title = context.watch<Changes>().pageTitle;
     var cantidad = context.watch<Changes>().cantidad;
@@ -70,7 +71,7 @@ class _HomeState extends State<Home> {
                         "Total quantity: $cantidad",
                         textAlign: TextAlign.right,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -115,9 +116,9 @@ class _HomeState extends State<Home> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: weso,
+                      primary: tdBGColor,
                       minimumSize: const Size(60, 60),
-                      elevation: 10,
+                      elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),

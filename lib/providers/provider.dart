@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_todo_app/global/globals.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
@@ -56,6 +54,7 @@ class Changes with ChangeNotifier {
   }
 
   void purgeTodo(DeletedToDo deleted) {
+    //Para que sirve esto?, esto es lo que causa la excepción
     if (deleted.remainingTime <= 1) {
       listPurgeTodos.add(deleted);
     }
@@ -92,8 +91,8 @@ class Changes with ChangeNotifier {
         ncolor: todo.ncolor,
         category: todo.category);
     deletedTodos.add(deleted);
-    deleted.startTimer();
     notifyListeners();
+    //deleted.startTimer();
   }
 
   void restoreDeleted(DeletedToDo todo) {
@@ -118,7 +117,6 @@ class Changes with ChangeNotifier {
     cantidad = listTodoVisibles
         .where((e) => CategoriasActivas.contains(e.category))
         .length;
-    print(cantidad);
     notifyListeners();
   }
 

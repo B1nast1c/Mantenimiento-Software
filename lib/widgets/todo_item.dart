@@ -74,9 +74,7 @@ class ToDoItem extends StatelessWidget {
             color: Colors.white,
             iconSize: 18,
             icon: const Icon(Icons.delete),
-            onPressed: () {
-              onDeleteItem(todo);
-            },
+            onPressed: () => onDeleteItem(todo),
           ),
         ),
       ),

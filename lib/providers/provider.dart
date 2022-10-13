@@ -108,6 +108,11 @@ class Changes with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteAllToDos() {
+    deletedTodos.clear();
+    notifyListeners();
+  }
+
   void cleanDeletes() {
     deletedTodos.removeWhere((item) => listPurgeTodos.contains(item));
     notifyListeners();

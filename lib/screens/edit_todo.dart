@@ -4,6 +4,8 @@ import 'package:flutter_todo_app/model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/category_picker.dart';
 import '../widgets/color_picker.dart';
+import 'package:provider/provider.dart';
+import '../providers/provider.dart';
 
 //========================================//
 //                                        //
@@ -224,6 +226,7 @@ class _EditTodoState extends State<EditTodo> {
       widget.item.todoText = toDoContent;
       widget.item.ncolor = _color;
       widget.item.category = selectedCat;
+      context.read<Changes>().changeUsedTrue();
     });
   }
 }

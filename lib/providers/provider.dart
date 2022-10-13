@@ -43,6 +43,14 @@ class Changes with ChangeNotifier {
       listTodo = listTodo.reversed.toList();
       order = true;
     }
+    listTodoVisibles = listTodo;
+    notifyListeners();
+  }
+
+  void editTodo(ToDo todo) {
+    listTodo.removeWhere((item) => item.id == todo.id);
+    listTodo.add(todo);
+    listTodoVisibles = listTodo;
     notifyListeners();
   }
 

@@ -3,6 +3,8 @@ import 'package:flutter_todo_app/model/category.dart';
 import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../screens/edit_todo.dart';
+import 'package:provider/provider.dart';
+import '../providers/provider.dart';
 
 //========================================//
 //                                        //
@@ -49,9 +51,14 @@ class ToDoItem extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: todo.ncolor,
-        leading: Icon(
-          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+        leading: IconButton(
+          icon: Icon(
+              todo.isDone ? Icons.check_box : Icons.check_box_outline_blank),
           color: Colors.black,
+          onPressed: () {
+            todo.isDone ? todo.isDone = false : todo.isDone = true;
+            context.read<Changes>().editTodo(todo);
+          },
         ),
         title: Text(
           todo.todoTitle!,

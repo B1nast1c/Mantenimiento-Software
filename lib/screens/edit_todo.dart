@@ -226,7 +226,8 @@ class _EditTodoState extends State<EditTodo> {
       widget.item.todoText = toDoContent;
       widget.item.ncolor = _color;
       widget.item.category = selectedCat;
-      context.read<Changes>().changeUsedTrue();
+      context.read<Changes>().editTodo(widget.item);
+      print("me llaman prro");
     });
   }
 }

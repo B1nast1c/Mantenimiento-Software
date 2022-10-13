@@ -85,6 +85,13 @@ class Changes with ChangeNotifier {
     notifyListeners();
   }
 
+  void aplicarCambio(ToDo todo) {
+    //Una vez que seleccionamos la categoria vamos al home para actualizar las categorias
+    //listTodoVisibles = listTodo;
+    listTodo.removeWhere((item) => item.id == todo.id);
+    notifyListeners();
+  }
+
   void setTitle(String title) {
     pageTitle = title;
     resetCantidad();

@@ -40,8 +40,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
         body: Container(
             color: Colors.white,
             child: Column(children: [
-              Column(children: const [
-                Center(
+              Column(children: [
+                const Center(
                   child: Text(
                     'Deleted ToDos',
                     textAlign: TextAlign.right,
@@ -51,6 +51,19 @@ class _DeletedToDosState extends State<DeletedToDos> {
                     ),
                   ),
                 ),
+                Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 15.0),
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.delete),
+                        label: const Text('Delete all'),
+                        style: TextButton.styleFrom(primary: Colors.red),
+                        onPressed: () {
+                          deleteAllToDos();
+                        },
+                      ),
+                    )),
               ]),
               Expanded(
                 child: ListView(
@@ -115,5 +128,9 @@ class _DeletedToDosState extends State<DeletedToDos> {
     //Aqui van las modificaciones de eliminación
     context.read<Changes>().restoreDeleted(deleted);
     context.read<Changes>().removeToDoItem(deleted);
+  }
+
+  void deleteAllToDos() {
+    context.read<Changes>().deleteAllToDos();
   }
 }

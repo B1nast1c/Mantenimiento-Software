@@ -28,8 +28,9 @@ class _DeletedToDosState extends State<DeletedToDos> {
 
   @override
   Widget build(BuildContext context) {
+    var deletedTodosVisibles = context.watch<Changes>().deletedTodosVisibles;
     var deletedList = context.watch<Changes>().deletedTodos;
-    _updateScreen();
+    _updateScreen(deletedTodosVisibles, deletedList);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -78,10 +79,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
                         bottom: 20,
                       ),
                     ),
-                    for (DeletedToDo deletedTodo in context
-                        .watch<Changes>()
-                        .deletedTodosVisibles
-                        .reversed)
+                    for (DeletedToDo deletedTodo
+                        in deletedTodosVisibles.reversed)
                       _createTodo(deletedTodo),
                   ],
                 ),
@@ -116,7 +115,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
     return Container();
   }
 
-  void _updateScreen() {
+  void _updateScreen(deletedTodosVisibles, deletedTodos) {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (mounted) {
         setState(() {
@@ -143,7 +142,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
 
   void _runFilter(String enteredKeyword, List<DeletedToDo> list) {
     List<DeletedToDo> results = [];
-    var listDeleted = context.read<Changes>().deletedTodosVisibles;
+    setState(() {});
+    var listDeleted = context.read<Changes>().getDeletedTodos();
     if (enteredKeyword.isEmpty) {
       results = listDeleted;
     } else {
@@ -156,8 +156,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
                   .toLowerCase()
                   .contains(enteredKeyword.toLowerCase()))
           .toList();
-      context.read<Changes>().setListDeletedVisibles(results);
     }
+    context.read<Changes>().setListDeletedVisibles(results);
     print(results);
   }
 

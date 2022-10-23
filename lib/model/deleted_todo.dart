@@ -17,7 +17,7 @@ class DeletedToDo {
       required this.todoTitle,
       required this.todoText,
       this.ncolor = rojoClaro,
-      this.remainingTime = 100, //Pruebas de momento
+      this.remainingTime = 200, //Pruebas de momento
       this.category = 'Deleted',
       this.dead = false});
 

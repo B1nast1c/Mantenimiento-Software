@@ -14,8 +14,10 @@ class Changes with ChangeNotifier {
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;
   List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
+  List<DeletedToDo> deletedTodosVisibles = []; //Eliminados sin tiempo de espera
   List<DeletedToDo> listPurgeTodos = []; //Para eliminar de un "golpe"
   bool order = true; //Para ordenar ascendente o descentente
+
   void setListTodo(List<ToDo> list) {
     listTodo = list;
     listTodoVisibles = list;
@@ -26,6 +28,16 @@ class Changes with ChangeNotifier {
   void setListTodoVisibles(List<ToDo> list) {
     listTodoVisibles = list;
     resetCantidad();
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  void setListDeletedVisibles(List<DeletedToDo> list) {
+    deletedTodos = list;
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  void setListDeleted(List<DeletedToDo> list) {
+    deletedTodosVisibles = list;
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
   }
 
@@ -99,8 +111,9 @@ class Changes with ChangeNotifier {
         ncolor: todo.ncolor,
         category: todo.category);
     deletedTodos.add(deleted);
+    deletedTodosVisibles.add(deleted);
     notifyListeners();
-    deleted.startTimer();
+    //deleted.startTimer(); para testear la busqueda
   }
 
   void restoreDeleted(DeletedToDo todo) {

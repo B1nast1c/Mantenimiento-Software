@@ -169,8 +169,6 @@ class _HomeState extends State<Home> {
 
     context.read<Changes>().setListTodoVisibles(
         results); //Filtrar los resultados de la lista del provider
-
-    //HAY QU CREARR UNA LISTA ORIGINAL Y UNA LISTA VISIBLE, LA VISIBLE FUNCIONA PARA MOSTRAR KIS
   }
 
   Widget sortingIcon() {

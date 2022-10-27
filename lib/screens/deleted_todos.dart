@@ -28,17 +28,18 @@ class _DeletedToDosState extends State<DeletedToDos> {
 
   @override
   Widget build(BuildContext context) {
+    var deletedTodosVisibles = context.watch<Changes>().deletedTodosVisibles;
     var deletedList = context.watch<Changes>().deletedTodos;
-    _updateScreen();
+    _updateScreen(deletedTodosVisibles, deletedList);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: tdBGColor,
           foregroundColor: Colors.black,
           elevation: 0,
         ),
         body: Container(
-            color: Colors.white,
+            color: tdBGColor,
             child: Column(children: [
               Column(children: [
                 const Center(
@@ -50,6 +51,10 @@ class _DeletedToDosState extends State<DeletedToDos> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: searchBox(deletedList),
                 ),
                 Align(
                     alignment: Alignment.topRight,
@@ -74,7 +79,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
                         bottom: 20,
                       ),
                     ),
-                    for (DeletedToDo deletedTodo in deletedList.reversed)
+                    for (DeletedToDo deletedTodo
+                        in deletedTodosVisibles.reversed)
                       _createTodo(deletedTodo),
                   ],
                 ),
@@ -109,7 +115,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
     return Container();
   }
 
-  void _updateScreen() {
+  void _updateScreen(deletedTodosVisibles, deletedTodos) {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (mounted) {
         setState(() {
@@ -132,5 +138,55 @@ class _DeletedToDosState extends State<DeletedToDos> {
 
   void deleteAllToDos() {
     context.read<Changes>().deleteAllToDos();
+  }
+
+  void _runFilter(String enteredKeyword, List<DeletedToDo> list) {
+    List<DeletedToDo> results = [];
+    setState(() {});
+    var listDeleted = context.read<Changes>().getDeletedTodos();
+    if (enteredKeyword.isEmpty) {
+      results = listDeleted;
+    } else {
+      results = listDeleted
+          .where((item) =>
+              item.todoTitle!
+                  .toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()) ||
+              item.todoText!
+                  .toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+    context.read<Changes>().setListDeletedVisibles(results);
+    print(results);
+  }
+
+  Widget searchBox(List<DeletedToDo> list) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+        onChanged: (value) => _runFilter(value, list),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: tdBlack,
+            size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 20,
+            minWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: 'Search',
+          hintStyle: TextStyle(color: tdGrey),
+        ),
+      ),
+    );
   }
 }

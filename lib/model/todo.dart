@@ -5,6 +5,8 @@ class ToDo {
   String? todoTitle;
   String? todoText;
   bool isDone;
+  String? date;
+  String? editdate;
   Color? ncolor;
   String? category;
 

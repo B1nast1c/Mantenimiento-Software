@@ -14,8 +14,10 @@ class Changes with ChangeNotifier {
   List<CategoriaTodo> listCategories = CategoriaTodo.fullCategory();
   String pageTitle = titulo;
   List<DeletedToDo> deletedTodos = []; //Eliminados sin tiempo de espera
+  List<DeletedToDo> deletedTodosVisibles = []; //Eliminados sin tiempo de espera
   List<DeletedToDo> listPurgeTodos = []; //Para eliminar de un "golpe"
   bool order = true; //Para ordenar ascendente o descentente
+
   void setListTodo(List<ToDo> list) {
     listTodo = list;
     listTodoVisibles = list;
@@ -29,8 +31,22 @@ class Changes with ChangeNotifier {
     notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
   }
 
+  void setListDeletedVisibles(List<DeletedToDo> list) {
+    deletedTodosVisibles = list;
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  void setListDeleted(List<DeletedToDo> list) {
+    deletedTodosVisibles = list;
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
   List<ToDo> getTodos() {
     return listTodo;
+  }
+
+  List<DeletedToDo> getDeletedTodos() {
+    return deletedTodos;
   }
 
   void sortTodos() {
@@ -71,7 +87,7 @@ class Changes with ChangeNotifier {
 
   void removeToDoItem(DeletedToDo deleted) {
     deletedTodos.removeWhere((item) => item.id == deleted.id);
-
+    deletedTodosVisibles = deletedTodos;
     notifyListeners();
   }
 
@@ -106,8 +122,9 @@ class Changes with ChangeNotifier {
         ncolor: todo.ncolor,
         category: todo.category);
     deletedTodos.add(deleted);
+    deletedTodosVisibles = deletedTodos;
     notifyListeners();
-    deleted.startTimer();
+    deleted.startTimer(); //para testear la busqueda
   }
 
   void restoreDeleted(DeletedToDo todo) {
@@ -125,12 +142,21 @@ class Changes with ChangeNotifier {
 
   void deleteAllToDos() {
     deletedTodos.clear();
+    deletedTodosVisibles = deletedTodos;
     notifyListeners();
   }
 
   void cleanDeletes() {
-    deletedTodos.removeWhere((item) => listPurgeTodos.contains(item));
+    if (listPurgeTodos.isNotEmpty) {
+      deletedTodos.removeWhere((item) => listPurgeTodos.contains(item));
+      listPurgeTodos = [];
+    }
+
     notifyListeners();
+  }
+
+  void DeleteRepeated() {
+    //ids.toSet().toList();
   }
 
   void resetCantidad() {

@@ -6,7 +6,9 @@ import '../widgets/category_picker.dart';
 import '../widgets/color_picker.dart';
 import 'package:provider/provider.dart';
 import '../providers/provider.dart';
+import 'package:intl/intl.dart';
 
+String editdate = DateFormat.yMMMEd().format(DateTime.now());
 //========================================//
 //                                        //
 //       PANTALLA EDICION DE NOTAS        //
@@ -60,14 +62,43 @@ class _EditTodoState extends State<EditTodo> {
                 Column(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 40.0, horizontal: 10.0),
+                      padding: EdgeInsets.only(bottom: 15.0),
                       child: Text(
                         'Edit ToDo',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Text(
+                              'Created at: ${widget.item.date}',
+                              style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: rojoIntenso),
+                              textAlign: TextAlign.left,
+                            ),
+                            Container(
+                                child: widget.item.editdate == null
+                                    ? Container()
+                                    : Text(
+                                        'Last edition at: ${widget.item.editdate}',
+                                        style: const TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: rojoIntenso),
+                                      )),
+                          ],
                         ),
                       ),
                     ),
@@ -226,8 +257,8 @@ class _EditTodoState extends State<EditTodo> {
       widget.item.todoText = toDoContent;
       widget.item.ncolor = _color;
       widget.item.category = selectedCat;
-      context.read<Changes>().editTodo(widget.item);
-      print("me llaman prro");
+      widget.item.editdate = editdate;
+      context.read<Changes>().changeUsedTrue();
     });
   }
 }

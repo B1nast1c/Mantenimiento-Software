@@ -5,7 +5,9 @@ import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../providers/provider.dart';
 import '../widgets/color_picker.dart';
+import 'package:intl/intl.dart';
 
+String date = DateFormat.yMMMEd().format(DateTime.now());
 //========================================//
 //                                        //
 //          PANTALLA CREAR NOTAS          //
@@ -211,7 +213,7 @@ class _NewTodoState extends State<NewTodo> {
         todoText: toDoContent,
         ncolor: _color,
         category: _category);
-
+    nota.date = date;
     list.add(nota);
     context.read<Changes>().setListTodo(list);
 

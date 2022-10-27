@@ -31,14 +31,12 @@ class DeletedToDoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //WidgetsBinding.instance.addPostFrameCallback((_) => todo.startTimer());
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: rojoIntenso, width: 1.5),
       ),
       margin: const EdgeInsets.only(bottom: 20, left: 20.0, right: 20.0),
-      //Al darle click debe mostrarse la pantalla de visualización de detalle
       child: ListTile(
         onTap: () {
           Navigator.push(
@@ -49,7 +47,6 @@ class DeletedToDoItem extends StatelessWidget {
                       restore_item: (DeletedToDo item) => restoreToDo(item),
                     )),
           );
-          //restoreToDo(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -80,10 +77,27 @@ class DeletedToDoItem extends StatelessWidget {
             color: Colors.white,
             iconSize: 18,
             icon: const Icon(Icons.delete),
-            onPressed: () {
-              //Eliminación permanente
-              removeToDo(todo);
-            },
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Attention'),
+                content:
+                    const Text('Are you sure you want to delete this ToDo?'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Nope'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      removeToDo(todo);
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Yep'),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

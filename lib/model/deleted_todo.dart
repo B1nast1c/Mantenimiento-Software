@@ -7,6 +7,8 @@ class DeletedToDo {
   String? id;
   String? todoTitle;
   String? todoText;
+  String? date;
+  String? editdate;
   Color? ncolor;
   String? category;
   int remainingTime;
@@ -19,7 +21,8 @@ class DeletedToDo {
       this.ncolor = rojoClaro,
       this.remainingTime = 200, //Pruebas de momento
       this.category = 'Deleted',
-      this.dead = false});
+      this.dead = false,
+      required date});
 
   void startTimer() {
     const timeInterval = Duration(seconds: 1);

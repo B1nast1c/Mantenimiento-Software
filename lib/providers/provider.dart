@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_todo_app/global/globals.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
 import 'package:flutter_todo_app/model/todo.dart';
+import 'package:flutter_todo_app/screens/edit_todo.dart';
+import 'package:flutter_todo_app/screens/new_todo.dart';
 
 import '../model/category.dart';
 
@@ -116,11 +118,15 @@ class Changes with ChangeNotifier {
 
   void addDeleted(ToDo todo) {
     DeletedToDo deleted = DeletedToDo(
-        id: todo.id,
-        todoTitle: todo.todoTitle,
-        todoText: todo.todoText,
-        ncolor: todo.ncolor,
-        category: todo.category);
+      id: todo.id,
+      todoTitle: todo.todoTitle,
+      todoText: todo.todoText,
+      date: todo.date,
+      ncolor: todo.ncolor,
+      category: todo.category,
+    );
+    deleted.date = todo.date;
+    deleted.editdate = todo.editdate;
     deletedTodos.add(deleted);
     deletedTodosVisibles = deletedTodos;
     notifyListeners();
@@ -134,8 +140,11 @@ class Changes with ChangeNotifier {
         todoText: todo.todoText,
         ncolor: todo.ncolor,
         category: todo.category);
+    deleted.date = todo.date;
+    deleted.editdate = todo.editdate;
     listTodo.add(deleted);
     listTodoVisibles = listTodo;
+
     resetCantidad();
     notifyListeners();
   }

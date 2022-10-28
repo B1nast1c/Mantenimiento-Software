@@ -16,7 +16,8 @@ class ToDo {
       required this.todoText,
       this.isDone = false,
       this.ncolor = Colors.white,
-      this.category = 'Uncategorized'});
+      this.category = 'Uncategorized',
+      String? date});
 
   static List<ToDo> todoList() {
     return [

@@ -1,40 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/widgets/category_picker.dart';
 import 'package:provider/provider.dart';
-import '../model/todo.dart';
-import '../constants/colors.dart';
-import '../providers/provider.dart';
-import '../widgets/color_picker.dart';
+import '/../model/check.dart';
+import '/../constants/colors.dart';
+import '/../providers/provider.dart';
+import '/../widgets/color_picker.dart';
 import 'package:intl/intl.dart';
 
 String date = DateFormat.yMMMEd().format(DateTime.now());
-//========================================//
-//                                        //
-//          PANTALLA CREAR NOTAS          //
-//                                        //
-//========================================//
 
-//BUGS:
-//
-
-class NewTodo extends StatefulWidget {
-  const NewTodo({Key? key}) : super(key: key);
+class NewCheck extends StatefulWidget {
+  NewCheck({Key? key}) : super(key: key);
 
   @override
-  State<NewTodo> createState() => _NewTodoState();
+  State<NewCheck> createState() => _NewCheckState();
 }
 
-class _NewTodoState extends State<NewTodo> {
+class _NewCheckState extends State<NewCheck> {
   Color _color = Colors.white;
   final _todoControllerTitle = TextEditingController();
   final _todoControllerContent = TextEditingController();
-  String? _category;
 
   @override
   Widget build(BuildContext context) {
-    var categoriesList = context.watch<Changes>().listCategories;
-    var todoList = context.watch<Changes>().listTodo;
-
+    var CheckList = context.watch<Changes>().listCheck;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
@@ -59,7 +47,7 @@ class _NewTodoState extends State<NewTodo> {
                       padding: EdgeInsets.symmetric(
                           vertical: 40.0, horizontal: 10.0),
                       child: Text(
-                        'Add new ToDo',
+                        'Add new Check',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 25,
@@ -107,65 +95,6 @@ class _NewTodoState extends State<NewTodo> {
                       ),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.only(left: 30, bottom: 10, top: 20),
-                      child: const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          'Description',
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: TextFormField(
-                        onChanged: (value) => _todoControllerContent.text =
-                            value, //Actualización del valor del input
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(left: 25.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                              borderSide: const BorderSide(
-                                  color: tdBGColor, width: 1.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: rojoIntenso, width: 1.0),
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                            hintText: 'Description',
-                            hintStyle: const TextStyle(
-                              color: tdGrey,
-                            ),
-                            fillColor: tdBGColor),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          top: 20.0, left: 30.0, bottom: 15.0),
-                      child: const Text(
-                        'Choose a category for your ToDo',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    CategoryPicker(
-                      listCat: categoriesList,
-                      onChanged: (String? newCategory) {
-                        setState(() => _category = newCategory);
-                      },
-                      category: 'null',
-                    ),
-                    Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
                       child: const Text(
@@ -195,7 +124,7 @@ class _NewTodoState extends State<NewTodo> {
                     iconSize: 35.0,
                     onPressed: () {
                       _addToDoItem(_todoControllerTitle.text,
-                          _todoControllerContent.text, todoList);
+                          _todoControllerContent.text, CheckList);
                       Navigator.pop(context);
                     },
                   ),
@@ -204,19 +133,16 @@ class _NewTodoState extends State<NewTodo> {
             )));
   }
 
-  void _addToDoItem(String toDoTitle, String toDoContent, List<ToDo> list) {
-    _category ??= 'Uncategorized';
-
-    ToDo nota = ToDo(
+  void _addToDoItem(String toDoTitle, String toDoContent, List<Check> list) {
+    Check nota = Check(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         todoTitle: toDoTitle,
-        todoText: toDoContent,
         ncolor: _color,
-        category: _category,
+        date: date,
         datef: DateTime.now());
-    nota.date = date;
+    //nota.date = date;
     list.add(nota);
-    context.read<Changes>().setListTodo(list);
+    context.read<Changes>().setListCheck(list);
 
     _todoControllerTitle.clear();
     _todoControllerContent.clear();

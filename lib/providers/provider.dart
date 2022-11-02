@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_todo_app/global/globals.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
 import 'package:flutter_todo_app/model/todo.dart';
+import 'package:flutter_todo_app/model/check.dart';
 import 'package:flutter_todo_app/screens/edit_todo.dart';
 import 'package:flutter_todo_app/screens/new_todo.dart';
 
@@ -19,6 +20,12 @@ class Changes with ChangeNotifier {
   List<DeletedToDo> deletedTodosVisibles = []; //Eliminados sin tiempo de espera
   List<DeletedToDo> listPurgeTodos = []; //Para eliminar de un "golpe"
   bool order = true; //Para ordenar ascendente o descentente
+
+  List<Check> listCheck = Check.checkListP();
+  int cantidadCheck = Check.checkListP().length;
+  List<Check> listCheckVisibles = Check.checkListP();
+  String pageTitleCheck = titulo;
+  bool orderCheck = true;
 
   void setListTodo(List<ToDo> list) {
     listTodo = list;
@@ -139,7 +146,8 @@ class Changes with ChangeNotifier {
         todoTitle: todo.todoTitle,
         todoText: todo.todoText,
         ncolor: todo.ncolor,
-        category: todo.category);
+        category: todo.category,
+        datef: DateTime.now());
     deleted.date = todo.date;
     deleted.editdate = todo.editdate;
     listTodo.add(deleted);
@@ -182,4 +190,56 @@ class Changes with ChangeNotifier {
     deletedTodos.removeWhere((item) => item.id == deleted.id);
     notifyListeners();
   }*/
+
+  //CHECKS
+
+  void setListCheck(List<Check> list) {
+    listCheck = list;
+    listCheckVisibles = list;
+    resetCantidadCheck();
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  void setListCheckVisibles(List<Check> list) {
+    listCheckVisibles = list;
+    resetCantidadCheck();
+    notifyListeners(); //notificamos a los widgets que esten escuchando el stream.
+  }
+
+  List<Check> getChecks() {
+    return listCheck;
+  }
+
+  void sortChecks() {
+    listCheck.sort(
+        (a, b) => a.todoTitle.toString().compareTo(b.todoTitle.toString()));
+
+    if (orderCheck == true) {
+      orderCheck = false;
+    } else {
+      listCheck = listCheck.reversed.toList();
+      orderCheck = true;
+    }
+    listCheckVisibles = listCheck;
+    notifyListeners();
+  }
+
+  void editCheck(Check todo) {
+    listCheck.removeWhere((item) => item.id == todo.id);
+    listCheck.add(todo);
+    listCheckVisibles = listCheck;
+    notifyListeners();
+  }
+
+  void deleteCheck(Check todo) {
+    listCheck.removeWhere((item) => item.id == todo.id);
+    listCheckVisibles = listCheck;
+    resetCantidadCheck();
+    notifyListeners();
+  }
+
+  void resetCantidadCheck() {
+    cantidadCheck = listCheckVisibles.length;
+    notifyListeners();
+  }
 }

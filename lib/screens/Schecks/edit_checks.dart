@@ -1,43 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/model/category.dart';
-import 'package:flutter_todo_app/model/todo.dart';
-import '../constants/colors.dart';
-import '../widgets/category_picker.dart';
-import '../widgets/color_picker.dart';
+import 'package:flutter_todo_app/model/check.dart';
+import '/../constants/colors.dart';
+import '/../widgets/color_picker.dart';
 import 'package:provider/provider.dart';
-import '../providers/provider.dart';
+import '/../providers/provider.dart';
 import 'package:intl/intl.dart';
 
 String editdate = DateFormat.yMMMEd().format(DateTime.now());
-//========================================//
-//                                        //
-//       PANTALLA EDICION DE NOTAS        //
-//                                        //
-//========================================//
 
-//BUGS:
-//
-class EditTodo extends StatefulWidget {
-  const EditTodo({Key? key, required this.item, required this.category})
-      : super(key: key);
-  final ToDo item;
-  final List<CategoriaTodo> category;
+class EditCheck extends StatefulWidget {
+  EditCheck({Key? key, required this.item}) : super(key: key);
+
+  final Check item;
 
   @override
-  State<EditTodo> createState() => _EditTodoState();
+  State<EditCheck> createState() => _EditCheckState();
 }
 
-class _EditTodoState extends State<EditTodo> {
+class _EditCheckState extends State<EditCheck> {
   Color _color = Colors.white;
-  late TextEditingController _todoControllerTitle, _todoControllerContent;
-  late String selectedCat;
+  late TextEditingController _todoControllerTitle;
 
   @override
   void initState() {
     super.initState();
     _todoControllerTitle = TextEditingController(text: widget.item.todoTitle);
-    _todoControllerContent = TextEditingController(text: widget.item.todoText);
-    selectedCat = widget.item.category.toString();
   }
 
   @override
@@ -64,7 +51,7 @@ class _EditTodoState extends State<EditTodo> {
                     const Padding(
                       padding: EdgeInsets.only(bottom: 15.0),
                       child: Text(
-                        'Edit ToDo',
+                        'Edit Check',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 25,
@@ -143,75 +130,6 @@ class _EditTodoState extends State<EditTodo> {
                       ),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.only(left: 30, bottom: 10, top: 20),
-                      child: const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          'Description',
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: TextFormField(
-                        initialValue: widget.item.todoText,
-                        onChanged: (value) => _todoControllerContent.text =
-                            value, //Actualización del valor del input
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(left: 25.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                              borderSide: const BorderSide(
-                                  color: tdBGColor, width: 1.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: rojoIntenso, width: 1.0),
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                            hintText: 'Enter a new description',
-                            hintStyle: const TextStyle(
-                              color: tdGrey,
-                            ),
-                            fillColor: tdBGColor),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          top: 20.0, left: 30.0, bottom: 15.0),
-                      child: const Text(
-                        'Choose a new category',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          "Previous category: ${widget.item.category}",
-                          style: const TextStyle(
-                              color: rojoIntenso,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.5),
-                        )),
-                    CategoryPicker(
-                      listCat: widget.category,
-                      onChanged: (String? newCategory) {
-                        setState(() => selectedCat = newCategory.toString());
-                      },
-                      category: widget.item.category.toString(),
-                    ),
-                    Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
                       child: const Text(
@@ -240,8 +158,7 @@ class _EditTodoState extends State<EditTodo> {
                     color: Colors.green,
                     iconSize: 35.0,
                     onPressed: () {
-                      _editToDoItem(_todoControllerTitle.text,
-                          _todoControllerContent.text);
+                      _editToDoItem(_todoControllerTitle.text);
                       Navigator.pop(context);
                     },
                   ),
@@ -250,13 +167,11 @@ class _EditTodoState extends State<EditTodo> {
             )));
   }
 
-  void _editToDoItem(String toDoTitle, String toDoContent) {
+  void _editToDoItem(String toDoTitle) {
     setState(() {
       //Asignación de la categoría al editarlo
       widget.item.todoTitle = toDoTitle;
-      widget.item.todoText = toDoContent;
       widget.item.ncolor = _color;
-      widget.item.category = selectedCat;
       widget.item.editdate = editdate;
       widget.item.datef = DateTime.now();
       context.read<Changes>().changeUsedTrue();

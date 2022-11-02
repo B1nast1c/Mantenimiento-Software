@@ -9,6 +9,7 @@ class ToDo {
   String? editdate;
   Color? ncolor;
   String? category;
+  var datef;
 
   ToDo(
       {required this.id,
@@ -17,6 +18,7 @@ class ToDo {
       this.isDone = false,
       this.ncolor = Colors.white,
       this.category = 'Uncategorized',
+      required this.datef,
       String? date});
 
   static List<ToDo> todoList() {
@@ -26,37 +28,43 @@ class ToDo {
           todoTitle: 'Texto sin categoría',
           todoText: 'Check Emails',
           ncolor: const Color(0xffff9aa2),
-          category: 'Uncategorized'),
+          category: 'Uncategorized',
+          datef: DateTime.now()),
       ToDo(
           id: '03',
           todoTitle: 'Texto Personal',
           todoText: 'Check Emails',
           ncolor: const Color(0xffff9aa2),
-          category: 'Personal'),
+          category: 'Personal',
+          datef: DateTime.now()),
       ToDo(
           id: '04',
           todoTitle: 'Hola1 Personal',
           todoText: 'Check Emails',
           ncolor: const Color(0xffff9aa2),
-          category: 'Personal'),
+          category: 'Personal',
+          datef: DateTime.now()),
       ToDo(
           id: '05',
           todoTitle: 'Hola2 Personal',
           todoText: 'Check Emails',
           ncolor: const Color(0xffff9aa2),
-          category: 'Personal'),
+          category: 'Personal',
+          datef: DateTime.now()),
       ToDo(
           id: '06',
           todoTitle: 'Hola3 Whitlist',
           todoText: 'Check Emails',
           ncolor: const Color(0xffff9aa2),
-          category: 'Wishlist'),
+          category: 'Wishlist',
+          datef: DateTime.now()),
       ToDo(
           id: '07',
           todoTitle: 'Hola4 Shopping',
           todoText: 'Check Emails',
           ncolor: const Color(0xffff9aa2),
-          category: 'Shopping'),
+          category: 'Shopping',
+          datef: DateTime.now()),
     ];
   }
 }

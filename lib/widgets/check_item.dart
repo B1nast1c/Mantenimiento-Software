@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/model/category.dart';
-import '../model/todo.dart';
+import '../model/check.dart';
 import '../constants/colors.dart';
-import '../screens/edit_todo.dart';
+import '../screens/Schecks/edit_checks.dart';
 import 'package:provider/provider.dart';
 import '../providers/provider.dart';
 
-//========================================//
-//                                        //
-//             WIDGET DE NOTA             //
-//                                        //
-//========================================//
-
-//USO EN:
-//  home
-//
-//BUGS:
-//
-
-class ToDoItem extends StatelessWidget {
-  final ToDo todo;
+class checkItem extends StatelessWidget {
+  final Check todo;
   // ignore: prefer_typing_uninitialized_variables
   final onToDoChanged;
   // ignore: prefer_typing_uninitialized_variables
   final onDeleteItem;
-  final List<CategoriaTodo> category;
+  //final List<CategoriaTodo> category;
 
-  const ToDoItem(
-      {Key? key,
-      required this.todo,
-      required this.onToDoChanged,
-      required this.onDeleteItem,
-      required this.category})
-      : super(key: key);
+  const checkItem({
+    Key? key,
+    required this.todo,
+    required this.onToDoChanged,
+    required this.onDeleteItem,
+    //required this.category
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +27,23 @@ class ToDoItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      EditTodo(item: todo, category: category)));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditCheck(item: todo)));
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: todo.ncolor,
-        /*leading: IconButton(
+        leading: IconButton(
           icon: Icon(
               todo.isDone ? Icons.check_box : Icons.check_box_outline_blank),
           color: Colors.black,
           onPressed: () {
             todo.isDone ? todo.isDone = false : todo.isDone = true;
-            context.read<Changes>().editTodo(todo);
+            context.read<Changes>().editCheck(todo);
           },
-        ),*/
+        ),
         title: Text(
           todo.todoTitle!,
           style: TextStyle(

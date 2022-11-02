@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/constants/colors.dart';
 import 'package:flutter_todo_app/model/category.dart';
 import 'package:flutter_todo_app/screens/deleted_todos.dart';
+import 'package:flutter_todo_app/screens/Schecks/home_checks.dart';
 import 'package:flutter_todo_app/widgets/category_item.dart';
 import 'package:provider/provider.dart';
 import '../providers/provider.dart';
@@ -93,6 +94,29 @@ class _sidebarMenuState extends State<sidebarMenu> {
                                   fontSize: 16,
                                   color: rojoIntenso,
                                   fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          ListTile(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CheckList())),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 1),
+                            leading: const Icon(
+                              Icons.checklist_outlined,
+                              //color: rojoIntenso,
+                            ),
+                            title: const Text(
+                              "CheckList",
+                              style: TextStyle(
+                                fontSize: 16,
+                                //color: rojoIntenso,
+                                //fontWeight: FontWeight.bold
+                              ),
                             ),
                           ),
                           ListTile(

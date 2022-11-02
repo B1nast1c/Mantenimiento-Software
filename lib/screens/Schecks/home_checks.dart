@@ -1,51 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/model/category.dart';
+import 'package:flutter_todo_app/screens/Schecks/new_check.dart';
 import 'package:provider/provider.dart';
+import '/../providers/provider.dart';
+import '/../constants/colors.dart';
+import '/../widgets/check_item.dart';
+import 'package:flutter_todo_app/model/check.dart';
 
-import '../model/todo.dart';
-import '../constants/colors.dart';
-import '../providers/provider.dart';
-import '../widgets/todo_item.dart';
-import '../widgets/sidebar_menu.dart';
-import '../screens/new_todo.dart';
-import '../global/globals.dart' as globals;
-
-//========================================//
-//                                        //
-//           PANTALLA PRINCIPAL           //
-//                                        //
-//========================================//
-
-//BUGS:
-//
-//
-class Home extends StatefulWidget {
-  const Home({Key? key, required this.title}) : super(key: key);
-
-  final String? title;
+class CheckList extends StatefulWidget {
+  CheckList({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<CheckList> createState() => _CheckListState();
 }
 
-class _HomeState extends State<Home> {
-  final todosList = ToDo.todoList();
-  final categoryList = CategoriaTodo.fullCategory();
+class _CheckListState extends State<CheckList> {
+  final todosCheck = Check.checkListP();
+  //final categoryList = CategoriaTodo.fullCategory();
   DateTimeRange dateRange =
       DateTimeRange(start: DateTime(2022, 9, 5), end: DateTime(2023, 2, 26));
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-
-    var todosList = context.watch<Changes>().listTodo;
-    var title = context.watch<Changes>().pageTitle;
-    var cantidad = context.watch<Changes>().cantidad;
-    var todosVisibles = context.watch<Changes>().listTodoVisibles;
+    var todosCheck = context.watch<Changes>().listCheck;
+    var title = context.watch<Changes>().pageTitleCheck;
+    var cantidad = context.watch<Changes>().cantidadCheck;
+    var CheckVisibles = context.watch<Changes>().listCheckVisibles;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: tdBGColor,
-      appBar: _buildAppBar(),
-      drawer: const sidebarMenu(),
+      appBar: AppBar(
+        backgroundColor: rojoIntenso,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
       body: Stack(
         children: [
           Container(
@@ -57,7 +44,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Column(children: [
                     Text(
-                      title, //Actualiza el titulo y el listado dependiendo de lo seleccionado
+                      "Check List", //Actualiza el titulo y el listado dependiendo de lo seleccionado
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,
@@ -94,7 +81,7 @@ class _HomeState extends State<Home> {
                               bottom: 20,
                             ),
                           ),
-                          for (ToDo todoo in todosVisibles.reversed)
+                          for (Check todoo in CheckVisibles.reversed)
                             _createTodo(todoo),
                         ],
                       ),
@@ -115,8 +102,7 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const NewTodo()),
+                        MaterialPageRoute(builder: (context) => NewCheck()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -141,68 +127,15 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _handleToDoChange(ToDo todo) {
+  void _handleToDoChange(Check todo) {
     setState(() {
       todo.isDone = !todo.isDone;
     });
   }
 
-  void _deleteToDoItem(ToDo todo) {
+  void _deleteToDoItem(Check todo) {
     //Aqui van las modificaciones de eliminación
-    context.read<Changes>().deleteTodo(todo);
-    context.read<Changes>().addDeleted(todo);
-  }
-
-  void _dateFilter(var dateActual, DateTimeRange dateRango) {
-    List<ToDo> results = [];
-    setState(() {});
-    List<ToDo> listaAct2 = context.read<Changes>().getTodos();
-    if (dateRango == null) {
-      results = listaAct2;
-    } else {
-      results = listaAct2
-          .where((item) =>
-              item.datef.isBefore(dateRango.end) &&
-              item.datef.isAfter(dateRango.start))
-          .toList();
-    }
-    context.read<Changes>().setListTodoVisibles(results);
-  }
-
-  void _runFilter(String enteredKeyword, List<ToDo> listaAct) {
-    List<ToDo> results = [];
-    setState(() {});
-    List<ToDo> listaAct2 = context.read<Changes>().getTodos();
-    if (enteredKeyword.isEmpty) {
-      results = listaAct2;
-    } else {
-      results = listaAct2
-          .where((item) =>
-              item.todoTitle!
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()) ||
-              item.todoText!
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-
-    context.read<Changes>().setListTodoVisibles(
-        results); //Filtrar los resultados de la lista del provider
-  }
-
-  Widget sortingIcon() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: IconButton(
-        icon: const Icon(Icons.sort),
-        color: Colors.black,
-        iconSize: 25.0,
-        onPressed: () {
-          context.read<Changes>().sortTodos();
-        },
-      ),
-    );
+    context.read<Changes>().deleteCheck(todo);
   }
 
   Widget dateFilter() {
@@ -241,8 +174,56 @@ class _HomeState extends State<Home> {
 
     if (newDateRange == null) return;
 
-    _dateFilter(todosList, newDateRange);
+    _dateFilter(todosCheck, newDateRange);
     setState(() => dateRange = newDateRange);
+  }
+
+  void _dateFilter(var dateActual, DateTimeRange dateRango) {
+    List<Check> results = [];
+    setState(() {});
+    List<Check> listaAct2 = context.read<Changes>().getChecks();
+    if (dateRango == null) {
+      results = listaAct2;
+    } else {
+      results = listaAct2
+          .where((item) =>
+              item.datef.isBefore(dateRango.end) &&
+              item.datef.isAfter(dateRango.start))
+          .toList();
+    }
+    context.read<Changes>().setListCheckVisibles(results);
+  }
+
+  void _runFilter(String enteredKeyword, List<Check> listaAct) {
+    List<Check> results = [];
+    setState(() {});
+    List<Check> listaAct2 = context.read<Changes>().getChecks();
+    if (enteredKeyword.isEmpty) {
+      results = listaAct2;
+    } else {
+      results = listaAct2
+          .where((item) => item.todoTitle!
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    context.read<Changes>().setListCheckVisibles(
+        results); //Filtrar los resultados de la lista del provider
+  }
+
+  Widget sortingIcon() {
+    return Container(
+      alignment: Alignment.centerRight,
+      child: IconButton(
+        icon: const Icon(Icons.sort),
+        color: Colors.black,
+        iconSize: 25.0,
+        onPressed: () {
+          context.read<Changes>().sortTodos();
+        },
+      ),
+    );
   }
 
   Widget searchBox() {
@@ -254,7 +235,7 @@ class _HomeState extends State<Home> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
-        onChanged: (value) => _runFilter(value, todosList),
+        onChanged: (value) => _runFilter(value, todosCheck),
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
@@ -290,17 +271,17 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _createTodo(ToDo todoo) {
+  Widget _createTodo(Check todoo) {
     //Categorias que se muestran en la pantalla
 
-    if (globals.CategoriasActivas.contains(todoo.category)) {
-      return ToDoItem(
-        todo: todoo,
-        onToDoChanged: _handleToDoChange,
-        onDeleteItem: _deleteToDoItem,
-        category: categoryList,
-      );
-    }
-    return Container();
+    //  if (globals.CategoriasActivas.contains(todoo.category)) {
+    return checkItem(
+      todo: todoo,
+      onToDoChanged: _handleToDoChange,
+      onDeleteItem: _deleteToDoItem,
+      //category: categoryList,
+    );
   }
+  //   return Container();
+  //}
 }

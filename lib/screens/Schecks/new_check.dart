@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 String date = DateFormat.yMMMEd().format(DateTime.now());
 
 class NewCheck extends StatefulWidget {
-  NewCheck({Key? key}) : super(key: key);
+  const NewCheck({Key? key}) : super(key: key);
 
   @override
   State<NewCheck> createState() => _NewCheckState();
@@ -22,20 +22,20 @@ class _NewCheckState extends State<NewCheck> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: non_constant_identifier_names
     var CheckList = context.watch<Changes>().listCheck;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
         appBar: AppBar(
-          backgroundColor: weso,
+          backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           elevation: 0,
         ),
         body: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(60),
-                topRight: Radius.circular(60),
+                bottomLeft: Radius.circular(250),
               ),
               color: Colors.white,
             ),
@@ -50,8 +50,8 @@ class _NewCheckState extends State<NewCheck> {
                         'Add new Check',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
+                          fontSize: 35,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
@@ -62,7 +62,7 @@ class _NewCheckState extends State<NewCheck> {
                         child: Text(
                           'Title',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),
@@ -100,7 +100,7 @@ class _NewCheckState extends State<NewCheck> {
                       child: const Text(
                         'Choose a color for your ToDo',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

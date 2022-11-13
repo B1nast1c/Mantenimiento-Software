@@ -34,12 +34,14 @@ class _DeletedToDosState extends State<DeletedToDos> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: tdBGColor,
           foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
           elevation: 0,
         ),
         body: Container(
-            color: tdBGColor,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
             child: Column(children: [
               Column(children: [
                 const Center(
@@ -47,8 +49,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
                     'Deleted ToDos',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 35,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

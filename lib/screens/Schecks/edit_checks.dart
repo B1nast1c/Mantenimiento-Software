@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 String editdate = DateFormat.yMMMEd().format(DateTime.now());
 
 class EditCheck extends StatefulWidget {
-  EditCheck({Key? key, required this.item}) : super(key: key);
+  const EditCheck({Key? key, required this.item}) : super(key: key);
 
   final Check item;
 
@@ -40,7 +40,7 @@ class _EditCheckState extends State<EditCheck> {
         body: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(250),
+                bottomRight: Radius.circular(250),
               ),
               color: Colors.white,
             ),
@@ -54,8 +54,8 @@ class _EditCheckState extends State<EditCheck> {
                         'Edit Check',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
+                          fontSize: 35,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
@@ -70,7 +70,7 @@ class _EditCheckState extends State<EditCheck> {
                               style: const TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   color: rojoIntenso),
                               textAlign: TextAlign.left,
                             ),
@@ -96,7 +96,7 @@ class _EditCheckState extends State<EditCheck> {
                         child: Text(
                           'Title',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),
@@ -135,7 +135,7 @@ class _EditCheckState extends State<EditCheck> {
                       child: const Text(
                         'Choose a new color',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

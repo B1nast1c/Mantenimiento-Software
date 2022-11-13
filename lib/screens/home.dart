@@ -37,13 +37,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-
     var todosList = context.watch<Changes>().listTodo;
     var title = context.watch<Changes>().pageTitle;
     var cantidad = context.watch<Changes>().cantidad;
     var todosVisibles = context.watch<Changes>().listTodoVisibles;
     return Scaffold(
-      backgroundColor: tdBGColor,
+      backgroundColor: Colors.white,
       appBar: _buildAppBar(),
       drawer: const sidebarMenu(),
       body: Stack(
@@ -59,7 +58,7 @@ class _HomeState extends State<Home> {
                     Text(
                       title, //Actualiza el titulo y el listado dependiendo de lo seleccionado
                       style: const TextStyle(
-                        fontSize: 30,
+                        fontSize: 35,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -83,7 +82,7 @@ class _HomeState extends State<Home> {
                   ]),
                   Expanded(
                     child: Card(
-                      color: tdBGColor,
+                      color: Colors.white,
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       child: ListView(
@@ -120,7 +119,7 @@ class _HomeState extends State<Home> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: tdBGColor,
+                      primary: Colors.white,
                       minimumSize: const Size(60, 60),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -207,14 +206,22 @@ class _HomeState extends State<Home> {
 
   Widget dateFilter() {
     return Container(
+      margin: const EdgeInsets.only(top: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: rojoIntenso,
+                  side: const BorderSide(
+                    width: 1.0,
+                    color: rojoIntenso,
+                  )),
+              onPressed: pickDateRange,
               child: Text(
                   '${dateRange.start.year}/${dateRange.start.month}/${dateRange.start.day}'),
-              onPressed: pickDateRange,
             ),
           ),
           const SizedBox(
@@ -222,9 +229,16 @@ class _HomeState extends State<Home> {
           ),
           Expanded(
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: rojoIntenso,
+                  side: const BorderSide(
+                    width: 1.0,
+                    color: rojoIntenso,
+                  )),
+              onPressed: pickDateRange,
               child: Text(
                   '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}'),
-              onPressed: pickDateRange,
             ),
           ),
         ],
@@ -256,6 +270,15 @@ class _HomeState extends State<Home> {
       child: TextField(
         onChanged: (value) => _runFilter(value, todosList),
         decoration: const InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
@@ -266,7 +289,6 @@ class _HomeState extends State<Home> {
             maxHeight: 20,
             minWidth: 25,
           ),
-          border: InputBorder.none,
           hintText: 'Search',
           hintStyle: TextStyle(color: tdGrey),
         ),
@@ -276,7 +298,7 @@ class _HomeState extends State<Home> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: tdBGColor,
+      backgroundColor: Colors.white,
       iconTheme: const IconThemeData(color: Colors.black),
       elevation: 0,
       shape: const RoundedRectangleBorder(

@@ -67,13 +67,13 @@ class _EditTodoState extends State<EditTodo> {
                         'Edit ToDo',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 30,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.only(bottom: 15),
                       child: Align(
                         alignment: Alignment.center,
                         child: Column(
@@ -83,7 +83,7 @@ class _EditTodoState extends State<EditTodo> {
                               style: const TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   color: rojoIntenso),
                               textAlign: TextAlign.left,
                             ),
@@ -95,7 +95,7 @@ class _EditTodoState extends State<EditTodo> {
                                         style: const TextStyle(
                                             fontStyle: FontStyle.italic,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             color: rojoIntenso),
                                       )),
                           ],
@@ -109,7 +109,7 @@ class _EditTodoState extends State<EditTodo> {
                         child: Text(
                           'Title',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),
@@ -150,7 +150,7 @@ class _EditTodoState extends State<EditTodo> {
                         child: Text(
                           'Description',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),
@@ -190,7 +190,7 @@ class _EditTodoState extends State<EditTodo> {
                       child: const Text(
                         'Choose a new category',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -217,7 +217,7 @@ class _EditTodoState extends State<EditTodo> {
                       child: const Text(
                         'Choose a new color',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

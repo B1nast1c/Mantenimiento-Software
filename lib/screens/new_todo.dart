@@ -56,13 +56,12 @@ class _NewTodoState extends State<NewTodo> {
                 Column(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 40.0, horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(vertical: 40.0),
                       child: Text(
                         'Add new ToDo',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 30,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -74,7 +73,7 @@ class _NewTodoState extends State<NewTodo> {
                         child: Text(
                           'Title',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),
@@ -114,7 +113,7 @@ class _NewTodoState extends State<NewTodo> {
                         child: Text(
                           'Description',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),
@@ -153,7 +152,7 @@ class _NewTodoState extends State<NewTodo> {
                       child: const Text(
                         'Choose a category for your ToDo',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -171,7 +170,7 @@ class _NewTodoState extends State<NewTodo> {
                       child: const Text(
                         'Choose a color for your ToDo',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

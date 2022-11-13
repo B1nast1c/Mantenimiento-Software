@@ -7,7 +7,7 @@ import '/../widgets/check_item.dart';
 import 'package:flutter_todo_app/model/check.dart';
 
 class CheckList extends StatefulWidget {
-  CheckList({Key? key}) : super(key: key);
+  const CheckList({Key? key}) : super(key: key);
 
   @override
   State<CheckList> createState() => _CheckListState();
@@ -24,18 +24,24 @@ class _CheckListState extends State<CheckList> {
     var todosCheck = context.watch<Changes>().listCheck;
     var title = context.watch<Changes>().pageTitleCheck;
     var cantidad = context.watch<Changes>().cantidadCheck;
+    // ignore: non_constant_identifier_names
     var CheckVisibles = context.watch<Changes>().listCheckVisibles;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: tdBGColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: rojoIntenso,
+        backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
       ),
       body: Stack(
         children: [
           Container(
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50)),
+                  color: Colors.white),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 40,
@@ -43,10 +49,10 @@ class _CheckListState extends State<CheckList> {
               child: Column(
                 children: [
                   Column(children: [
-                    Text(
+                    const Text(
                       "Check List", //Actualiza el titulo y el listado dependiendo de lo seleccionado
-                      style: const TextStyle(
-                        fontSize: 30,
+                      style: TextStyle(
+                        fontSize: 35,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -70,7 +76,7 @@ class _CheckListState extends State<CheckList> {
                   ]),
                   Expanded(
                     child: Card(
-                      color: tdBGColor,
+                      color: Colors.white,
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       child: ListView(
@@ -106,7 +112,7 @@ class _CheckListState extends State<CheckList> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: tdBGColor,
+                      primary: Colors.white,
                       minimumSize: const Size(60, 60),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -140,29 +146,43 @@ class _CheckListState extends State<CheckList> {
 
   Widget dateFilter() {
     return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              child: Text(
-                  '${dateRange.start.year}/${dateRange.start.month}/${dateRange.start.day}'),
-              onPressed: pickDateRange,
+        margin: const EdgeInsets.only(top: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    onPrimary: rojoIntenso,
+                    side: const BorderSide(
+                      width: 1.0,
+                      color: rojoIntenso,
+                    )),
+                onPressed: pickDateRange,
+                child: Text(
+                    '${dateRange.start.year}/${dateRange.start.month}/${dateRange.start.day}'),
+              ),
             ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: ElevatedButton(
-              child: Text(
-                  '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}'),
-              onPressed: pickDateRange,
+            const SizedBox(
+              width: 12,
             ),
-          ),
-        ],
-      ),
-    );
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    onPrimary: rojoIntenso,
+                    side: const BorderSide(
+                      width: 1.0,
+                      color: rojoIntenso,
+                    )),
+                onPressed: pickDateRange,
+                child: Text(
+                    '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}'),
+              ),
+            ),
+          ],
+        ));
   }
 
   Future pickDateRange() async {
@@ -237,6 +257,15 @@ class _CheckListState extends State<CheckList> {
       child: TextField(
         onChanged: (value) => _runFilter(value, todosCheck),
         decoration: const InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
@@ -247,7 +276,6 @@ class _CheckListState extends State<CheckList> {
             maxHeight: 20,
             minWidth: 25,
           ),
-          border: InputBorder.none,
           hintText: 'Search',
           hintStyle: TextStyle(color: tdGrey),
         ),
@@ -255,33 +283,11 @@ class _CheckListState extends State<CheckList> {
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: tdBGColor,
-      iconTheme: const IconThemeData(color: Colors.black),
-      elevation: 0,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(30),
-        ),
-      ),
-      actions: <Widget>[
-        sortingIcon(),
-      ],
-    );
-  }
-
   Widget _createTodo(Check todoo) {
-    //Categorias que se muestran en la pantalla
-
-    //  if (globals.CategoriasActivas.contains(todoo.category)) {
     return checkItem(
       todo: todoo,
       onToDoChanged: _handleToDoChange,
       onDeleteItem: _deleteToDoItem,
-      //category: categoryList,
     );
   }
-  //   return Container();
-  //}
 }

@@ -108,15 +108,15 @@ class _sidebarMenuState extends State<sidebarMenu> {
                                 horizontal: 10, vertical: 1),
                             leading: const Icon(
                               Icons.checklist_outlined,
+                              color: Colors.green,
                               //color: rojoIntenso,
                             ),
                             title: const Text(
                               "CheckList",
-                              style: TextStyle(
-                                fontSize: 16,
-                                //color: rojoIntenso,
-                                //fontWeight: FontWeight.bold
-                              ),
+                              style: TextStyle(fontSize: 16, color: Colors.green
+                                  //color: rojoIntenso,
+                                  //fontWeight: FontWeight.bold
+                                  ),
                             ),
                           ),
                           ListTile(

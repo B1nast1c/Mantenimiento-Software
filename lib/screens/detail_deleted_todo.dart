@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
-import 'package:flutter_todo_app/widgets/deleted_todo_item.dart';
 import '../constants/colors.dart';
 
 //========================================//

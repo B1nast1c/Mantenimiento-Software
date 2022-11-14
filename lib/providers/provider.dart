@@ -3,8 +3,6 @@ import 'package:flutter_todo_app/global/globals.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
 import 'package:flutter_todo_app/model/todo.dart';
 import 'package:flutter_todo_app/model/check.dart';
-import 'package:flutter_todo_app/screens/edit_todo.dart';
-import 'package:flutter_todo_app/screens/new_todo.dart';
 
 import '../model/category.dart';
 
@@ -26,6 +24,13 @@ class Changes with ChangeNotifier {
   List<Check> listCheckVisibles = Check.checkListP();
   String pageTitleCheck = titulo;
   bool orderCheck = true;
+
+  int noteStyle = 0;
+
+  void setStyle(int style) {
+    noteStyle = style;
+    notifyListeners();
+  }
 
   void setListTodo(List<ToDo> list) {
     listTodo = list;

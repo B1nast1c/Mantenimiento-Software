@@ -190,18 +190,51 @@ class _HomeState extends State<Home> {
         results); //Filtrar los resultados de la lista del provider
   }
 
-  Widget sortingIcon() {
+  Widget managementIcons() {
+    List<IconData> options = [
+      Icons.abc,
+      Icons.format_bold,
+      Icons.format_italic,
+      Icons.add,
+      Icons.minimize
+    ];
+
     return Container(
-      alignment: Alignment.centerRight,
-      child: IconButton(
-        icon: const Icon(Icons.sort),
-        color: Colors.black,
-        iconSize: 25.0,
-        onPressed: () {
-          context.read<Changes>().sortTodos();
-        },
-      ),
-    );
+        alignment: Alignment.centerRight,
+        child: Row(
+          children: [
+            DropdownButton(
+              value: options[0],
+              onChanged: (value) {
+                int index = //Ver el estilo asignado
+                    options.indexWhere((element) => element == value) + 1;
+                context.read<Changes>().setStyle(index);
+              },
+              underline: Container(),
+              icon: const Icon(
+                Icons.settings,
+              ),
+              isExpanded: false,
+              items: options
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Container(
+                            alignment: Alignment.centerLeft, child: Icon(e)),
+                      ))
+                  .toList(),
+              selectedItemBuilder: (BuildContext context) =>
+                  options.map((e) => Center(child: Icon(e))).toList(),
+            ),
+            IconButton(
+              icon: const Icon(Icons.sort),
+              color: Colors.black,
+              iconSize: 25.0,
+              onPressed: () {
+                context.read<Changes>().sortTodos();
+              },
+            ),
+          ],
+        ));
   }
 
   Widget dateFilter() {
@@ -307,7 +340,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       actions: <Widget>[
-        sortingIcon(),
+        managementIcons(),
       ],
     );
   }

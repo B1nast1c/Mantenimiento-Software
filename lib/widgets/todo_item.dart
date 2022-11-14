@@ -36,6 +36,8 @@ class ToDoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var styleIdx = context.watch<Changes>().noteStyle - 1;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
@@ -51,19 +53,20 @@ class ToDoItem extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: todo.ncolor,
-        /*leading: IconButton(
-          icon: Icon(
-              todo.isDone ? Icons.check_box : Icons.check_box_outline_blank),
-          color: Colors.black,
-          onPressed: () {
-            todo.isDone ? todo.isDone = false : todo.isDone = true;
-            context.read<Changes>().editTodo(todo);
-          },
-        ),*/
         title: Text(
           todo.todoTitle!,
           style: TextStyle(
-            fontSize: 16,
+            fontWeight: styleIdx == 1
+                ? FontWeight.bold
+                : FontWeight.normal, //Cambio a la opción 1
+            fontStyle: styleIdx == 2
+                ? FontStyle.italic
+                : FontStyle.normal, //Cambio a la opción 2
+            fontSize: styleIdx == 3
+                ? 20
+                : styleIdx == 4
+                    ? 13
+                    : 16,
             color: tdBlack,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),

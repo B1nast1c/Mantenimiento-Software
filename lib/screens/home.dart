@@ -42,7 +42,8 @@ class _HomeState extends State<Home> {
     var cantidad = context.watch<Changes>().cantidad;
     var todosVisibles = context.watch<Changes>().listTodoVisibles;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          context.read<Changes>().darkModes ? Colors.white : Colors.grey,
       appBar: _buildAppBar(),
       drawer: const sidebarMenu(),
       body: Stack(
@@ -71,7 +72,7 @@ class _HomeState extends State<Home> {
                       ),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Total quantity: $cantidad",
+                        _LanguageQuantity(cantidad),
                         textAlign: TextAlign.right,
                         style: const TextStyle(
                           fontSize: 15,
@@ -82,7 +83,9 @@ class _HomeState extends State<Home> {
                   ]),
                   Expanded(
                     child: Card(
-                      color: Colors.white,
+                      color: context.read<Changes>().darkModes
+                          ? Colors.white
+                          : Colors.grey,
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       child: ListView(
@@ -119,7 +122,9 @@ class _HomeState extends State<Home> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                      primary: context.read<Changes>().darkModes
+                          ? Colors.white
+                          : Colors.grey,
                       minimumSize: const Size(60, 60),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -322,7 +327,7 @@ class _HomeState extends State<Home> {
             maxHeight: 20,
             minWidth: 25,
           ),
-          hintText: 'Search',
+          hintText: '',
           hintStyle: TextStyle(color: tdGrey),
         ),
       ),
@@ -357,5 +362,12 @@ class _HomeState extends State<Home> {
       );
     }
     return Container();
+  }
+
+  String _LanguageQuantity(int cantidad) {
+    if (context.read<Changes>().language == "ESP") {
+      return "Cantidad total: $cantidad";
+    }
+    return "Total quantity: $cantidad";
   }
 }

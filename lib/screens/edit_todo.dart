@@ -61,10 +61,10 @@ class _EditTodoState extends State<EditTodo> {
               children: [
                 Column(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(bottom: 15.0),
                       child: Text(
-                        'Edit ToDo',
+                        _seeLanguage() ? 'Edit ToDo' : "Editar nota",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 30,
@@ -79,7 +79,9 @@ class _EditTodoState extends State<EditTodo> {
                         child: Column(
                           children: [
                             Text(
-                              'Created at: ${widget.item.date}',
+                              _seeLanguage()
+                                  ? 'Created at: ${widget.item.date}'
+                                  : 'Creado el: ${widget.item.date}',
                               style: const TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold,
@@ -91,7 +93,9 @@ class _EditTodoState extends State<EditTodo> {
                                 child: widget.item.editdate == null
                                     ? Container()
                                     : Text(
-                                        'Last edition at: ${widget.item.editdate}',
+                                        _seeLanguage()
+                                            ? 'Last edition at: ${widget.item.editdate}'
+                                            : 'Última edición el: ${widget.item.editdate}',
                                         style: const TextStyle(
                                             fontStyle: FontStyle.italic,
                                             fontWeight: FontWeight.bold,
@@ -104,10 +108,10 @@ class _EditTodoState extends State<EditTodo> {
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 30, bottom: 10),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Title',
+                          _seeLanguage() ? 'Title' : 'Título',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w300),
                         ),
@@ -135,7 +139,9 @@ class _EditTodoState extends State<EditTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Enter a new title',
+                            hintText: _seeLanguage()
+                                ? 'Enter a new title'
+                                : 'Ingresa un nuevo título',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -145,10 +151,10 @@ class _EditTodoState extends State<EditTodo> {
                     Container(
                       padding:
                           const EdgeInsets.only(left: 30, bottom: 10, top: 20),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Description',
+                          _seeLanguage() ? 'Description' : 'Descripción',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w300),
                         ),
@@ -176,7 +182,9 @@ class _EditTodoState extends State<EditTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Enter a new description',
+                            hintText: _seeLanguage()
+                                ? 'Enter a new description'
+                                : 'Ingresa una nueva descripción',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -187,8 +195,10 @@ class _EditTodoState extends State<EditTodo> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                           top: 20.0, left: 30.0, bottom: 15.0),
-                      child: const Text(
-                        'Choose a new category',
+                      child: Text(
+                        _seeLanguage()
+                            ? 'Choose a new category'
+                            : 'Escoge una nueva categoría',
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
@@ -198,7 +208,7 @@ class _EditTodoState extends State<EditTodo> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 10.0),
                         child: Text(
-                          "Previous category: ${widget.item.category}",
+                          _changeLanguage(),
                           style: const TextStyle(
                               color: rojoIntenso,
                               fontWeight: FontWeight.bold,
@@ -214,8 +224,10 @@ class _EditTodoState extends State<EditTodo> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
-                      child: const Text(
-                        'Choose a new color',
+                      child: Text(
+                        _seeLanguage()
+                            ? 'Choose a new color'
+                            : 'Escoge un nuevo color',
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
@@ -261,5 +273,30 @@ class _EditTodoState extends State<EditTodo> {
       widget.item.datef = DateTime.now();
       context.read<Changes>().changeUsedTrue();
     });
+  }
+
+  String _changeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      if (widget.item.category == "Shopping") {
+        return "Categoría previa: Compras";
+      } else if (widget.item.category == "Learn") {
+        return "Categoría previa: Estudios";
+      } else if (widget.item.category == "Personal") {
+        return "Categoría previa: Personal";
+      } else if (widget.item.category == "Wishlist") {
+        return "Categoría previa: Deseos";
+      } else if (widget.item.category == "Work") {
+        return "Categoría previa: Trabajo";
+      }
+    }
+
+    return "Previous category: ${widget.item.category}";
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

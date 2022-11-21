@@ -44,15 +44,24 @@ class _DeletedToDosState extends State<DeletedToDos> {
             ),
             child: Column(children: [
               Column(children: [
-                const Center(
-                  child: Text(
-                    'Deleted ToDos',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                Center(
+                  child: _seeLanguage()
+                      ? Text(
+                          'Deleted ToDos',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      : Text(
+                          'Notas eliminadas',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -64,7 +73,8 @@ class _DeletedToDosState extends State<DeletedToDos> {
                       margin: const EdgeInsets.only(right: 15.0),
                       child: TextButton.icon(
                         icon: const Icon(Icons.delete),
-                        label: const Text('Delete all'),
+                        label: Text(
+                            _seeLanguage() ? 'Delete all' : 'Elimiar todos'),
                         style: TextButton.styleFrom(primary: Colors.red),
                         onPressed: () {
                           deleteAllToDos();
@@ -100,7 +110,9 @@ class _DeletedToDosState extends State<DeletedToDos> {
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Remaining time: ${todoo.remainingTime}',
+                _seeLanguage()
+                    ? 'Remaining time: ${todoo.remainingTime}'
+                    : 'Tiempo restante: ${todoo.remainingTime}',
                 style: const TextStyle(
                     color: rojoIntenso, fontWeight: FontWeight.bold),
               ),
@@ -173,7 +185,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
       ),
       child: TextField(
         onChanged: (value) => _runFilter(value, list),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
@@ -185,10 +197,17 @@ class _DeletedToDosState extends State<DeletedToDos> {
             minWidth: 25,
           ),
           border: InputBorder.none,
-          hintText: 'Search',
+          hintText: _seeLanguage() ? 'Search' : 'Buscar',
           hintStyle: TextStyle(color: tdGrey),
         ),
       ),
     );
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,10 +60,15 @@ class _CategoryItemState extends State<CategoryItem> {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
         leading: widget.categoria.iconDesign,
+        iconColor:
+            context.read<Changes>().darkModes ? Colors.black : Colors.white70,
         title: Text(
-          widget.categoria.catText!,
-          style: const TextStyle(
+          _seeLanguage(),
+          style: TextStyle(
             fontSize: 16,
+            color: context.read<Changes>().darkModes
+                ? Colors.black
+                : Colors.white70,
           ),
         ),
         trailing: Container(
@@ -71,7 +78,9 @@ class _CategoryItemState extends State<CategoryItem> {
           width: 35,
           child: widget.categoria.isUsed
               ? IconButton(
-                  color: Colors.black,
+                  color: context.read<Changes>().darkModes
+                      ? Colors.black
+                      : Colors.white70,
                   iconSize: 18,
                   icon: const Icon(Icons.delete),
                   onPressed: () {
@@ -93,5 +102,23 @@ class _CategoryItemState extends State<CategoryItem> {
           widget.categoria.catText!; //Texto de la categoría seleccionada
       Navigator.pop(context);
     });
+  }
+
+  String _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      if (widget.categoria.catText! == "Shopping") {
+        return "Compras";
+      } else if (widget.categoria.catText! == "Learn") {
+        return "Estudios";
+      } else if (widget.categoria.catText! == "Personal") {
+        return "Personal";
+      } else if (widget.categoria.catText! == "Wishlist") {
+        return "Deseos";
+      } else if (widget.categoria.catText! == "Work") {
+        return "Trabajo";
+      }
+    }
+
+    return widget.categoria.catText!;
   }
 }

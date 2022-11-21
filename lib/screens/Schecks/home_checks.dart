@@ -49,8 +49,10 @@ class _CheckListState extends State<CheckList> {
               child: Column(
                 children: [
                   Column(children: [
-                    const Text(
-                      "Check List", //Actualiza el titulo y el listado dependiendo de lo seleccionado
+                    Text(
+                      _seeLanguage()
+                          ? "Check List"
+                          : "Lista Check", //Actualiza el titulo y el listado dependiendo de lo seleccionado
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w500,
@@ -65,7 +67,9 @@ class _CheckListState extends State<CheckList> {
                       ),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Total quantity: $cantidad",
+                        _seeLanguage()
+                            ? "Total quantity: $cantidad"
+                            : "Cantidad total: $cantidad",
                         textAlign: TextAlign.right,
                         style: const TextStyle(
                           fontSize: 15,
@@ -289,5 +293,12 @@ class _CheckListState extends State<CheckList> {
       onToDoChanged: _handleToDoChange,
       onDeleteItem: _deleteToDoItem,
     );
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

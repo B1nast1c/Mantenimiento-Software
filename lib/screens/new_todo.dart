@@ -55,10 +55,10 @@ class _NewTodoState extends State<NewTodo> {
               children: [
                 Column(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 40.0),
                       child: Text(
-                        'Add new ToDo',
+                        _seeLanguage() ? 'Add new ToDo' : 'Agregar nueva nota',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 30,
@@ -68,10 +68,10 @@ class _NewTodoState extends State<NewTodo> {
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 30, bottom: 10),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Title',
+                          _seeLanguage() ? 'Title' : 'Título',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w300),
                         ),
@@ -98,7 +98,9 @@ class _NewTodoState extends State<NewTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Enter the title',
+                            hintText: _seeLanguage()
+                                ? 'Enter the title'
+                                : 'Ingresa un título',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -108,10 +110,10 @@ class _NewTodoState extends State<NewTodo> {
                     Container(
                       padding:
                           const EdgeInsets.only(left: 30, bottom: 10, top: 20),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Description',
+                          _seeLanguage() ? 'Description' : 'Descripción',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w300),
                         ),
@@ -138,7 +140,8 @@ class _NewTodoState extends State<NewTodo> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Description',
+                            hintText:
+                                _seeLanguage() ? 'Description' : 'Descripción',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -149,8 +152,10 @@ class _NewTodoState extends State<NewTodo> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                           top: 20.0, left: 30.0, bottom: 15.0),
-                      child: const Text(
-                        'Choose a category for your ToDo',
+                      child: Text(
+                        _seeLanguage()
+                            ? 'Choose a category for your ToDo'
+                            : 'Escoge una categoría para la nota',
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
@@ -167,8 +172,10 @@ class _NewTodoState extends State<NewTodo> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
-                      child: const Text(
-                        'Choose a color for your ToDo',
+                      child: Text(
+                        _seeLanguage()
+                            ? 'Choose a color for your ToDo'
+                            : 'Escoge un color para la nota',
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
@@ -219,5 +226,12 @@ class _NewTodoState extends State<NewTodo> {
 
     _todoControllerTitle.clear();
     _todoControllerContent.clear();
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

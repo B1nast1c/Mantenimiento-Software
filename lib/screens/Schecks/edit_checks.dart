@@ -48,16 +48,25 @@ class _EditCheckState extends State<EditCheck> {
               children: [
                 Column(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(bottom: 15.0),
-                      child: Text(
-                        'Edit Check',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: _seeLanguage()
+                          ? Text(
+                              'Edit Check',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          : Text(
+                              'Editar Check',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                     ),
                     Container(
                       padding: const EdgeInsets.only(bottom: 20),
@@ -65,39 +74,64 @@ class _EditCheckState extends State<EditCheck> {
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            Text(
-                              'Created at: ${widget.item.date}',
-                              style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: rojoIntenso),
-                              textAlign: TextAlign.left,
-                            ),
+                            _seeLanguage()
+                                ? Text(
+                                    'Created at: ${widget.item.date}',
+                                    style: const TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: rojoIntenso),
+                                    textAlign: TextAlign.left,
+                                  )
+                                : Text(
+                                    'Creado el: ${widget.item.date}',
+                                    style: const TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: rojoIntenso),
+                                    textAlign: TextAlign.left,
+                                  ),
                             Container(
                                 child: widget.item.editdate == null
                                     ? Container()
-                                    : Text(
-                                        'Last edition at: ${widget.item.editdate}',
-                                        style: const TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                            color: rojoIntenso),
-                                      )),
+                                    : _seeLanguage()
+                                        ? Text(
+                                            'Last edition at: ${widget.item.editdate}',
+                                            style: const TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                                color: rojoIntenso),
+                                          )
+                                        : Text(
+                                            'Última edición el: ${widget.item.editdate}',
+                                            style: const TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                                color: rojoIntenso),
+                                          )),
                           ],
                         ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 30, bottom: 10),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.bottomLeft,
-                        child: Text(
-                          'Title',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w300),
-                        ),
+                        child: _seeLanguage()
+                            ? Text(
+                                'Title',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w300),
+                              )
+                            : Text(
+                                'Título',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w300),
+                              ),
                       ),
                     ),
                     Container(
@@ -122,7 +156,9 @@ class _EditCheckState extends State<EditCheck> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Enter a new title',
+                            hintText: _seeLanguage()
+                                ? 'Enter a new title'
+                                : 'Ingresa un nuevo título',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -132,13 +168,21 @@ class _EditCheckState extends State<EditCheck> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
-                      child: const Text(
-                        'Choose a new color',
-                        style: TextStyle(
-                          fontSize: 16.5,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      child: _seeLanguage()
+                          ? Text(
+                              'Choose a new color',
+                              style: TextStyle(
+                                fontSize: 16.5,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          : Text(
+                              'Escoge un nuevo color',
+                              style: TextStyle(
+                                fontSize: 16.5,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                     ),
                     ColorPicker(
                         onSelectedColor: (value) {
@@ -176,5 +220,12 @@ class _EditCheckState extends State<EditCheck> {
       widget.item.datef = DateTime.now();
       context.read<Changes>().changeUsedTrue();
     });
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

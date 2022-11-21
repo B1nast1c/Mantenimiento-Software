@@ -38,6 +38,8 @@ class _sidebarMenuState extends State<sidebarMenu> {
     var categoriesList = context.watch<Changes>().listCategories;
 
     return Drawer(
+      backgroundColor:
+          context.read<Changes>().darkModes ? Colors.white : Colors.grey,
       child: Column(
         children: [
           Column(
@@ -88,8 +90,8 @@ class _sidebarMenuState extends State<sidebarMenu> {
                               Icons.delete,
                               color: rojoIntenso,
                             ),
-                            title: const Text(
-                              "TrashCan",
+                            title: Text(
+                              context.read<Changes>().tTrashCan,
                               style: TextStyle(
                                   fontSize: 16,
                                   color: rojoIntenso,
@@ -111,8 +113,8 @@ class _sidebarMenuState extends State<sidebarMenu> {
                               color: Colors.green,
                               //color: rojoIntenso,
                             ),
-                            title: const Text(
-                              "CheckList",
+                            title: Text(
+                              context.read<Changes>().tCheckList,
                               style: TextStyle(fontSize: 16, color: Colors.green
                                   //color: rojoIntenso,
                                   //fontWeight: FontWeight.bold
@@ -137,10 +139,16 @@ class _sidebarMenuState extends State<sidebarMenu> {
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 1),
                             leading: const Icon(Icons.toc),
-                            title: const Text(
-                              "All",
+                            iconColor: context.read<Changes>().darkModes
+                                ? Colors.black
+                                : Colors.white70,
+                            title: Text(
+                              context.read<Changes>().tAll,
                               style: TextStyle(
                                 fontSize: 16,
+                                color: context.read<Changes>().darkModes
+                                    ? Colors.black
+                                    : Colors.white70,
                               ),
                             ),
                           ),
@@ -154,6 +162,9 @@ class _sidebarMenuState extends State<sidebarMenu> {
                       contentPadding: const EdgeInsets.only(left: 2.0),
                       leading: IconButton(
                           icon: const Icon(Icons.add),
+                          color: context.read<Changes>().darkModes
+                              ? Colors.black
+                              : Colors.white70,
                           onPressed: () => {
                                 Navigator.push(
                                   context,
@@ -162,9 +173,53 @@ class _sidebarMenuState extends State<sidebarMenu> {
                                           const FullCategories()),
                                 ),
                               }),
-                      title: const Text(
-                        "Add Category",
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      title: Text(
+                        context.read<Changes>().taCategory,
+                        style: TextStyle(
+                            color: context.read<Changes>().darkModes
+                                ? Colors.black
+                                : Colors.white70,
+                            fontSize: 15),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        context.read<Changes>().changeLanguage();
+                      },
+                      contentPadding: const EdgeInsets.only(left: 2.0),
+                      leading: IconButton(
+                          icon: const Icon(Icons.language),
+                          color: context.read<Changes>().darkModes
+                              ? Colors.black
+                              : Colors.white70,
+                          onPressed: () => {}),
+                      title: Text(
+                        context.read<Changes>().tLanguage,
+                        style: TextStyle(
+                            color: context.read<Changes>().darkModes
+                                ? Colors.black
+                                : Colors.white70,
+                            fontSize: 15),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        context.read<Changes>().changeTheme();
+                      },
+                      contentPadding: const EdgeInsets.only(left: 2.0),
+                      leading: IconButton(
+                          icon: const Icon(Icons.sunny),
+                          color: context.read<Changes>().darkModes
+                              ? Colors.black
+                              : Colors.white70,
+                          onPressed: () => {}),
+                      title: Text(
+                        context.read<Changes>().tDarkMode,
+                        style: TextStyle(
+                            color: context.read<Changes>().darkModes
+                                ? Colors.black
+                                : Colors.white70,
+                            fontSize: 15),
                       ),
                     ),
                   ],

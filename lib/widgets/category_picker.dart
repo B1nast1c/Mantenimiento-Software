@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/constants/colors.dart';
 import 'package:flutter_todo_app/model/category.dart';
-
+import 'package:provider/provider.dart';
+import '../providers/provider.dart';
 //========================================//
 //                                        //
 //    WIDGET DE SELECCION DE CATEGORIA    //
@@ -51,9 +52,9 @@ class _CategoryPickerState extends State<CategoryPicker> {
               selectedCat = value.toString();
             });
           },
-          hint: const Center(
+          hint: Center(
               child: Text(
-            "Select a category  ",
+            _seeLanguage() ? "Select a category  " : 'Selecciona una categoría',
             style: TextStyle(color: rojoIntenso),
           )),
           underline: Container(),
@@ -68,7 +69,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
                     child: Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        e.catText.toString(),
+                        _changeLanguage(e.catText.toString()),
                         style: const TextStyle(fontSize: 15),
                       ),
                     ),
@@ -77,7 +78,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
           selectedItemBuilder: (BuildContext context) => widget.listCat
               .map((e) => Center(
                     child: Text(
-                      e.catText.toString(),
+                      _changeLanguage(e.catText.toString()),
                       style: const TextStyle(
                           fontSize: 16,
                           color: rojoIntenso,
@@ -87,5 +88,30 @@ class _CategoryPickerState extends State<CategoryPicker> {
                   ))
               .toList(),
         ));
+  }
+
+  String _changeLanguage(String catText) {
+    if (context.read<Changes>().language == "ESP") {
+      if (catText == "Shopping") {
+        return "Compras";
+      } else if (catText == "Learn") {
+        return "Estudios";
+      } else if (catText == "Personal") {
+        return "Personal";
+      } else if (catText == "Wishlist") {
+        return "Deseos";
+      } else if (catText == "Work") {
+        return "Trabajo";
+      }
+    }
+
+    return catText;
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

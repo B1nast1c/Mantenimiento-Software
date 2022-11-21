@@ -43,11 +43,13 @@ class _NewCheckState extends State<NewCheck> {
               children: [
                 Column(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 40.0, horizontal: 10.0),
                       child: Text(
-                        'Add new Check',
+                        _seeLanguage()
+                            ? 'Add new Check'
+                            : 'Agregar nuevo Check',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 35,
@@ -57,13 +59,19 @@ class _NewCheckState extends State<NewCheck> {
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 30, bottom: 10),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.bottomLeft,
-                        child: Text(
-                          'Title',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w300),
-                        ),
+                        child: _seeLanguage()
+                            ? Text(
+                                'Title',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w300),
+                              )
+                            : Text(
+                                'Título',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w300),
+                              ),
                       ),
                     ),
                     Container(
@@ -87,7 +95,9 @@ class _NewCheckState extends State<NewCheck> {
                                   color: rojoIntenso, width: 1.0),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
-                            hintText: 'Enter the title',
+                            hintText: _seeLanguage()
+                                ? 'Enter the title'
+                                : 'Ingresa el título',
                             hintStyle: const TextStyle(
                               color: tdGrey,
                             ),
@@ -97,8 +107,10 @@ class _NewCheckState extends State<NewCheck> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20.0, left: 30.0),
-                      child: const Text(
-                        'Choose a color for your ToDo',
+                      child: Text(
+                        _seeLanguage()
+                            ? 'Choose a color for your ToDo'
+                            : 'Selecciona un color',
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
@@ -146,5 +158,12 @@ class _NewCheckState extends State<NewCheck> {
 
     _todoControllerTitle.clear();
     _todoControllerContent.clear();
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

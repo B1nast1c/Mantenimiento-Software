@@ -27,6 +27,20 @@ class Changes with ChangeNotifier {
 
   int noteStyle = 0;
 
+  /*---  Para controlar los textos ---*/
+  String language = "ENG";
+  String tLanguage = "English";
+  String taCategory = "Add Category";
+  String tAll = "All";
+  String tCheckList = "CheckList";
+  String tTrashCan = "TrashCan";
+  String tDarkMode = "DarkMode";
+  /* ------------------------- */
+
+  /*---  Para el modo oscuro ---*/
+
+  bool darkModes = false;
+
   void setStyle(int style) {
     noteStyle = style;
     notifyListeners();
@@ -123,7 +137,7 @@ class Changes with ChangeNotifier {
   }
 
   void setTitle(String title) {
-    pageTitle = title;
+    pageTitle = changeTitleLanguage(title);
     resetCantidad();
     notifyListeners();
   }
@@ -245,6 +259,58 @@ class Changes with ChangeNotifier {
 
   void resetCantidadCheck() {
     cantidadCheck = listCheckVisibles.length;
+    notifyListeners();
+  }
+
+  void changeLanguage() {
+    if (language == "ENG") {
+      language = "ESP";
+      tLanguage = "Español";
+      tDarkMode = "Modo Oscuro";
+      taCategory = "Añadir Categoria";
+      tAll = "Todos";
+      tCheckList = "Lista";
+      tTrashCan = "Papelera";
+    } else if (language == "ESP") {
+      language = "ENG";
+      tLanguage = "English";
+      tDarkMode = "Dark Mode";
+      taCategory = "Add Category";
+      tAll = "All";
+      tCheckList = "CheckList";
+      tTrashCan = "TrashCan";
+    }
+
+    notifyListeners();
+  }
+
+  String changeTitleLanguage(String title) {
+    if (language == "ESP") {
+      if (title == "Shopping") {
+        return "Compras";
+      } else if (title == "Learn") {
+        return "Estudios";
+      } else if (title == "Personal") {
+        return "Personal";
+      } else if (title == "Wishlist") {
+        return "Deseos";
+      } else if (title == "Work") {
+        return "Trabajo";
+      } else if (title == "All Todos") {
+        return "Todas las notas";
+      }
+    }
+
+    return title;
+  }
+
+  void changeTheme() {
+    if (darkModes == false) {
+      darkModes = true;
+    } else if (darkModes == true) {
+      darkModes = false;
+    }
+
     notifyListeners();
   }
 }

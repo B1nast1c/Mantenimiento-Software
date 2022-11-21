@@ -45,17 +45,26 @@ class _FullCategoriesState extends State<FullCategories> {
               children: [
                 Column(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 40.0, horizontal: 10.0),
-                      child: Text(
-                        'Categorías sin usar',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      child: _seeLanguage()
+                          ? Text(
+                              'Unused categories',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          : Text(
+                              'Categorias sin usar',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                     ),
                     Container(
                         margin: const EdgeInsets.only(bottom: 35.0, left: 35.0),
@@ -95,5 +104,12 @@ class _FullCategoriesState extends State<FullCategories> {
       );
     }
     return Container();
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

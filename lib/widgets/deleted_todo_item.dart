@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/screens/detail_deleted_todo.dart';
 import '../model/deleted_todo.dart';
 import '../constants/colors.dart';
-
+import 'package:provider/provider.dart';
+import '../providers/provider.dart';
 //========================================//
 //                                        //
 //        WIDGET DE NOTA ELIMINADA        //
@@ -15,7 +16,7 @@ import '../constants/colors.dart';
 //BUGS:
 //
 
-class DeletedToDoItem extends StatelessWidget {
+class DeletedToDoItem extends StatefulWidget {
   final DeletedToDo todo;
   // ignore: prefer_typing_uninitialized_variables
   final removeToDo;
@@ -30,6 +31,11 @@ class DeletedToDoItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DeletedToDoItem> createState() => _DeletedToDoItemState();
+}
+
+class _DeletedToDoItemState extends State<DeletedToDoItem> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -43,8 +49,9 @@ class DeletedToDoItem extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DetailDeletedTodo(
-                      item: todo,
-                      restore_item: (DeletedToDo item) => restoreToDo(item),
+                      item: widget.todo,
+                      restore_item: (DeletedToDo item) =>
+                          widget.restoreToDo(item),
                     )),
           );
         },
@@ -52,13 +59,13 @@ class DeletedToDoItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        tileColor: todo.ncolor,
+        tileColor: widget.todo.ncolor,
         leading: const Icon(
           Icons.close,
           color: Colors.black,
         ),
         title: Text(
-          todo.todoTitle!,
+          widget.todo.todoTitle!,
           style: const TextStyle(
             fontSize: 16,
             color: tdBlack,
@@ -80,20 +87,22 @@ class DeletedToDoItem extends StatelessWidget {
             onPressed: () => showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: const Text('Attention'),
-                content:
-                    const Text('Are you sure you want to delete this ToDo?'),
+                title: Text(_seeLanguage() ? 'Attention' : 'Atención'),
+                content: Text(_seeLanguage()
+                    ? 'Are you sure you want to delete this ToDo?'
+                    : '¿Estás seguro que quieres borrar esta nota?'),
                 actions: <Widget>[
                   TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Nope'),
+                    onPressed: () => Navigator.pop(
+                        context, _seeLanguage() ? 'Cancel' : 'Cancelar'),
+                    child: Text(_seeLanguage() ? 'Nope' : 'No'),
                   ),
                   TextButton(
                     onPressed: () {
-                      removeToDo(todo);
+                      widget.removeToDo(widget.todo);
                       Navigator.pop(context);
                     },
-                    child: const Text('Yep'),
+                    child: Text(_seeLanguage() ? 'Yep' : 'Sí'),
                   ),
                 ],
               ),
@@ -102,5 +111,12 @@ class DeletedToDoItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

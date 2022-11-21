@@ -1,9 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/model/deleted_todo.dart';
 import '../constants/colors.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/provider.dart';
 //========================================//
 //                                        //
 //   PANTALLA VISUALIZACIÓN ELIMINADAS    //
@@ -12,7 +14,7 @@ import '../constants/colors.dart';
 
 //BUGS:
 //
-class DetailDeletedTodo extends StatelessWidget {
+class DetailDeletedTodo extends StatefulWidget {
   const DetailDeletedTodo(
       {Key? key, required this.item, required this.restore_item})
       : super(key: key);
@@ -20,10 +22,15 @@ class DetailDeletedTodo extends StatelessWidget {
   final void Function(DeletedToDo) restore_item;
 
   @override
+  State<DetailDeletedTodo> createState() => _DetailDeletedTodsState();
+}
+
+class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
+  @override
   Widget build(BuildContext context) {
-    String? title = item.todoTitle,
-        details = item.todoText,
-        category = item.category;
+    String? title = widget.item.todoTitle,
+        details = widget.item.todoText,
+        category = widget.item.category;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
@@ -44,11 +51,11 @@ class DetailDeletedTodo extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  const Padding(
+                  Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: 40.0, horizontal: 50.0),
                     child: Text(
-                      "Todo Details",
+                      _seeLanguage() ? "Todo Details" : 'Detalles nota',
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontSize: 30,
@@ -59,13 +66,19 @@ class DetailDeletedTodo extends StatelessWidget {
                   Container(
                     padding:
                         const EdgeInsets.only(left: 30, bottom: 10, top: 20),
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.bottomLeft,
-                      child: Text(
-                        "Title",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                      child: _seeLanguage()
+                          ? Text(
+                              "Title",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )
+                          : Text(
+                              "Título",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
                     ),
                   ),
                   Container(
@@ -82,10 +95,10 @@ class DetailDeletedTodo extends StatelessWidget {
                   Container(
                     padding:
                         const EdgeInsets.only(left: 30, bottom: 10, top: 25),
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(
-                        "Details",
+                        _seeLanguage() ? "Details" : 'Detalles',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -105,10 +118,10 @@ class DetailDeletedTodo extends StatelessWidget {
                   Container(
                     padding:
                         const EdgeInsets.only(left: 30, bottom: 10, top: 25),
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(
-                        "Category",
+                        _seeLanguage() ? "Category" : 'Categoría',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -145,11 +158,11 @@ class DetailDeletedTodo extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(100.0),
                               ))),
                           onPressed: () {
-                            restore_item(item);
+                            widget.restore_item(widget.item);
                             Navigator.pop(context);
                           },
-                          child: const Text(
-                            "Recover ToDo",
+                          child: Text(
+                            _seeLanguage() ? "Recover ToDo" : 'Eliminar nota',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -160,5 +173,12 @@ class DetailDeletedTodo extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  bool _seeLanguage() {
+    if (context.read<Changes>().language == "ESP") {
+      return false;
+    }
+    return true;
   }
 }

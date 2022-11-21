@@ -34,13 +34,13 @@ class _DeletedToDosState extends State<DeletedToDos> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.white,
+          foregroundColor: context.read<Changes>().darkModes ? Colors.black: Colors.white,
+          backgroundColor: context.read<Changes>().darkModes ? Colors.white: Colors.black,
           elevation: 0,
         ),
         body: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration:  BoxDecoration(
+              color: context.read<Changes>().darkModes ? Colors.white: Colors.black,
             ),
             child: Column(children: [
               Column(children: [
@@ -52,6 +52,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.w500,
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white
                           ),
                         )
                       : Text(
@@ -60,6 +61,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.w500,
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white
                           ),
                         ),
                 ),

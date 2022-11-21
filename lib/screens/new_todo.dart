@@ -40,16 +40,16 @@ class _NewTodoState extends State<NewTodo> {
         backgroundColor: weso,
         appBar: AppBar(
           backgroundColor: weso,
-          foregroundColor: Colors.black,
+          foregroundColor: context.read<Changes>().darkModes ? Colors.black: Colors.white,
           elevation: 0,
         ),
         body: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60),
                 topRight: Radius.circular(60),
               ),
-              color: Colors.white,
+              color: context.read<Changes>().darkModes ? Colors.white: Colors.black,
             ),
             child: Column(
               children: [
@@ -63,6 +63,7 @@ class _NewTodoState extends State<NewTodo> {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w400,
+                          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                         ),
                       ),
                     ),
@@ -73,7 +74,8 @@ class _NewTodoState extends State<NewTodo> {
                         child: Text(
                           _seeLanguage() ? 'Title' : 'Título',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300,
+                              color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                         ),
                       ),
                     ),
@@ -115,7 +117,8 @@ class _NewTodoState extends State<NewTodo> {
                         child: Text(
                           _seeLanguage() ? 'Description' : 'Descripción',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w300),
+                              fontSize: 20, fontWeight: FontWeight.w300,
+                              color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                         ),
                       ),
                     ),
@@ -159,6 +162,7 @@ class _NewTodoState extends State<NewTodo> {
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
+                          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                         ),
                       ),
                     ),
@@ -179,6 +183,7 @@ class _NewTodoState extends State<NewTodo> {
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
+                          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                         ),
                       ),
                     ),

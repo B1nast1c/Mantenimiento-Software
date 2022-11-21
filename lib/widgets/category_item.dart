@@ -61,14 +61,14 @@ class _CategoryItemState extends State<CategoryItem> {
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
         leading: widget.categoria.iconDesign,
         iconColor:
-            context.read<Changes>().darkModes ? Colors.black : Colors.white70,
+            context.read<Changes>().darkModes ? Colors.black : Colors.white,
         title: Text(
           _seeLanguage(),
           style: TextStyle(
             fontSize: 16,
             color: context.read<Changes>().darkModes
                 ? Colors.black
-                : Colors.white70,
+                : Colors.white,
           ),
         ),
         trailing: Container(
@@ -80,7 +80,7 @@ class _CategoryItemState extends State<CategoryItem> {
               ? IconButton(
                   color: context.read<Changes>().darkModes
                       ? Colors.black
-                      : Colors.white70,
+                      : Colors.white,
                   iconSize: 18,
                   icon: const Icon(Icons.delete),
                   onPressed: () {

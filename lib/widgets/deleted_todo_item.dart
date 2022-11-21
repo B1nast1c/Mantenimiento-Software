@@ -60,15 +60,15 @@ class _DeletedToDoItemState extends State<DeletedToDoItem> {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: widget.todo.ncolor,
-        leading: const Icon(
+        leading:  Icon(
           Icons.close,
-          color: Colors.black,
+          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
         ),
         title: Text(
           widget.todo.todoTitle!,
-          style: const TextStyle(
+          style:  TextStyle(
             fontSize: 16,
-            color: tdBlack,
+            color: context.read<Changes>().darkModes ? tdBlack: Colors.white ,
           ),
         ),
         trailing: Container(

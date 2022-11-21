@@ -34,12 +34,12 @@ class _FullCategoriesState extends State<FullCategories> {
           elevation: 0,
         ),
         body: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60),
                 topRight: Radius.circular(60),
               ),
-              color: Colors.white,
+              color: context.read<Changes>().darkModes ? Colors.white : Colors.black,
             ),
             child: Column(
               children: [
@@ -55,6 +55,7 @@ class _FullCategoriesState extends State<FullCategories> {
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w400,
+                                color: context.read<Changes>().darkModes ? Colors.black: Colors.white
                               ),
                             )
                           : Text(
@@ -63,6 +64,7 @@ class _FullCategoriesState extends State<FullCategories> {
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w400,
+                                color: context.read<Changes>().darkModes ? Colors.black: Colors.white
                               ),
                             ),
                     ),

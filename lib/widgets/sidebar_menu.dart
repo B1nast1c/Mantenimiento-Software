@@ -39,7 +39,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
 
     return Drawer(
       backgroundColor:
-          context.read<Changes>().darkModes ? Colors.white : Colors.black87,
+          context.read<Changes>().darkModes ? Colors.white : NegroSuave,
       child: Column(
         children: [
           Column(
@@ -58,8 +58,11 @@ class _sidebarMenuState extends State<sidebarMenu> {
               ),
               Container(
                 padding: const EdgeInsets.only(top: 10),
-                child: const Text(
+                child:  Text(
                   "User",
+                  style:  TextStyle(
+                        color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
+                      ),
                 ),
               )
             ],

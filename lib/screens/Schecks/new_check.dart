@@ -28,7 +28,7 @@ class _NewCheckState extends State<NewCheck> {
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
         appBar: AppBar(
-          backgroundColor:context.read<Changes>().darkModes? Colors.white: Colors.black,
+          backgroundColor:context.read<Changes>().darkModes? Colors.white: NegroSuave,
           foregroundColor:context.read<Changes>().darkModes?  Colors.black: Colors.white,
           elevation: 0,
         ),
@@ -37,7 +37,7 @@ class _NewCheckState extends State<NewCheck> {
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(250),
               ),
-              color:  context.read<Changes>().darkModes? Colors.white: Colors.black,
+              color:  context.read<Changes>().darkModes? Colors.white: NegroSuave,
             ),
             child: Column(
               children: [

@@ -20,3 +20,4 @@ const Color rojoClaro = Color.fromARGB(255, 242, 176, 163);
 
 //blackMode 
 const Color AppbarColor = Color.fromARGB(255, 94, 94, 94);
+const Color NegroSuave = Color.fromARGB(255, 62, 62, 62);

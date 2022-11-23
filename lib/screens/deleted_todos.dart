@@ -35,12 +35,12 @@ class _DeletedToDosState extends State<DeletedToDos> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           foregroundColor: context.read<Changes>().darkModes ? Colors.black: Colors.white,
-          backgroundColor: context.read<Changes>().darkModes ? Colors.white: Colors.black,
+          backgroundColor: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
           elevation: 0,
         ),
         body: Container(
             decoration:  BoxDecoration(
-              color: context.read<Changes>().darkModes ? Colors.white: Colors.black,
+              color: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
             ),
             child: Column(children: [
               Column(children: [

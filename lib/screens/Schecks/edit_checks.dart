@@ -33,7 +33,7 @@ class _EditCheckState extends State<EditCheck> {
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
         appBar: AppBar(
-          backgroundColor: context.read<Changes>().darkModes? Colors.white: Colors.black,
+          backgroundColor: context.read<Changes>().darkModes? Colors.white: NegroSuave,
           foregroundColor: context.read<Changes>().darkModes?  Colors.black: Colors.white,
           elevation: 0,
         ),
@@ -42,7 +42,7 @@ class _EditCheckState extends State<EditCheck> {
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(250),
               ),
-              color: context.read<Changes>().darkModes?  Colors.white: Colors.black,
+              color: context.read<Changes>().darkModes?  Colors.white: NegroSuave,
             ),
             child: Column(
               children: [

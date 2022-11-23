@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
     var todosVisibles = context.watch<Changes>().listTodoVisibles;
     return Scaffold(
       backgroundColor:
-          context.read<Changes>().darkModes ? Colors.white : Colors.black12,
+          context.read<Changes>().darkModes ? Colors.white : NegroSuave,
       appBar: _buildAppBar(),
       drawer: const sidebarMenu(),
       body: Stack(
@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
                     child: Card(
                       color: context.read<Changes>().darkModes
                           ? Colors.white
-                          : Colors.black,
+                          : NegroSuave,
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       child: ListView(

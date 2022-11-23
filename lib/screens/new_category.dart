@@ -39,7 +39,7 @@ class _FullCategoriesState extends State<FullCategories> {
                 topLeft: Radius.circular(60),
                 topRight: Radius.circular(60),
               ),
-              color: context.read<Changes>().darkModes ? Colors.white : Colors.black,
+              color: context.read<Changes>().darkModes ? Colors.white : NegroSuave,
             ),
             child: Column(
               children: [

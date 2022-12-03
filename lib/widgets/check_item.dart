@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../model/check.dart';
 import '../constants/colors.dart';
@@ -40,8 +41,11 @@ class checkItem extends StatelessWidget {
               todo.isDone ? Icons.check_box : Icons.check_box_outline_blank),
           color: Colors.black,
           onPressed: () {
+            //Cambio de estado del CHECK
             todo.isDone ? todo.isDone = false : todo.isDone = true;
             context.read<Changes>().editCheck(todo);
+            //A continuacion *redoble de tambores*, el sonido xd
+            AudioPlayer().play(AssetSource('click.mp3'));
           },
         ),
         title: Text(

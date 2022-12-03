@@ -51,8 +51,10 @@ class _checkItemState extends State<checkItem> {
               context.read<Changes>().darkModes ? Colors.black : Colors.white,
           onPressed: () {
             //Cambio de estado del CHECK
-            todo.isDone ? todo.isDone = false : todo.isDone = true;
-            context.read<Changes>().editCheck(todo);
+            widget.todo.isDone
+                ? widget.todo.isDone = false
+                : widget.todo.isDone = true;
+            context.read<Changes>().editCheck(widget.todo);
             //A continuacion *redoble de tambores*, el sonido xd
             AudioPlayer().play(AssetSource('click.mp3'));
           },

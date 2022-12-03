@@ -28,20 +28,20 @@ class _CheckListState extends State<CheckList> {
     var CheckVisibles = context.watch<Changes>().listCheckVisibles;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      backgroundColor: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: context.read<Changes>().darkModes ?  Colors.white: NegroSuave,
+        foregroundColor: context.read<Changes>().darkModes ?  Colors.black: Colors.white,
         elevation: 0,
       ),
       body: Stack(
         children: [
           Container(
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50)),
-                  color: Colors.white),
+                  color: context.read<Changes>().darkModes ? Colors.white: NegroSuave),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 40,
@@ -56,6 +56,7 @@ class _CheckListState extends State<CheckList> {
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w500,
+                        color: context.read<Changes>().darkModes ? Colors.black: Colors.white
                       ),
                     ),
                     searchBox(),
@@ -71,16 +72,17 @@ class _CheckListState extends State<CheckList> {
                             ? "Total quantity: $cantidad"
                             : "Cantidad total: $cantidad",
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
+                          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                         ),
                       ),
                     ),
                   ]),
                   Expanded(
                     child: Card(
-                      color: Colors.white,
+                      color: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       child: ListView(
@@ -116,7 +118,7 @@ class _CheckListState extends State<CheckList> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                      primary: context.read<Changes>().darkModes ? Colors.white: Colors.grey,
                       minimumSize: const Size(60, 60),
                       elevation: 5,
                       shape: RoundedRectangleBorder(

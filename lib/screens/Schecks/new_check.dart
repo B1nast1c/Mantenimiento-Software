@@ -28,16 +28,16 @@ class _NewCheckState extends State<NewCheck> {
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          backgroundColor:context.read<Changes>().darkModes? Colors.white: NegroSuave,
+          foregroundColor:context.read<Changes>().darkModes?  Colors.black: Colors.white,
           elevation: 0,
         ),
         body: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(250),
               ),
-              color: Colors.white,
+              color:  context.read<Changes>().darkModes? Colors.white: NegroSuave,
             ),
             child: Column(
               children: [
@@ -54,6 +54,7 @@ class _NewCheckState extends State<NewCheck> {
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.w500,
+                          color: context.read<Changes>().darkModes? Colors.black: Colors.white
                         ),
                       ),
                     ),
@@ -65,12 +66,14 @@ class _NewCheckState extends State<NewCheck> {
                             ? Text(
                                 'Title',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w300),
+                                    fontSize: 20, fontWeight: FontWeight.w300,
+                                    color: context.read<Changes>().darkModes? Colors.black: Colors.white),
                               )
                             : Text(
                                 'Título',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w300),
+                                    fontSize: 20, fontWeight: FontWeight.w300,
+                                    color: context.read<Changes>().darkModes? Colors.black: Colors.white),
                               ),
                       ),
                     ),
@@ -114,6 +117,7 @@ class _NewCheckState extends State<NewCheck> {
                         style: TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w400,
+                          color: context.read<Changes>().darkModes? Colors.black: Colors.white
                         ),
                       ),
                     ),

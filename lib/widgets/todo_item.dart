@@ -67,7 +67,7 @@ class ToDoItem extends StatelessWidget {
                 : styleIdx == 4
                     ? 13
                     : 16,
-            color: tdBlack,
+            color: context.read<Changes>().darkModes ? tdBlack: NegroSuave,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),

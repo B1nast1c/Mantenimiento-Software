@@ -17,3 +17,7 @@ const weso = Color(0xffe3dac9);
 const Color amarilloClaro = Color.fromARGB(255, 212, 242, 163);
 const Color azulClaro = Color.fromARGB(255, 163, 168, 242);
 const Color rojoClaro = Color.fromARGB(255, 242, 176, 163);
+
+//blackMode 
+const Color AppbarColor = Color.fromARGB(255, 94, 94, 94);
+const Color NegroSuave = Color.fromARGB(255, 62, 62, 62);

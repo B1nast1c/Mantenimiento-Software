@@ -35,17 +35,17 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
         resizeToAvoidBottomInset: false,
         backgroundColor: weso,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          backgroundColor: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
+          foregroundColor: context.read<Changes>().darkModes ?  Colors.black: Colors.white,
           elevation: 0,
         ),
         body: Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(250),
               bottomLeft: Radius.circular(250),
             ),
-            color: Colors.white,
+            color: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
           ),
           child: Column(
             children: [
@@ -60,6 +60,7 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
+                        color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                       ),
                     ),
                   ),
@@ -72,12 +73,14 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                           ? Text(
                               "Title",
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20, fontWeight: FontWeight.bold, 
+                                  color: context.read<Changes>().darkModes ? Colors.black: Colors.white),
                             )
                           : Text(
                               "Título",
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20, fontWeight: FontWeight.bold,
+                                  color: context.read<Changes>().darkModes ? Colors.black: Colors.white),
                             ),
                     ),
                   ),
@@ -87,8 +90,9 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         "$title",
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w300),
+                        style:  TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w300,
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                       ),
                     ),
                   ),
@@ -100,7 +104,8 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                       child: Text(
                         _seeLanguage() ? "Details" : 'Detalles',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold,
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                       ),
                     ),
                   ),
@@ -110,8 +115,9 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         "$details",
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w300),
+                        style:  TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w300, 
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                       ),
                     ),
                   ),
@@ -123,7 +129,8 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                       child: Text(
                         _seeLanguage() ? "Category" : 'Categoría',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold,
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                       ),
                     ),
                   ),
@@ -133,8 +140,9 @@ class _DetailDeletedTodsState extends State<DetailDeletedTodo> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         "$category",
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w300),
+                        style:  TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w300,
+                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white,),
                       ),
                     ),
                   ),

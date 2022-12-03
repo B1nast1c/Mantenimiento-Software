@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
     var todosVisibles = context.watch<Changes>().listTodoVisibles;
     return Scaffold(
       backgroundColor:
-          context.read<Changes>().darkModes ? Colors.white : Colors.grey,
+          context.read<Changes>().darkModes ? Colors.white : NegroSuave,
       appBar: _buildAppBar(),
       drawer: const sidebarMenu(),
       body: Stack(
@@ -58,9 +58,10 @@ class _HomeState extends State<Home> {
                   Column(children: [
                     Text(
                       title, //Actualiza el titulo y el listado dependiendo de lo seleccionado
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w500,
+                        color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                       ),
                     ),
                     searchBox(),
@@ -74,9 +75,10 @@ class _HomeState extends State<Home> {
                       child: Text(
                         _LanguageQuantity(cantidad),
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style:  TextStyle(
+                          fontSize: 19,
                           fontWeight: FontWeight.w400,
+                          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
                         ),
                       ),
                     ),
@@ -85,7 +87,7 @@ class _HomeState extends State<Home> {
                     child: Card(
                       color: context.read<Changes>().darkModes
                           ? Colors.white
-                          : Colors.grey,
+                          : NegroSuave,
                       shadowColor: Colors.transparent,
                       elevation: 0,
                       child: ListView(
@@ -205,10 +207,13 @@ class _HomeState extends State<Home> {
     ];
 
     return Container(
+        color: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
         alignment: Alignment.centerRight,
         child: Row(
+          
           children: [
             DropdownButton(
+              dropdownColor: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
               value: options[0],
               onChanged: (value) {
                 int index = //Ver el estilo asignado
@@ -224,7 +229,9 @@ class _HomeState extends State<Home> {
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Container(
-                            alignment: Alignment.centerLeft, child: Icon(e)),
+                            color: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
+                            alignment: Alignment.centerLeft, child: Icon(e,
+                                   color: context.read<Changes>().darkModes ? Colors.black: Colors.white,)),
                       ))
                   .toList(),
               selectedItemBuilder: (BuildContext context) =>
@@ -232,7 +239,7 @@ class _HomeState extends State<Home> {
             ),
             IconButton(
               icon: const Icon(Icons.sort),
-              color: Colors.black,
+              color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
               iconSize: 25.0,
               onPressed: () {
                 context.read<Changes>().sortTodos();
@@ -251,8 +258,8 @@ class _HomeState extends State<Home> {
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: rojoIntenso,
+                  primary: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
+                  onPrimary: context.read<Changes>().darkModes ? rojoIntenso: Colors.white,
                   side: const BorderSide(
                     width: 1.0,
                     color: rojoIntenso,
@@ -268,15 +275,18 @@ class _HomeState extends State<Home> {
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: rojoIntenso,
+                  primary: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
+                  onPrimary: context.read<Changes>().darkModes ? rojoIntenso: Colors.white,
                   side: const BorderSide(
                     width: 1.0,
                     color: rojoIntenso,
                   )),
               onPressed: pickDateRange,
               child: Text(
-                  '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}'),
+                  '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}',
+                  /*style: TextStyle(
+                    fontWeight:  FontWeight.w700
+                  ),*/),
             ),
           ),
         ],
@@ -336,8 +346,8 @@ class _HomeState extends State<Home> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.white,
-      iconTheme: const IconThemeData(color: Colors.black),
+      backgroundColor: context.read<Changes>().darkModes ? Colors.white: AppbarColor, 
+      iconTheme:  IconThemeData(color:context.read<Changes>().darkModes ?  Colors.black: Colors.white ),
       elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

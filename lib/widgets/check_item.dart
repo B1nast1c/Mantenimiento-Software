@@ -6,7 +6,7 @@ import '../screens/Schecks/edit_checks.dart';
 import 'package:provider/provider.dart';
 import '../providers/provider.dart';
 
-class checkItem extends StatelessWidget {
+class checkItem extends StatefulWidget {
   final Check todo;
   // ignore: prefer_typing_uninitialized_variables
   final onToDoChanged;
@@ -23,23 +23,32 @@ class checkItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<checkItem> createState() => _checkItemState();
+}
+
+class _checkItemState extends State<checkItem> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EditCheck(item: todo)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EditCheck(item: widget.todo)));
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        tileColor: todo.ncolor,
+        tileColor: widget.todo.ncolor,
         leading: IconButton(
-          icon: Icon(
-              todo.isDone ? Icons.check_box : Icons.check_box_outline_blank),
-          color: Colors.black,
+          icon: Icon(widget.todo.isDone
+              ? Icons.check_box
+              : Icons.check_box_outline_blank),
+          color:
+              context.read<Changes>().darkModes ? Colors.black : Colors.white,
           onPressed: () {
             //Cambio de estado del CHECK
             todo.isDone ? todo.isDone = false : todo.isDone = true;
@@ -49,11 +58,11 @@ class checkItem extends StatelessWidget {
           },
         ),
         title: Text(
-          todo.todoTitle!,
+          widget.todo.todoTitle!,
           style: TextStyle(
             fontSize: 16,
-            color: tdBlack,
-            decoration: todo.isDone ? TextDecoration.lineThrough : null,
+            color: context.read<Changes>().darkModes ? tdBlack : Colors.white,
+            decoration: widget.todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: Container(
@@ -69,7 +78,7 @@ class checkItem extends StatelessWidget {
             color: Colors.white,
             iconSize: 18,
             icon: const Icon(Icons.delete),
-            onPressed: () => onDeleteItem(todo),
+            onPressed: () => widget.onDeleteItem(widget.todo),
           ),
         ),
       ),

@@ -39,7 +39,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
 
     return Drawer(
       backgroundColor:
-          context.read<Changes>().darkModes ? Colors.white : Colors.grey,
+          context.read<Changes>().darkModes ? Colors.white : NegroSuave,
       child: Column(
         children: [
           Column(
@@ -58,8 +58,11 @@ class _sidebarMenuState extends State<sidebarMenu> {
               ),
               Container(
                 padding: const EdgeInsets.only(top: 10),
-                child: const Text(
+                child:  Text(
                   "User",
+                  style:  TextStyle(
+                        color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
+                      ),
                 ),
               )
             ],
@@ -141,14 +144,14 @@ class _sidebarMenuState extends State<sidebarMenu> {
                             leading: const Icon(Icons.toc),
                             iconColor: context.read<Changes>().darkModes
                                 ? Colors.black
-                                : Colors.white70,
+                                : Colors.white,
                             title: Text(
                               context.read<Changes>().tAll,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: context.read<Changes>().darkModes
                                     ? Colors.black
-                                    : Colors.white70,
+                                    : Colors.white,
                               ),
                             ),
                           ),
@@ -164,7 +167,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
                           icon: const Icon(Icons.add),
                           color: context.read<Changes>().darkModes
                               ? Colors.black
-                              : Colors.white70,
+                              : Colors.white,
                           onPressed: () => {
                                 Navigator.push(
                                   context,
@@ -178,7 +181,7 @@ class _sidebarMenuState extends State<sidebarMenu> {
                         style: TextStyle(
                             color: context.read<Changes>().darkModes
                                 ? Colors.black
-                                : Colors.white70,
+                                : Colors.white,
                             fontSize: 15),
                       ),
                     ),
@@ -191,14 +194,14 @@ class _sidebarMenuState extends State<sidebarMenu> {
                           icon: const Icon(Icons.language),
                           color: context.read<Changes>().darkModes
                               ? Colors.black
-                              : Colors.white70,
+                              : Colors.white,
                           onPressed: () => {}),
                       title: Text(
                         context.read<Changes>().tLanguage,
                         style: TextStyle(
                             color: context.read<Changes>().darkModes
                                 ? Colors.black
-                                : Colors.white70,
+                                : Colors.white,
                             fontSize: 15),
                       ),
                     ),
@@ -211,14 +214,14 @@ class _sidebarMenuState extends State<sidebarMenu> {
                           icon: const Icon(Icons.sunny),
                           color: context.read<Changes>().darkModes
                               ? Colors.black
-                              : Colors.white70,
+                              : Colors.white,
                           onPressed: () => {}),
                       title: Text(
                         context.read<Changes>().tDarkMode,
                         style: TextStyle(
                             color: context.read<Changes>().darkModes
                                 ? Colors.black
-                                : Colors.white70,
+                                : Colors.white,
                             fontSize: 15),
                       ),
                     ),

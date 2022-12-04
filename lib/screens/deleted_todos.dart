@@ -34,13 +34,16 @@ class _DeletedToDosState extends State<DeletedToDos> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          foregroundColor: context.read<Changes>().darkModes ? Colors.black: Colors.white,
-          backgroundColor: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
+          foregroundColor:
+              context.read<Changes>().darkModes ? Colors.black : Colors.white,
+          backgroundColor:
+              context.read<Changes>().darkModes ? Colors.white : NegroSuave,
           elevation: 0,
         ),
         body: Container(
-            decoration:  BoxDecoration(
-              color: context.read<Changes>().darkModes ? Colors.white: NegroSuave,
+            decoration: BoxDecoration(
+              color:
+                  context.read<Changes>().darkModes ? Colors.white : NegroSuave,
             ),
             child: Column(children: [
               Column(children: [
@@ -50,19 +53,21 @@ class _DeletedToDosState extends State<DeletedToDos> {
                           'Deleted ToDos',
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w500,
-                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white
-                          ),
+                              fontSize: 35,
+                              fontWeight: FontWeight.w500,
+                              color: context.read<Changes>().darkModes
+                                  ? Colors.black
+                                  : Colors.white),
                         )
                       : Text(
                           'Notas eliminadas',
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w500,
-                            color: context.read<Changes>().darkModes ? Colors.black: Colors.white
-                          ),
+                              fontSize: 35,
+                              fontWeight: FontWeight.w500,
+                              color: context.read<Changes>().darkModes
+                                  ? Colors.black
+                                  : Colors.white),
                         ),
                 ),
                 Padding(
@@ -76,7 +81,7 @@ class _DeletedToDosState extends State<DeletedToDos> {
                       child: TextButton.icon(
                         icon: const Icon(Icons.delete),
                         label: Text(
-                            _seeLanguage() ? 'Delete all' : 'Elimiar todos'),
+                            _seeLanguage() ? 'Delete all' : 'Eliminar todos'),
                         style: TextButton.styleFrom(primary: Colors.red),
                         onPressed: () {
                           deleteAllToDos();

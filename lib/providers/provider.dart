@@ -144,13 +144,13 @@ class Changes with ChangeNotifier {
 
   void addDeleted(ToDo todo) {
     DeletedToDo deleted = DeletedToDo(
-      id: todo.id,
-      todoTitle: todo.todoTitle,
-      todoText: todo.todoText,
-      date: todo.date,
-      ncolor: todo.ncolor,
-      category: todo.category,
-    );
+        id: todo.id,
+        todoTitle: todo.todoTitle,
+        todoText: todo.todoText,
+        date: todo.date,
+        ncolor: todo.ncolor,
+        category: todo.category,
+        language: language);
     deleted.date = todo.date;
     deleted.editdate = todo.editdate;
     deletedTodos.add(deleted);

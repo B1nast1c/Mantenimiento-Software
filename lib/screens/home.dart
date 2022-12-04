@@ -58,10 +58,12 @@ class _HomeState extends State<Home> {
                   Column(children: [
                     Text(
                       title, //Actualiza el titulo y el listado dependiendo de lo seleccionado
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w500,
-                        color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
+                        color: context.read<Changes>().darkModes
+                            ? Colors.black
+                            : Colors.white,
                       ),
                     ),
                     searchBox(),
@@ -75,10 +77,12 @@ class _HomeState extends State<Home> {
                       child: Text(
                         _LanguageQuantity(cantidad),
                         textAlign: TextAlign.right,
-                        style:  TextStyle(
+                        style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.w400,
-                          color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
+                          color: context.read<Changes>().darkModes
+                              ? Colors.black
+                              : Colors.white,
                         ),
                       ),
                     ),
@@ -163,6 +167,7 @@ class _HomeState extends State<Home> {
     List<ToDo> results = [];
     setState(() {});
     List<ToDo> listaAct2 = context.read<Changes>().getTodos();
+    // ignore: unnecessary_null_comparison
     if (dateRango == null) {
       results = listaAct2;
     } else {
@@ -207,13 +212,14 @@ class _HomeState extends State<Home> {
     ];
 
     return Container(
-        color: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
+        color: context.read<Changes>().darkModes ? Colors.white : AppbarColor,
         alignment: Alignment.centerRight,
         child: Row(
-          
           children: [
             DropdownButton(
-              dropdownColor: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
+              dropdownColor: context.read<Changes>().darkModes
+                  ? Colors.white
+                  : AppbarColor,
               value: options[0],
               onChanged: (value) {
                 int index = //Ver el estilo asignado
@@ -229,9 +235,16 @@ class _HomeState extends State<Home> {
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Container(
-                            color: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
-                            alignment: Alignment.centerLeft, child: Icon(e,
-                                   color: context.read<Changes>().darkModes ? Colors.black: Colors.white,)),
+                            color: context.read<Changes>().darkModes
+                                ? Colors.white
+                                : AppbarColor,
+                            alignment: Alignment.centerLeft,
+                            child: Icon(
+                              e,
+                              color: context.read<Changes>().darkModes
+                                  ? Colors.black
+                                  : Colors.white,
+                            )),
                       ))
                   .toList(),
               selectedItemBuilder: (BuildContext context) =>
@@ -239,7 +252,9 @@ class _HomeState extends State<Home> {
             ),
             IconButton(
               icon: const Icon(Icons.sort),
-              color: context.read<Changes>().darkModes ? Colors.black: Colors.white,
+              color: context.read<Changes>().darkModes
+                  ? Colors.black
+                  : Colors.white,
               iconSize: 25.0,
               onPressed: () {
                 context.read<Changes>().sortTodos();
@@ -258,8 +273,12 @@ class _HomeState extends State<Home> {
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
-                  onPrimary: context.read<Changes>().darkModes ? rojoIntenso: Colors.white,
+                  primary: context.read<Changes>().darkModes
+                      ? Colors.white
+                      : AppbarColor,
+                  onPrimary: context.read<Changes>().darkModes
+                      ? rojoIntenso
+                      : Colors.white,
                   side: const BorderSide(
                     width: 1.0,
                     color: rojoIntenso,
@@ -275,18 +294,23 @@ class _HomeState extends State<Home> {
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: context.read<Changes>().darkModes ? Colors.white: AppbarColor,
-                  onPrimary: context.read<Changes>().darkModes ? rojoIntenso: Colors.white,
+                  primary: context.read<Changes>().darkModes
+                      ? Colors.white
+                      : AppbarColor,
+                  onPrimary: context.read<Changes>().darkModes
+                      ? rojoIntenso
+                      : Colors.white,
                   side: const BorderSide(
                     width: 1.0,
                     color: rojoIntenso,
                   )),
               onPressed: pickDateRange,
               child: Text(
-                  '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}',
-                  /*style: TextStyle(
+                '${dateRange.end.year}/${dateRange.end.month}/${dateRange.end.day}',
+                /*style: TextStyle(
                     fontWeight:  FontWeight.w700
-                  ),*/),
+                  ),*/
+              ),
             ),
           ),
         ],
@@ -346,8 +370,11 @@ class _HomeState extends State<Home> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: context.read<Changes>().darkModes ? Colors.white: AppbarColor, 
-      iconTheme:  IconThemeData(color:context.read<Changes>().darkModes ?  Colors.black: Colors.white ),
+      backgroundColor:
+          context.read<Changes>().darkModes ? Colors.white : AppbarColor,
+      iconTheme: IconThemeData(
+          color:
+              context.read<Changes>().darkModes ? Colors.black : Colors.white),
       elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

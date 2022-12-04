@@ -6,9 +6,22 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import './screens/home.dart';
 import './global/globals.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+FlutterLocalNotificationsPlugin notificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+void main() async {
+  //Notificaciones
+  WidgetsFlutterBinding.ensureInitialized();
+  AndroidInitializationSettings settings =
+      const AndroidInitializationSettings('notification');
+  InitializationSettings initSettings =
+      InitializationSettings(android: settings);
+
+  bool? init = await notificationsPlugin.initialize(
+      initSettings); //Check si se ha inicializado correctamente el plugin de notificaciones
+
   runApp(ChangeNotifierProvider<Changes>(
     child: const MyApp(),
     create: (_) => Changes(),
@@ -40,12 +53,10 @@ class loadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: Lottie.asset('assets/loading.json'),
-      nextScreen: Home(title: titulo),
-      splashIconSize: 440,
-      duration: 3500,
-      splashTransition: SplashTransition.fadeTransition,
-      pageTransitionType: PageTransitionType.topToBottom,
-    );
+        splash: Lottie.asset('assets/loading.json'),
+        nextScreen: Home(title: titulo),
+        splashIconSize: 440,
+        duration: 3500,
+        splashTransition: SplashTransition.fadeTransition);
   }
 }
